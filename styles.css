@@ -287,13 +287,17 @@ ease-in-out;
   display: block;
   width: 100%;
   padding: 14px;
-  background: red;
+  background: var(--primary-red);
   color: white;
   text-decoration: none;
   border-radius: 8px;
   text-align: center;
   font-weight: 600;
   font-size: 16px;
+}
+
+.mobile-menu__call-btn:hover {
+  background: var(--dark-red);
 }
 
 .mobile-menu-overlay {
@@ -1342,7 +1346,7 @@ ease-in-out;
 .partners-marquee__track {
   display: flex;
   width: max-content;
-  animation: marquee 30s linear infinite;
+  animation: marquee 10s linear infinite;
 }
 
 .partners-marquee__item {
@@ -1361,7 +1365,7 @@ ease-in-out;
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-1000px);
   }
 }
 
@@ -1739,7 +1743,6 @@ ease-in-out;
 
 #whatsappButton:not(.hidden) {
   opacity: 1;
-  transform: scale(1);
 }
 
 
@@ -2039,10 +2042,10 @@ ease-in-out;
   }
   
   .discount-card {
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
     gap: 15px;
-    align-items: flex-start;
+    align-items: center;
   }
   
   .discount-card_char {
@@ -2447,7 +2450,7 @@ ease-in-out;
   }
   
   .discount-block-last__image {
-    height: 320px;
+    height: max-content;
     border-radius: 15px;
   }
   
