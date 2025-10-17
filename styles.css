@@ -83,10 +83,11 @@ header {
   font-weight: 500;
 }
 
-.header-inner_first__phone {
+.header-inner_first__phone a {
   font-size: 18px;
   font-weight: 500;
   color: #902732;
+  text-decoration: none;
 }
 
 .header-inner_first__search {
@@ -133,6 +134,14 @@ header {
   border-radius: 8px;
   font-weight: 600;
   width: max-content;
+}
+
+.header-inner_second nav a:hover {
+  color: var(--dark-red);
+}
+
+.header-inner_first__phone a:hover {
+  color: var(--dark-red);
 }
 
 .header-inner_second__make-call {
