@@ -1,7 +1,7 @@
 /* ===== VARIABLES & RESET ===== */
 :root {
   --max-w: 1200px;
-  --primary-red: #ed1c24;
+  --primary-red: #902732;
   --dark-red: #ce1119;
   --primary-green: #339966;
   --dark-green: #2a7a53;
@@ -19,7 +19,7 @@ body {
   color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'TildaSans', Arial, sans-serif;
+  font-family: "Playfair Display";
 }
 
 .container {
@@ -59,8 +59,8 @@ header {
   align-items: center;
   gap: 18px;
   width: 100%;
-  border-bottom: 1px solid red;
-  padding-bottom: 5px;
+  border-bottom: 1px solid #902732;
+  height: 100%;
 }
 
 .header-inner_first div {
@@ -69,6 +69,7 @@ header {
   align-items: center;
   justify-content: center;
   gap: 4px;
+  height: 100%;
 }
 
 .header-inner_first__logo img {
@@ -85,7 +86,7 @@ header {
 .header-inner_first__phone {
   font-size: 18px;
   font-weight: 500;
-  color: var(--primary-red);
+  color: #902732;
 }
 
 .header-inner_first__search {
@@ -121,8 +122,8 @@ header {
   font-weight: 600;
   flex: 1;
   display: flex;
-  gap: 13px;
   align-items: center;
+  gap: 3px;
 }
 
 .header-inner_second nav a {
@@ -140,12 +141,14 @@ header {
   align-items: center;
   height: 40px;
   justify-content: center;
-  background-color: red;
+  background-color: #902732;
   color: white;
   text-decoration: none;
   border-radius: 5px;
   font-weight: 600;
   font-size: 16px;
+  transition: all 0.2s 
+ease-in-out;
 }
 
 /* ===== MOBILE MENU ===== */
@@ -307,29 +310,10 @@ header {
 }
 
 /* ===== SLIDERS & CAROUSELS ===== */
-.main-slider {
+.main-video {
   width: 100%;
   height: 60vh;
   overflow: hidden;
-}
-
-.main-slider h1 {
-  text-align: center;
-  font-size: 46px;
-  font-weight: 700;
-  margin-bottom: 40px;
-  position: relative;
-  color: #333;
-}
-
-.main-slider h1::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 3px;
-  background: #d24a43;
-  margin: 12px auto 0;
-  border-radius: 2px;
 }
 
 .owl-carousel .item {
@@ -354,6 +338,7 @@ header {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: zoom-in;
 }
 
 .owl-nav button.owl-prev,
@@ -408,6 +393,7 @@ header {
 .hero-text {
   display: flex;
   padding-top: 20px;
+  justify-content: space-between;
 }
 
 .hero-text h1 {
@@ -415,7 +401,7 @@ header {
   margin: 0;
   font-size: 46px;
   font-weight: 600;
-  flex-basis: 60%;
+  flex-basis: 50%;
 }
 
 .hero-text_second {
@@ -443,7 +429,7 @@ header {
 
 /* ===== MARQUEE BANNERS ===== */
 .marquee-banner {
-  background-color: rgb(81,153,255);
+  background-color: #902732;
   overflow: hidden;
   padding: 25px 0;
   position: relative;
@@ -534,16 +520,6 @@ header {
   margin-bottom: 40px;
   position: relative;
   color: #333;
-}
-
-.basic_h2::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 3px;
-  background: #d24a43;
-  margin: 12px auto 0;
-  border-radius: 2px;
 }
 
 .cards-section {
@@ -669,7 +645,7 @@ header {
 .product-info {
   padding: 15px;
   text-align: center;
-  height: 65px;
+  height: 80px;
 }
 
 .product-info h3 {
@@ -695,7 +671,7 @@ header {
 .price-current {
   font-size: 18px;
   font-weight: bold;
-  color: #d24a43;
+  color: #333;
 }
 
 .price-old {
@@ -725,9 +701,9 @@ header {
 
 .btn-primary {
   display: flex;
-  background-color: var(--primary-red);
+  background-color: #902732;
   color: #fff;
-  border: 1px solid var(--primary-red);
+  border: #902732;
   flex-basis: 30%;
   justify-content: center;
   padding: 15px 40px;
@@ -736,6 +712,16 @@ header {
 }
 
 .btn-primary:hover {
+  background-color: var(--dark-red);
+  border-color: var(--dark-red);
+}
+
+a.primary:hover {
+  background-color: var(--dark-red);
+  border-color: var(--dark-red);
+}
+
+a.header-inner_second__make-call:hover {
   background-color: var(--dark-red);
   border-color: var(--dark-red);
 }
@@ -761,7 +747,7 @@ header {
   margin: 0 auto 15px;
   padding: 10px;
   text-align: center;
-  background-color: var(--primary-green);
+  background-color: var(--primary-red);
   color: #fff;
   border-radius: 8px;
   text-decoration: none;
@@ -770,7 +756,7 @@ header {
 }
 
 .btn-buy:hover {
-  background-color: var(--dark-green);
+  background-color: var(--dark-red);
 }
 
 /* ===== OFFER SECTION ===== */
@@ -791,6 +777,7 @@ header {
   gap: 20px;
   flex-wrap: wrap;
   flex-basis: 50%;
+  justify-content: center;
 }
 
 .offer-btn {
@@ -812,6 +799,8 @@ header {
   flex-basis: 45%;
   justify-content: center;
   align-items: center;
+  transition: all 0.2s 
+ease-in-out;
 }
 
 .offer-btn.secondary {
@@ -899,9 +888,12 @@ header {
 
 /* ===== DISCOUNTS SECTION ===== */
 .discounts-section {
-  padding: 60px 20px;
   text-align: center;
   font-family: sans-serif;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 5%;
 }
 
 .discounts-section__title {
@@ -934,6 +926,7 @@ header {
   border-bottom: 1px solid rgb(229,229,229);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .discount-card_char {
@@ -970,7 +963,7 @@ header {
   padding: 15px 40px;
   font-size: 16px;
   color: #fff;
-  background-color: #ff0000;
+  background-color: #902732;
   border-radius: 30px;
   text-decoration: none;
   transition: 0.3s;
@@ -1110,7 +1103,7 @@ header {
   height: 130px;
   align-items: center;
   text-align: center;
-  border-bottom: 7px solid red;
+  border-bottom: 7px solid #902732;
   position: relative;
   padding: 0px 15px;
 }
@@ -1124,7 +1117,7 @@ header {
 
 .step-element {
   display: flex;
-  border: 1px solid red;
+  border: 1px solid #902732;
   border-radius: 5px;
   height: 100px;
   justify-content: center;
@@ -1143,7 +1136,7 @@ header {
   top: 100%;
   bottom: -100%;
   width: 1px;
-  background-color: red;
+  background-color: #902732;
   transform: translateX(-50%);
 }
 
@@ -1165,15 +1158,13 @@ header {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 60px 0;
   background-color: #fff;
 }
 
 .discount-block-last__image {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  border-radius: 20px;
   overflow: hidden;
   background-image: url('https://static.tildacdn.com/tild3035-6438-4039-a436-376661303636/image_398_2.jpg');
   background-size: cover;
@@ -1201,7 +1192,7 @@ header {
   text-align: center;
   padding: 20px;
   background: rgba(219,53,46, 0.7);
-  margin: 10%;
+  margin: 2%;
   border-radius: 20px;
 }
 
@@ -1342,19 +1333,30 @@ header {
 
 .partners-marquee__track {
   display: flex;
-  width: calc(2 * 100%);
+  width: max-content; /* ширина под контент */
   animation: marquee 40s linear infinite;
 }
 
-.partners-marquee__item {
+.partners-marquee__track > .partners-marquee__item {
   flex: 0 0 auto;
   margin: 0 30px;
 }
 
-.partners-marquee__item img {
+.partners-marquee__track > .partners-marquee__item img {
   max-height: 100px;
   object-fit: contain;
 }
+
+/* Анимация прокрутки */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* сдвигаем на половину трека */
+  }
+}
+
 
 .gallery-section {
   display: flex;
@@ -1566,6 +1568,132 @@ header {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.5s forwards;
+}
+
+.main-video_block {
+  background-image: url('https://static.tildacdn.com/tild3235-6435-4162-b362-363637363338/qjdd9zthpzkyvywus1sh.jpg');
+  background-size: cover;    /* растягивает картинку, сохраняя пропорции и заполняя весь блок */
+  background-position: center; /* центрирует картинку */
+  background-repeat: no-repeat; /* убирает повторение */
+  width: 100%;  
+  height: 100%;
+}
+
+/* Затемнённый фон и плавность */
+.popup {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Когда попап открыт */
+.popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Контейнер попапа */
+.popup-content {
+  background: #fff;
+  width: 80%;
+  max-width: 800px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transform: scale(0.8);
+  transition: all 0.2s ease-in-out;
+}
+
+/* При показе увеличиваем */
+.popup.show .popup-content {
+  transform: scale(1);
+}
+
+/* Кнопка закрытия */
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Левая часть с картинкой */
+.popup-left {
+  flex: 1;
+  background: #f5f5f5;
+}
+
+.popup-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Правая часть с описанием */
+.popup-right {
+  flex: 1;
+  padding: 20px;
+}
+
+.popup-right h2 {
+  margin-top: 0;
+}
+
+.gift-container_list {
+  list-style: none;
+}
+
+.discounts-section__btn:hover {
+  background-color: var(--dark-red);
+}
+
+/* Кнопка "Наверх" */
+#scrollToTop {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background: #902732;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+
+/* Появление кнопки */
+#scrollToTop.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Стрелка вверх */
+#scrollToTop .arrow-up {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-left: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
 }
 
 /* ===== MEDIA QUERIES ===== */
@@ -1786,14 +1914,6 @@ header {
     font-size: 32px;
   }
   
-  .main-slider h1 {
-    font-size: 32px;
-  }
-  
-  .main-slider {
-    height: 50vh;
-  }
-  
   .owl-carousel .item {
     height: 50vh;
   }
@@ -1868,10 +1988,11 @@ header {
   }
   
   .discount-card {
-    flex-direction: column;
+    flex-direction: row;
     text-align: center;
     gap: 15px;
     align-items: flex-start;
+    align-items: center;
   }
   
   .discount-card_char {
@@ -1976,11 +2097,15 @@ header {
   .owl-dots {
     bottom: 10px;
   }
+
+  .product-info {
+    height: 60px;
+  }
 }
 
 /* Mobile Landscape */
 @media (max-width: 768px) and (orientation: landscape) {
-  .main-slider {
+  .main-video {
     height: 70vh;
   }
   
@@ -2026,17 +2151,12 @@ header {
     margin-bottom: 30px;
   }
   
-  .main-slider {
+  .main-video {
     height: 40vh;
   }
   
   .owl-carousel .item {
     height: 40vh;
-  }
-  
-  .main-slider h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
   }
   
   .hero-text h1 {
@@ -2376,7 +2496,7 @@ header {
     height: -webkit-fill-available;
   }
   
-  .main-slider {
+  .main-video {
     height: 60vh;
     height: -webkit-fill-available;
   }

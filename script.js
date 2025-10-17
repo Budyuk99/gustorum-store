@@ -109,41 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
-  // ===== КНОПКИ КУПИТЬ =====
-  document.querySelectorAll('.btn-buy').forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      // Анимация клика
-      this.style.transform = 'scale(0.95)';
-      setTimeout(() => {
-        this.style.transform = '';
-      }, 150);
-      
-      // Временное уведомление
-      const originalText = this.textContent;
-      this.textContent = 'Добавлено!';
-      this.style.backgroundColor = '#2a7a53';
-      
-      setTimeout(() => {
-        this.textContent = originalText;
-        this.style.backgroundColor = '';
-      }, 2000);
-    });
-  });
-});
-
-$('.owl-carousel-first').owlCarousel({
-  loop: true,               // Бесконечная прокрутка
-  margin: 0,
-  nav: true,                // Стрелки
-  dots: true,               // Точки
-  autoplay: true,           // Автопрокрутка
-  autoplayTimeout: 5000,    // Интервал (5 секунд)
-  autoplayHoverPause: true, // Останавливается при наведении
-  items: 1,                 // Один слайд за раз
-  smartSpeed: 800,          // Плавность анимации
 });
 
 $(".owl-carousel-second").owlCarousel({
@@ -160,10 +125,81 @@ $(".owl-carousel-second").owlCarousel({
     }
 });
 
+Fancybox.bind("[data-fancybox='gallery']", {
+    Thumbs: false,  // отключить миниатюры
+    Toolbar: true,  // показать кнопки "закрыть, следующая, предыдущая"
+    infinite: true  // бесконечный просмотр
+});
+
+
 document.querySelectorAll('.accordion-header').forEach(header => {
   header.addEventListener('click', () => {
     const item = header.parentElement;
     item.classList.toggle('active');
   });
 });
+
+// Получаем элементы
+const popup = document.getElementById('product-popup');
+const popupImage = document.getElementById('popup-image');
+const popupTitle = document.getElementById('popup-title');
+const popupPrice = document.getElementById('popup-price');
+const popupSold = document.getElementById('popup-sold');
+const closeBtn = document.querySelector('.popup-close');
+
+// Обработка кнопки "Посмотреть"
+document.querySelectorAll('.btn-buy').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const card = btn.closest('.product-card');
+
+    // Получаем данные с карточки
+    const imgSrc = card.querySelector('.main-img').src;
+    const title = card.querySelector('.product-info h3').innerText;
+    const price = card.querySelector('.price-current').innerText;
+    const sold = card.querySelector('.sold-count').innerText;
+
+    // Вставляем в попап
+    popupImage.src = imgSrc;
+    popupTitle.innerText = title;
+    popupPrice.innerText = price;
+    popupSold.innerText = sold;
+
+    // Показываем попап с плавностью
+    popup.classList.add('show');
+  });
+});
+
+// Закрытие
+closeBtn.addEventListener('click', () => {
+  popup.classList.remove('show');
+});
+
+// Закрытие по клику вне окна
+popup.addEventListener('click', (e) => {
+  if (e.target === popup) {
+    popup.classList.remove('show');
+  }
+});
+
+$(document).ready(function() {
+  // Показ кнопки при прокрутке
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 300) {
+      $('#scrollToTop').addClass('show');
+    } else {
+      $('#scrollToTop').removeClass('show');
+    }
+  });
+
+  // Скролл наверх при клике
+  $('#scrollToTop').click(function() {
+    $('html, body').animate({scrollTop: 0}, 600);
+    return false;
+  });
+});
+
+
+
+
 
