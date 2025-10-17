@@ -199,7 +199,20 @@ $(document).ready(function() {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector('.partners-marquee__track');
+  const items = Array.from(track.children);
+  
+  const screenWidth = window.innerWidth;
+  let trackWidth = track.offsetWidth;
 
-
-
+  // Клонируем элементы, пока ширина трека не станет >= 2 * ширины экрана
+  let i = 0;
+  while (trackWidth < screenWidth * 2) {
+    const clone = items[i % items.length].cloneNode(true);
+    track.appendChild(clone);
+    trackWidth = track.offsetWidth;
+    i++;
+  }
+});
 

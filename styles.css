@@ -926,7 +926,6 @@ ease-in-out;
   border-bottom: 1px solid rgb(229,229,229);
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .discount-card_char {
@@ -1327,33 +1326,33 @@ ease-in-out;
 
 .partners-marquee {
   overflow: hidden;
-  background-color: #fff;
   padding: 30px 0;
+  background: #fff;
 }
 
 .partners-marquee__track {
   display: flex;
-  width: max-content; /* ширина под контент */
-  animation: marquee 40s linear infinite;
+  width: max-content;
+  animation: marquee 30s linear infinite;
 }
 
-.partners-marquee__track > .partners-marquee__item {
+.partners-marquee__item {
   flex: 0 0 auto;
   margin: 0 30px;
 }
 
-.partners-marquee__track > .partners-marquee__item img {
+.partners-marquee__item img {
   max-height: 100px;
+  display: block;
   object-fit: contain;
 }
 
-/* Анимация прокрутки */
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%); /* сдвигаем на половину трека */
+    transform: translateX(-50%);
   }
 }
 
@@ -1988,11 +1987,10 @@ ease-in-out;
   }
   
   .discount-card {
-    flex-direction: row;
+    flex-direction: column;
     text-align: center;
     gap: 15px;
     align-items: flex-start;
-    align-items: center;
   }
   
   .discount-card_char {
