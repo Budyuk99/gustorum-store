@@ -216,3 +216,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+const toggleButton = document.getElementById('mobileMenuToggle');
+const closeButton = document.getElementById('mobileMenuClose');
+const whatsappButton = document.getElementById('whatsappButton');
+const scrollToTop = document.getElementById('scrollToTop');
+
+toggleButton.addEventListener('click', () => {
+  toggleButton.classList.toggle('active'); // анимация бургер-меню
+  
+  if(toggleButton.classList.contains('active')) {
+    // Меню открыто — скрываем кнопку
+    whatsappButton.classList.add('hidden');
+    scrollToTop.classList.add('hidden');
+  } else {
+    // Меню закрыто — показываем кнопку
+    whatsappButton.classList.remove('hidden');
+    scrollToTop.classList.remove('hidden');
+  }
+});
+
+closeButton.addEventListener('click', () => {
+  toggleButton.classList.toggle('active'); // анимация бургер-меню
+  
+  if(toggleButton.classList.contains('active')) {
+    // Меню открыто — показываем кнопку
+    whatsappButton.classList.add('hidden');
+    scrollToTop.classList.add('hidden');
+  } else {
+    // Меню закрыто — скрываем кнопку
+    whatsappButton.classList.remove('hidden');
+    scrollToTop.classList.remove('hidden');
+  }
+});
+
