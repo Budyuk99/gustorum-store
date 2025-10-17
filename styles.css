@@ -1356,7 +1356,6 @@ ease-in-out;
   }
 }
 
-
 .gallery-section {
   display: flex;
   flex-direction: column;
@@ -1691,7 +1690,7 @@ ease-in-out;
   height: 12px;
   border-left: 3px solid #fff;
   border-bottom: 3px solid #fff;
-  transform: rotate(45deg);
+  transform: rotate(135deg);
   transition: transform 0.3s ease;
 }
 
