@@ -496,4 +496,25 @@ document.addEventListener('DOMContentLoaded', () => {
   new PopupManager();
 });
 
+// ===== СКРЫТИЕ КНОПОК ПРИ ОТКРЫТИИ FANCYBOX =====
+Fancybox.bind("[data-fancybox='gallery']", {
+  Thumbs: false,
+  Toolbar: true,
+  infinite: true,
+  on: {
+    reveal: () => {
+      const whatsappButton = document.getElementById('whatsappButton');
+      const scrollToTop = document.getElementById('scrollToTop');
+      if (whatsappButton) whatsappButton.classList.add('hidden');
+      if (scrollToTop) scrollToTop.classList.add('hidden');
+    },
+    destroy: () => {
+      const whatsappButton = document.getElementById('whatsappButton');
+      const scrollToTop = document.getElementById('scrollToTop');
+      if (whatsappButton) whatsappButton.classList.remove('hidden');
+      if (scrollToTop) scrollToTop.classList.remove('hidden');
+    }
+  }
+});
+
 
