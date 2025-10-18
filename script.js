@@ -144,15 +144,55 @@ const popup = document.getElementById('product-popup');
 const popupImage = document.getElementById('popup-image');
 const closeBtn = document.querySelector('.popup-close');
 
-// Функция открытия попапа
 function openPopup(imgSrc, title) {
-  popupImage.src = imgSrc;
   popup.classList.add('show');
   document.body.style.overflow = 'hidden';
 
   // Скрываем кнопки
   if (whatsappButton) whatsappButton.classList.add('hidden');
   if (scrollToTop) scrollToTop.classList.add('hidden');
+
+  // === Создаём мини-галерею слева ===
+  const popupLeft = popup.querySelector('.popup-left');
+  popupLeft.innerHTML = ''; // очищаем старое содержимое
+
+  // Ищем карточку, по которой кликнули
+  const card = document.querySelector(`.product-card img[src="${imgSrc}"]`)?.closest('.product-card');
+  const images = card ? card.querySelectorAll('img') : [ { src: imgSrc } ];
+
+  // Главное изображение
+  const mainImage = document.createElement('img');
+  mainImage.src = images[0].src;
+  mainImage.classList.add('popup-main-image');
+  mainImage.dataset.fancybox = 'popup-gallery';
+  popupLeft.appendChild(mainImage);
+
+  // Контейнер для миниатюр
+  const galleryContainer = document.createElement('div');
+  galleryContainer.classList.add('popup-thumbnails');
+
+  images.forEach((img, i) => {
+    const thumbLink = document.createElement('a');
+    thumbLink.href = img.src;
+    thumbLink.dataset.fancybox = 'popup-gallery';
+    thumbLink.classList.add('popup-thumb');
+
+    const thumbImg = document.createElement('img');
+    thumbImg.src = img.src;
+    thumbImg.alt = `Фото ${i + 1}`;
+    thumbLink.appendChild(thumbImg);
+
+    galleryContainer.appendChild(thumbLink);
+  });
+
+  popupLeft.appendChild(galleryContainer);
+
+  // Подключаем Fancybox к миниатюрам и большой картинке
+  Fancybox.bind("[data-fancybox='popup-gallery']", {
+    Thumbs: true,
+    Toolbar: true,
+    dragToClose: true,
+  });
 }
 
 // Функция закрытия попапа
@@ -167,6 +207,39 @@ function closePopup() {
 
 // Обработка клика на кнопку "Посмотреть"
 document.querySelectorAll('.btn-buy').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const card = btn.closest('.product-card');
+    const imgSrc = card.querySelector('.main-img').src;
+    const title = card.querySelector('.product-info h3').innerText;
+    openPopup(imgSrc, title);
+  });
+});
+
+// Закрытие кнопкой
+if (closeBtn) {
+  closeBtn.addEventListener('click', closePopup);
+}
+
+// Закрытие кликом вне попапа
+if (popup) {
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) closePopup();
+  });
+}
+
+// Функция закрытия попапа
+function closePopup() {
+  popup.classList.remove('show');
+  document.body.style.overflow = '';
+
+  // Показываем кнопки обратно
+  if (whatsappButton) whatsappButton.classList.remove('hidden');
+  if (scrollToTop) scrollToTop.classList.remove('hidden');
+}
+
+// Обработка клика на картинку товара
+document.querySelectorAll('.product-link').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     const card = btn.closest('.product-card');
