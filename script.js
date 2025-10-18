@@ -142,13 +142,11 @@ document.querySelectorAll('.accordion-header').forEach(header => {
 // Получаем элементы попапа и кнопок
 const popup = document.getElementById('product-popup');
 const popupImage = document.getElementById('popup-image');
-const popupTitle = document.getElementById('popup-title');
 const closeBtn = document.querySelector('.popup-close');
 
 // Функция открытия попапа
 function openPopup(imgSrc, title) {
   popupImage.src = imgSrc;
-  popupTitle.innerText = title;
   popup.classList.add('show');
   document.body.style.overflow = 'hidden';
 

@@ -1630,7 +1630,7 @@ ease-in-out;
 .popup-content {
   background: #F0ECE4;
   width: 90%;
-  max-width: 800px;
+  max-width: 40%;
   display: flex;
   overflow: hidden;
   position: relative;
@@ -1894,6 +1894,11 @@ ease-in-out;
   color: #342318;
   font-size: 22px;
   font-weight: 400;
+  text-align: left;
+}
+
+.popup-right_logo {
+  display: flex;
 }
 
 /* ===== MEDIA QUERIES ===== */
