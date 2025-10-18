@@ -158,7 +158,7 @@ function openPopup(imgSrc, title) {
 
   // Ищем карточку, по которой кликнули
   const card = document.querySelector(`.product-card img[src="${imgSrc}"]`)?.closest('.product-card');
-  const images = card ? card.querySelectorAll('img') : [ { src: imgSrc } ];
+  const images = card ? card.querySelectorAll('img') : [{ src: imgSrc }];
 
   // Главное изображение
   const mainImage = document.createElement('img');
@@ -186,6 +186,34 @@ function openPopup(imgSrc, title) {
   });
 
   popupLeft.appendChild(galleryContainer);
+
+  // === ЗАПОЛНЯЕМ ИНФОРМАЦИЮ О ТОВАРЕ ===
+  if (card) {
+    const productTitle = document.getElementById('popup-product-title');
+    const productPrice = document.getElementById('popup-product-price');
+    const productSold = document.getElementById('popup-product-sold');
+    const productText = document.getElementById('popup-product-text');
+    
+    if (productTitle) {
+      productTitle.textContent = card.querySelector('.product-info h3').textContent;
+    }
+    
+    if (productPrice) {
+      productPrice.textContent = card.querySelector('.price-current').textContent;
+    }
+    
+    if (productSold) {
+      productSold.textContent = card.querySelector('.sold-count').textContent;
+    }
+    
+    if (productText) {
+      // Здесь можно добавить дополнительное описание товара
+      // Если у вас есть скрытое поле с описанием, используйте его
+      const description = card.querySelector('.product-description')?.textContent 
+        || 'Премиальный подарочный набор ручной работы. Идеальный подарок для коллег, партнеров и клиентов.';
+      productText.textContent = description;
+    }
+  }
 
   // Подключаем Fancybox к миниатюрам и большой картинке
   Fancybox.bind("[data-fancybox='popup-gallery']", {

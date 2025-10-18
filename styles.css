@@ -739,13 +739,14 @@ ease-in-out;
   background-color: #902732;
   color: #fff;
   border: #902732;
-  flex-basis: 30%;
+  width: 300px;
   justify-content: center;
   padding: 15px 40px;
   text-decoration: none;
   border-radius: 5px;
   align-items: center;
   text-align: center;
+  font-weight: bold;
 }
 
 .btn-primary:hover {
@@ -1186,7 +1187,6 @@ ease-in-out;
 .btn-primary-steps,
 .btn-secondary-steps {
   display: flex;
-  flex-basis: 20%;
 }
 
 /* ===== DISCOUNT BLOCK ===== */
@@ -2355,8 +2355,8 @@ header {
 }
 
 .popup-left img {
-  width: 70%;
-  height: 70%;
+  width: 40%;
+  height: 40%;
   border-radius: 0;
   object-fit: cover;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -2364,13 +2364,13 @@ header {
 
 /* Правая часть — форма */
 .popup-right {
-  flex: 1;
   padding: 40px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: #E1DBCD;
   border-radius: 20px;
+  flex-basis: 40%;
 }
 
 .popup-right h2 {
@@ -2542,11 +2542,13 @@ header {
   align-items: center;
   justify-content: flex-start;
   padding: 20px;
+  border-radius: 20px;
+  flex-basis: 40%;
 }
 
-.popup-main-image {
-  width: 280px;
-  height: 280px;
+.popup-left img.popup-main-image {
+  width: 70%;
+  height: 70%;
   object-fit: cover;
   border-radius: 14px;
   margin-bottom: 15px;
@@ -2578,6 +2580,99 @@ header {
 .popup-thumb img:hover {
   transform: scale(1.08);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== СТИЛИ ДЛЯ ОПИСАНИЯ ТОВАРА В ПОПАПЕ ===== */
+.popup-product-description {
+  flex: 0 0 25%;
+  padding: 20px;
+  background: #F8F5F0;
+  border-right: 1px solid #E1DBCD;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.popup-product-description h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #342318;
+  margin: 0 0 15px 0;
+  line-height: 1.4;
+}
+
+.popup-product-details {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #E1DBCD;
+}
+
+.popup-product-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #902732;
+  margin-bottom: 5px;
+}
+
+.popup-product-sold {
+  font-size: 14px;
+  color: #666;
+}
+
+.popup-product-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+  flex-grow: 1;
+}
+
+.popup-product-info {
+  flex-basis: 30%;
+  padding: 40px;
+  position: relative;
+  background: rgba(215, 211, 204, 0.4);
+  border-radius: 20px;
+}
+
+.popup-product-info::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20px; /* отступ сверху */
+  bottom: 20px; /* отступ снизу */
+  width: 1px;
+  background-color: #902732;
+}
+
+.review-title {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  color: #000;
+  font-weight: 600;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .popup-product-description {
+    flex: 0 0 100%;
+    border-right: none;
+    border-bottom: 1px solid #E1DBCD;
+    order: 2;
+  }
+  
+  .popup-content {
+    flex-direction: column;
+  }
+  
+  .popup-product-description h3 {
+    font-size: 16px;
+  }
+  
+  .popup-product-price {
+    font-size: 18px;
+  }
 }
 
 
@@ -2647,6 +2742,20 @@ header {
 
   .popup-content.form-only {
     width: 30%;
+  }
+
+  .popup-product-info {
+    padding: 20px;
+  }
+
+  .popup-content {
+    flex-direction: column;
+    display: flex;
+  }
+
+  .popup-left img.popup-main-image {
+    width: 40%;
+    height: 40%;
   }
 }
 
@@ -3389,8 +3498,8 @@ header {
   }
 
   .popup-left img {
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
   }
 
   .popup-left .popup-main-image {
