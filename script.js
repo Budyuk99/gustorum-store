@@ -139,42 +139,57 @@ document.querySelectorAll('.accordion-header').forEach(header => {
   });
 });
 
-// Получаем элементы
+// Получаем элементы попапа и кнопок
 const popup = document.getElementById('product-popup');
 const popupImage = document.getElementById('popup-image');
 const popupTitle = document.getElementById('popup-title');
 const closeBtn = document.querySelector('.popup-close');
 
-// Обработка кнопки "Посмотреть"
+// Функция открытия попапа
+function openPopup(imgSrc, title) {
+  popupImage.src = imgSrc;
+  popupTitle.innerText = title;
+  popup.classList.add('show');
+  document.body.style.overflow = 'hidden';
+
+  // Скрываем кнопки
+  if (whatsappButton) whatsappButton.classList.add('hidden');
+  if (scrollToTop) scrollToTop.classList.add('hidden');
+}
+
+// Функция закрытия попапа
+function closePopup() {
+  popup.classList.remove('show');
+  document.body.style.overflow = '';
+
+  // Показываем кнопки обратно
+  if (whatsappButton) whatsappButton.classList.remove('hidden');
+  if (scrollToTop) scrollToTop.classList.remove('hidden');
+}
+
+// Обработка клика на кнопку "Посмотреть"
 document.querySelectorAll('.btn-buy').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     const card = btn.closest('.product-card');
-
-    // Получаем данные с карточки
     const imgSrc = card.querySelector('.main-img').src;
     const title = card.querySelector('.product-info h3').innerText;
-
-    // Вставляем в попап
-    popupImage.src = imgSrc;
-    popupTitle.innerText = title;
-
-    // Показываем попап с плавностью
-    popup.classList.add('show');
+    openPopup(imgSrc, title);
   });
 });
 
-// Закрытие
-closeBtn.addEventListener('click', () => {
-  popup.classList.remove('show');
-});
+// Закрытие кнопкой
+if (closeBtn) {
+  closeBtn.addEventListener('click', closePopup);
+}
 
-// Закрытие по клику вне окна
-popup.addEventListener('click', (e) => {
-  if (e.target === popup) {
-    popup.classList.remove('show');
-  }
-});
+// Закрытие кликом вне попапа
+if (popup) {
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) closePopup();
+  });
+}
+
 
 $(document).ready(function() {
   // Показ кнопки при прокрутке

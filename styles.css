@@ -1637,6 +1637,10 @@ ease-in-out;
   transform: scale(0.8);
   transition: all 0.2s ease-in-out;
   border-radius: 20px;
+  max-height: 90vh;
+  flex-direction: row;
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
 .popup.show .popup-content {
