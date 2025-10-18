@@ -2453,6 +2453,10 @@ header {
   border-radius: 20px;
 }
 
+.buttons-container_baskets {
+  padding: 60px 0;
+}
+
 /* Адаптив */
 @media (max-width: 768px) {
   .popup-content {
