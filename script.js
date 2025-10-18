@@ -203,17 +203,101 @@ document.addEventListener("DOMContentLoaded", () => {
   const track = document.querySelector('.partners-marquee__track');
   const items = Array.from(track.children);
   
-  const screenWidth = window.innerWidth;
-  let trackWidth = track.offsetWidth;
+  // НАСТРОЙКА СКОРОСТИ - изменяйте здесь
+  const MARQUEE_SPEED = 30; // ← МЕНЯЙТЕ ЭТУ ПЕРЕМЕННУЮ
+  
+  if (!track || items.length === 0) return;
 
-  // Клонируем элементы, пока ширина трека не станет >= 2 * ширины экрана
-  let i = 0;
-  while (trackWidth < screenWidth * 2) {
-    const clone = items[i % items.length].cloneNode(true);
-    track.appendChild(clone);
-    trackWidth = track.offsetWidth;
-    i++;
+  // Функция для создания бесконечной прокрутки
+  function createInfiniteScroll() {
+    // Очищаем трек и добавляем оригинальные элементы
+    track.innerHTML = '';
+    items.forEach(item => track.appendChild(item));
+    
+    // Рассчитываем общую ширину оригинальных элементов
+    let totalWidth = 0;
+    items.forEach(item => {
+      totalWidth += item.offsetWidth + 60; // 60px = margin (30px + 30px)
+    });
+    
+    // Для высоких скоростей нужно БОЛЬШЕ копий
+    const screenWidth = window.innerWidth;
+    
+    // Рассчитываем необходимое количество копий в зависимости от скорости
+    // Чем выше скорость, тем больше копий нужно для плавности
+    const speedFactor = Math.max(3, Math.ceil(60 / MARQUEE_SPEED)); // Больше копий для высокой скорости
+    const neededCopies = Math.ceil((screenWidth * speedFactor) / totalWidth) + 3;
+    
+    // Добавляем копии
+    for (let i = 0; i < neededCopies; i++) {
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        track.appendChild(clone);
+      });
+    }
+    
+    console.log(`Created ${neededCopies} copies for ${MARQUEE_SPEED}s animation`);
+    
+    // Перезапускаем анимацию для плавности
+    restartAnimation();
   }
+
+  // Функция для перезапуска анимации
+  function restartAnimation() {
+    track.style.animation = 'none';
+    void track.offsetWidth; // Принудительный reflow
+    track.style.animation = null;
+  }
+
+  // Функция для установки фиксированной скорости
+  function updateAnimationSpeed() {
+    track.style.animationDuration = `${MARQUEE_SPEED}s`;
+    console.log(`Marquee speed set to: ${MARQUEE_SPEED} seconds`);
+  }
+
+  // Инициализация
+  createInfiniteScroll();
+  updateAnimationSpeed();
+  
+  // Ждем загрузки всех изображений
+  const images = track.querySelectorAll('img');
+  let loadedImages = 0;
+  
+  if (images.length > 0) {
+    images.forEach(img => {
+      if (img.complete) {
+        imageLoaded();
+      } else {
+        img.addEventListener('load', imageLoaded);
+        img.addEventListener('error', imageLoaded);
+      }
+    });
+  } else {
+    setTimeout(() => {
+      updateAnimationSpeed();
+      restartAnimation();
+    }, 100);
+  }
+  
+  function imageLoaded() {
+    loadedImages++;
+    if (loadedImages === images.length) {
+      setTimeout(() => {
+        createInfiniteScroll();
+        updateAnimationSpeed();
+      }, 100);
+    }
+  }
+
+  // Оптимизированный обработчик изменения размера
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      createInfiniteScroll();
+      updateAnimationSpeed();
+    }, 250);
+  });
 });
 
 const toggleButton = document.getElementById('mobileMenuToggle');

@@ -1341,31 +1341,46 @@ ease-in-out;
   overflow: hidden;
   padding: 30px 0;
   background: #fff;
+  position: relative;
 }
 
 .partners-marquee__track {
   display: flex;
   width: max-content;
-  animation: marquee 10s linear infinite;
+  animation: marquee 60s linear infinite;
+  will-change: transform;
 }
 
 .partners-marquee__item {
   flex: 0 0 auto;
   margin: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .partners-marquee__item img {
   max-height: 100px;
   display: block;
   object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
 }
 
+.partners-marquee__item img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Бесконечная плавная анимация */
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-1000px);
+    transform: translateX(-50%);
   }
 }
 
