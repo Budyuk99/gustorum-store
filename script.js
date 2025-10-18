@@ -236,8 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
     
-    console.log(`Created ${neededCopies} copies for ${MARQUEE_SPEED}s animation`);
-    
     // Перезапускаем анимацию для плавности
     restartAnimation();
   }
@@ -252,7 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Функция для установки фиксированной скорости
   function updateAnimationSpeed() {
     track.style.animationDuration = `${MARQUEE_SPEED}s`;
-    console.log(`Marquee speed set to: ${MARQUEE_SPEED} seconds`);
   }
 
   // Инициализация
@@ -332,4 +329,22 @@ closeButton.addEventListener('click', () => {
     scrollToTop.classList.remove('hidden');
   }
 });
+
+$('.owl-carousel-reviews').owlCarousel({
+  loop: true,
+  margin: 10,
+  nav: false,
+  dots: true,
+  autoplay: true,
+  autoplayTimeout: 4000,
+  smartSpeed: 600,
+  responsive: {
+    0: { items: 1 },
+    480: { items: 1 },
+    768: { items: 2 },
+    992: { items: 3 },
+    1200: { items: 5 }  // 5 слайдов на больших экранах
+  }
+});
+
 
