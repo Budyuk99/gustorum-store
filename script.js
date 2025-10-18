@@ -354,4 +354,146 @@ $('.owl-carousel-reviews').owlCarousel({
   }
 });
 
+// Единая система попапов
+class PopupManager {
+  constructor() {
+    this.popup = document.getElementById('universal-popup');
+    if (!this.popup) return;
+    
+    this.popupContent = this.popup.querySelector('.popup-content');
+    this.popupImage = document.getElementById('popup-image');
+    this.popupTitle = document.getElementById('popup-title');
+    this.popupSubmitBtn = document.getElementById('popup-submit-btn');
+    
+    this.init();
+  }
+  
+  init() {
+    // Обработчики для всех кнопок с data-popup атрибутом
+    document.querySelectorAll('[data-popup]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const popupType = btn.dataset.popup;
+        const formType = btn.dataset.popupType || 'default';
+        
+        if (popupType === 'call') {
+          this.openFormPopup(formType);
+        }
+      });
+    });
+    
+    // Закрытие попапа
+    this.setupCloseHandlers();
+  }
+  
+  // Открытие попапа с формой
+  openFormPopup(formType = 'default') {
+    this.popupContent.classList.add('form-only');
+    
+    // Настраиваем контент в зависимости от типа формы
+    switch(formType) {
+      case 'kp':
+        this.popupTitle.textContent = 'Запросить коммерческое предложение';
+        this.popupSubmitBtn.textContent = 'Запросить КП';
+        break;
+      case 'callback':
+        this.popupTitle.textContent = 'Заказать обратный звонок';
+        this.popupSubmitBtn.textContent = 'Заказать звонок';
+        break;
+      case 'discount':
+        this.popupTitle.textContent = 'Получить скидку';
+        this.popupSubmitBtn.textContent = 'Получить скидку';
+        break;
+      default:
+        this.popupTitle.textContent = 'Наш менеджер свяжется с вами в ближайшее время';
+        this.popupSubmitBtn.textContent = 'Отправить';
+    }
+    
+    this.showPopup();
+  }
+  
+  // Открытие попапа с товаром
+  openProductPopup(imgSrc, title) {
+    this.popupContent.classList.remove('form-only');
+    this.popupImage.src = imgSrc;
+    this.popupTitle.textContent = 'Наш менеджер свяжется с вами в ближайшее время';
+    this.popupSubmitBtn.textContent = 'Отправить';
+    
+    this.showPopup();
+  }
+  
+  // Показать попап
+  showPopup() {
+    this.popup.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    this.hideFloatingButtons();
+    this.closeMobileMenu();
+  }
+  
+  // Закрыть попап
+  closePopup() {
+    this.popup.classList.remove('show');
+    document.body.style.overflow = '';
+    this.showFloatingButtons();
+  }
+  
+  // Скрыть плавающие кнопки
+  hideFloatingButtons() {
+    const whatsappButton = document.getElementById('whatsappButton');
+    const scrollToTop = document.getElementById('scrollToTop');
+    
+    if (whatsappButton) whatsappButton.classList.add('hidden');
+    if (scrollToTop) scrollToTop.classList.add('hidden');
+  }
+  
+  // Показать плавающие кнопки
+  showFloatingButtons() {
+    const whatsappButton = document.getElementById('whatsappButton');
+    const scrollToTop = document.getElementById('scrollToTop');
+    
+    if (whatsappButton) whatsappButton.classList.remove('hidden');
+    if (scrollToTop) scrollToTop.classList.remove('hidden');
+  }
+  
+  // Закрытие мобильного меню
+  closeMobileMenu() {
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (mobileMenu && mobileMenu.classList.contains('active')) {
+      mobileMenu.classList.remove('active');
+      mobileMenuOverlay.classList.remove('active');
+      mobileMenuToggle.classList.remove('active');
+    }
+  }
+  
+  // Настройка обработчиков закрытия
+  setupCloseHandlers() {
+    // Кнопка закрытия
+    this.popup.querySelector('.popup-close').addEventListener('click', () => {
+      this.closePopup();
+    });
+    
+    // Клик вне контента
+    this.popup.addEventListener('click', (e) => {
+      if (e.target === this.popup) {
+        this.closePopup();
+      }
+    });
+    
+    // Клавиша Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.popup.classList.contains('show')) {
+        this.closePopup();
+      }
+    });
+  }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  new PopupManager();
+});
+
 

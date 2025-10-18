@@ -744,6 +744,8 @@ ease-in-out;
   padding: 15px 40px;
   text-decoration: none;
   border-radius: 5px;
+  align-items: center;
+  text-align: center;
 }
 
 .btn-primary:hover {
@@ -2280,6 +2282,228 @@ header {
   display: none;
 }
 
+/* Стили для попапа заказа звонка */
+.call-popup-content {
+  width: 40% !important; /* Уже, так как нет картинки */
+  max-width: 500px; /* Ограничиваем максимальную ширину */
+}
+
+.call-popup-content .popup-right {
+  width: 100%;
+  border-radius: 20px; /* Скругляем углы всей формы */
+}
+
+/* Базовые стили попапа */
+.popup {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.2s ease-in-out;
+}
+
+.popup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup-content {
+  background: #F0ECE4;
+  width: 60%;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transform: scale(0.8);
+  transition: all 0.2s ease-in-out;
+  border-radius: 20px;
+  max-height: 90vh;
+  flex-direction: row;
+}
+
+.popup.show .popup-content {
+  transform: scale(1);
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  z-index: 1001;
+}
+
+/* Левая часть — фото */
+.popup-left {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background: #F0ECE4;
+}
+
+.popup-left img {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Правая часть — форма */
+.popup-right {
+  flex: 1;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #E1DBCD;
+  border-radius: 20px;
+}
+
+.popup-right h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-align: center;
+  color: #342318;
+}
+
+.popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup-form input {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.2s;
+  background: #F0ECE4;
+  border-radius: 12px;
+  color: #342318;
+}
+
+.popup-form input::placeholder {
+  color: #342318;
+  opacity: 0.7;
+}
+
+.popup-form input:focus {
+  border-color: #902732;
+  outline: none;
+}
+
+.popup-submit {
+  background-color: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  height: 52px;
+  padding: 19px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 200px;
+  border: 1px solid #902732;
+  color: #902732;
+  font-weight: 600;
+}
+
+.popup-submit:hover {
+  background-color: #902732;
+  color: white;
+}
+
+.popup-policy {
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #342318;
+}
+
+.popup-policy a {
+  color: #342318;
+  text-decoration: underline;
+}
+
+/* Попап только с формой (без картинки) */
+.popup-content.form-only {
+  width: 30%;
+}
+
+.popup-content.form-only .popup-left {
+  display: none;
+}
+
+.popup-content.form-only .popup-right {
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .popup-content {
+    width: 90% !important;
+    flex-direction: column;
+  }
+  
+  .popup-content.form-only {
+    width: 90% !important;
+  }
+  
+  .popup-left {
+    display: none !important;
+  }
+  
+  .popup-right {
+    width: 100% !important;
+    border-radius: 20px !important;
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-content {
+    width: 95% !important;
+  }
+  
+  .popup-right {
+    padding: 25px 15px;
+  }
+  
+  .popup-right h2 {
+    font-size: 18px;
+  }
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+  .call-popup-content {
+    width: 90% !important;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .call-popup-content {
+    width: 95% !important;
+    max-width: 350px;
+  }
+}
+
 /* ===== MEDIA QUERIES FOR HEADER ===== */
 
 /* Large Desktops */
@@ -2294,12 +2518,20 @@ header {
   }
 
   .popup-content{
-    width: 90%;
+    width: 70%;
+  }
+
+  .popup-content.form-only {
+    width: 30%;
   }
 }
 
 /* Desktops */
 @media (max-width: 1200px) {
+  .popup-content.form-only {
+    width: 50%;
+  }
+
   .header-inner {
     padding: 10px 30px;
   }

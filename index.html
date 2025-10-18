@@ -50,7 +50,7 @@
         </div>
 
         <div class="header-inner_second-block">
-          <a href="#" class="header-inner_second__make-call">Заказать звонок</a>
+          <a href="#" class="header-inner_second__make-call" data-popup="call" data-popup-type="callback">Заказать звонок</a>
         </div>
       </div>
 
@@ -90,7 +90,7 @@
             <img src="/images/vk.svg" alt="VK">
             <img src="/images/mail.svg" alt="Email">
           </div>
-          <a href="#" class="mobile-menu__call-btn">Заказать звонок</a>
+          <a href="#" class="mobile-menu__call-btn" data-popup="call" data-popup-type="callback">Заказать звонок</a>
         </div>
       </div>
 
@@ -108,7 +108,7 @@
           <div class="hero-text_second">
             <p>Эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго</p>
             <div class="hero-buttons">
-              <a href="#popup:myformkp" class="btn btn-primary">Запросить КП</a>
+              <a href="#" class="btn btn-primary" data-popup="call" data-popup-type="kp">Запросить КП</a>
             </div>
           </div>
         </div>
@@ -444,6 +444,26 @@
         </div>
       </div>
 
+      <!-- Попап для заказа звонка -->
+      <div id="call-popup" class="popup">
+        <div class="popup-content call-popup-content">
+          <span class="popup-close">&times;</span>
+
+          <div class="popup-right">
+            <div><img src="/images/quastions_left.svg" class="popup-right_logo" alt="quastions_left"></div>
+            <h2 id="call-popup-title">Заказать обратный звонок</h2>
+            <form class="popup-form">
+              <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя" required>
+              <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
+              <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru" required>
+              <button type="submit" class="popup-submit">Заказать звонок</button>
+              <p class="popup-policy">
+                Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
 
       <section class="gift-description basic-section">
         <div class="gift-container">
@@ -472,7 +492,7 @@
 
       <section class="contact-buttons basic-section">
         <div class="buttons-container">
-          <a href="#popup:myformkp" class="btn btn-primary">Запросить КП</a>
+          <a href="#popup:myformkp" class="btn btn-primary" data-popup="call" data-popup-type="kp">Запросить КП</a>
         </div>
       </section>
     </main>
@@ -548,7 +568,7 @@
         </div>
 
         <div class="discounts-section__btn-wrapper">
-          <a href="/contact" class="discounts-section__btn">Получить скидку</a>
+          <a href="#" class="discounts-section__btn" data-popup="call" data-popup-type="discount">Получить скидку</a>
         </div>
       </div>
     </section>
@@ -603,7 +623,7 @@
       </div>
 
       <div class="buttons-container-steps">
-        <a href="#popup:myformkp" class="btn btn-primary btn-primary-steps">Запросить КП</a>
+        <a href="#" class="btn btn-primary btn-primary-steps" data-popup="call" data-popup-type="kp">Запросить КП</a>
       </div>
     </section>
 
@@ -748,6 +768,33 @@
         </div>
       </div>
     </footer>
+
+    <!-- Универсальный попап -->
+<div id="universal-popup" class="popup">
+  <div class="popup-content">
+    <span class="popup-close">&times;</span>
+    
+    <!-- Левая часть (только для товаров) -->
+    <div class="popup-left product-popup-content">
+      <img id="popup-image" src="" alt="Товар">
+    </div>
+
+    <!-- Правая часть (форма) -->
+    <div class="popup-right">
+      <div><img src="/images/quastions_left.svg" class="popup-right_logo" alt="quastions_left"></div>
+      <h2 id="popup-title">Наш менеджер свяжется с вами в ближайшее время</h2>
+      <form class="popup-form">
+        <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя" required>
+        <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
+        <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru" required>
+        <button type="submit" class="popup-submit" id="popup-submit-btn">Отправить</button>
+        <p class="popup-policy">
+          Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
 
     <!-- Кнопка Наверх -->
     <button id="scrollToTop" title="Наверх">
