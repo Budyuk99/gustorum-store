@@ -1605,7 +1605,7 @@ ease-in-out;
   height: 100%;
 }
 
-/* Затемнённый фон и плавность */
+/* Общие стили попапа остаются */
 .popup {
   opacity: 0;
   visibility: hidden;
@@ -1622,59 +1622,126 @@ ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 
-/* Когда попап открыт */
 .popup.show {
   opacity: 1;
   visibility: visible;
 }
 
-/* Контейнер попапа */
 .popup-content {
-  background: #fff;
-  width: 80%;
+  background: #F0ECE4;
+  width: 90%;
   max-width: 800px;
   display: flex;
   overflow: hidden;
   position: relative;
   transform: scale(0.8);
   transition: all 0.2s ease-in-out;
+  border-radius: 20px;
 }
 
-/* При показе увеличиваем */
 .popup.show .popup-content {
   transform: scale(1);
 }
 
-/* Кнопка закрытия */
 .popup-close {
   position: absolute;
   top: 10px;
   right: 15px;
   font-size: 24px;
   cursor: pointer;
+  color: #333;
 }
 
-/* Левая часть с картинкой */
+/* Левая часть — фото */
 .popup-left {
-  flex: 1;
-  background: #f5f5f5;
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background: #F0ECE4;
 }
 
 .popup-left img {
-  width: 100%;
-  height: 100%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
   object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Правая часть с описанием */
+/* Правая часть — форма */
 .popup-right {
   flex: 1;
-  padding: 20px;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #E1DBCD;
+  border-radius: 20px;
 }
 
 .popup-right h2 {
-  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-align: center;
 }
+
+.popup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup-form input {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.2s;
+  background: #F0ECE4;
+  border-radius: 12px;
+}
+
+.popup-form input:focus {
+  border-color: #902732;
+  outline: none;
+}
+
+.popup-submit {
+  background-color: transparent;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  height: 52px;
+  padding: 19px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 200px;
+  border: 1px solid #902732;
+  color: #902732;
+}
+
+.popup-submit:hover {
+  background-color: #902732;
+  color: white;
+}
+
+.popup-policy {
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #342318;
+}
+
+.popup-policy a {
+  color: #342318;
+  text-decoration: underline;
+}
+
 
 .gift-container_list {
   list-style: none;
@@ -1808,6 +1875,21 @@ ease-in-out;
 .owl-carousel-reviews .review-item.item {
   border-radius: 20px;
   height: max-content;
+}
+
+.popup-form_input::placeholder {
+  color: #342318;
+  opacity: 1;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+#popup-title {
+  color: #342318;
+  font-size: 22px;
+  font-weight: 400;
 }
 
 /* ===== MEDIA QUERIES ===== */
@@ -2237,6 +2319,21 @@ ease-in-out;
   .mobile-menu__nav {
     max-height: 60vh;
     overflow-y: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .popup-content {
+    flex-direction: column;
+  }
+
+  .popup-left {
+    padding: 20px;
+  }
+
+  .popup-left img {
+    width: 150px;
+    height: 150px;
   }
 }
 

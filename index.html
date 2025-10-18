@@ -422,16 +422,26 @@
       <div id="product-popup" class="popup">
         <div class="popup-content">
           <span class="popup-close">&times;</span>
+
           <div class="popup-left">
             <img id="popup-image" src="" alt="Товар">
           </div>
+
           <div class="popup-right">
             <h2 id="popup-title"></h2>
-            <p id="popup-price"></p>
-            <p id="popup-sold"></p>
+            <form class="popup-form">
+              <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя" required>
+              <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
+              <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru" required>
+              <button type="submit" class="popup-submit">Отправить</button>
+              <p class="popup-policy">
+                Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
+              </p>
+            </form>
           </div>
         </div>
       </div>
+
 
       <section class="gift-description basic-section">
         <div class="gift-container">

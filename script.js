@@ -143,8 +143,6 @@ document.querySelectorAll('.accordion-header').forEach(header => {
 const popup = document.getElementById('product-popup');
 const popupImage = document.getElementById('popup-image');
 const popupTitle = document.getElementById('popup-title');
-const popupPrice = document.getElementById('popup-price');
-const popupSold = document.getElementById('popup-sold');
 const closeBtn = document.querySelector('.popup-close');
 
 // Обработка кнопки "Посмотреть"
@@ -156,14 +154,10 @@ document.querySelectorAll('.btn-buy').forEach(btn => {
     // Получаем данные с карточки
     const imgSrc = card.querySelector('.main-img').src;
     const title = card.querySelector('.product-info h3').innerText;
-    const price = card.querySelector('.price-current').innerText;
-    const sold = card.querySelector('.sold-count').innerText;
 
     // Вставляем в попап
     popupImage.src = imgSrc;
     popupTitle.innerText = title;
-    popupPrice.innerText = price;
-    popupSold.innerText = sold;
 
     // Показываем попап с плавностью
     popup.classList.add('show');
