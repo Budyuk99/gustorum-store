@@ -341,7 +341,7 @@ $('.owl-carousel-reviews').owlCarousel({
   loop: true,
   margin: 10,
   nav: false,
-  dots: true,
+  dots: false,
   autoplay: true,
   autoplayTimeout: 4000,
   smartSpeed: 600,
