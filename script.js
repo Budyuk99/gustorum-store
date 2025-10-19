@@ -446,6 +446,7 @@ $('.owl-carousel-reviews').owlCarousel({
   autoplay: true,
   autoplayTimeout: 4000,
   smartSpeed: 600,
+  lazyLoad: true,
   responsive: {
     0: { items: 1 },
     480: { items: 1 },

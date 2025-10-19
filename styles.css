@@ -2653,6 +2653,15 @@ header {
   font-weight: 600;
 }
 
+.popup-product-info_description span {
+  font-weight: bold;
+}
+
+.popup-product-info_description nav {
+  list-style: disc;
+  color: black;
+}
+
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
   .popup-product-description {
@@ -2674,7 +2683,6 @@ header {
     font-size: 18px;
   }
 }
-
 
 /* Адаптив */
 @media (max-width: 768px) {
