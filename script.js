@@ -38,7 +38,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Закрытие меню при клике на ссылку
   mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
+    link.addEventListener('click', (e) => {
+    closeMobileMenu();
+
+    // Показываем кнопки WhatsApp и "вверх"
+    const whatsappButton = document.getElementById('whatsappButton');
+    const scrollToTop = document.getElementById('scrollToTop');
+
+    if (whatsappButton) whatsappButton.classList.remove('hidden');
+      if (scrollToTop) scrollToTop.classList.remove('hidden');
+    });
   });
 
   // Закрытие меню при нажатии Escape
@@ -426,7 +435,7 @@ toggleButton.addEventListener('click', () => {
 
 closeButton.addEventListener('click', () => {
   toggleButton.classList.toggle('active'); // анимация бургер-меню
-  
+  // alert(1);
   if(toggleButton.classList.contains('active')) {
     // Меню открыто — показываем кнопку
     whatsappButton.classList.add('hidden');

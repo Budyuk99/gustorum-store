@@ -1001,7 +1001,7 @@ ease-in-out;
   font-size: 16px;
   color: #fff;
   background-color: #902732;
-  border-radius: 30px;
+  border-radius: 6px;
   text-decoration: none;
   transition: 0.3s;
   font-weight: 600;
@@ -2660,6 +2660,20 @@ header {
 .popup-product-info_description nav {
   list-style: disc;
   color: black;
+}
+
+#we-offer, 
+#assortment, 
+#branding, 
+#discounts-on-bulk-orders, 
+#how-we-work, 
+#reviews, 
+#who-tried-our-gifts {
+  scroll-margin-top: 100px;
+}
+
+.mobile-menu-toggle.active {
+  display: none;
 }
 
 /* Адаптивность для мобильных */
