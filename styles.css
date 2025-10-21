@@ -2676,6 +2676,10 @@ header {
   display: none;
 }
 
+.review-photo img {
+  height: 600px;
+}
+
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
   .popup-product-description {
