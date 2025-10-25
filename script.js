@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
 $(".owl-carousel-second").owlCarousel({
     loop: true,
     margin: 10,
+    autoplay: true,
     nav: true,
     dots: false,
     responsive: {

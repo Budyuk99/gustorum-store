@@ -498,7 +498,7 @@ ease-in-out;
 
 .marquee-item, .marquee-item-footer {
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   white-space: nowrap;
   flex-shrink: 0;
   font-weight: 500;
