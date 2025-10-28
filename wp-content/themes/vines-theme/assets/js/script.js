@@ -179,7 +179,7 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
         const popup = document.getElementById('product-popup');
         const closeBtn = document.querySelector('.popup-close');
 
-        function openPopup(imgSrc, title, price, card) {
+        function openPopup({ imgSrc, title, price, card, content }) {
             if (!popup) return;
             
             popup.classList.add('show');
@@ -225,6 +225,14 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
             if (productTitle) productTitle.textContent = title;
             if (productPrice) productPrice.textContent = price;
 
+            // Берём контейнер
+            const contentsContainer = document.querySelector('.popup-product-info_description');
+
+            if (contentsContainer && content) {
+                // Если content — строка с HTML
+                contentsContainer.innerHTML = content;
+            }
+
             Fancybox.bind("[data-fancybox='popup-gallery']", {
                 Thumbs: true,
                 Toolbar: true,
@@ -253,7 +261,14 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 const imgSrc = card.querySelector('.main-img').src;
                 const title = card.querySelector('.product-info h3').innerText;
                 const price = card.querySelector('.price-current').innerText;
-                openPopup(imgSrc, title, price);
+                const content = JSON.parse(btn.dataset.contents || '[]');
+  
+                openPopup({
+                    imgSrc: imgSrc,
+                    title: title,
+                    price: price,
+                    content: content
+                });
             });
         });
 
@@ -265,7 +280,14 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 const imgSrc = card.querySelector('.main-img').src;
                 const title = card.querySelector('.product-info h3').innerText;
                 const price = card.querySelector('.price-current').innerText;
-                openPopup(imgSrc, title, price);
+                const content = JSON.parse(btn.dataset.contents || '[]');
+
+                openPopup({
+                    imgSrc: imgSrc,
+                    title: title,
+                    price: price,
+                    content: content
+                });
             });
         });
 

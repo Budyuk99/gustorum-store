@@ -184,7 +184,7 @@
                         <div class="price-current"><?php echo esc_html($price); ?> ₽</div>
                     </div>
                 </div>
-                <a class="btn-buy" href="#">Посмотреть</a>
+                <a class="btn-buy" href="#" data-contents='<?php echo json_encode(get_field('product_contents')); ?>'>Посмотреть</a>
             </div>
           <?php endwhile; wp_reset_postdata(); ?>
         </div>
@@ -204,18 +204,7 @@
             <h3 id="popup-product-title"></h3>
             <div class="popup-product-price" id="popup-product-price"></div>
 
-            <p class="popup-product-info_description">
-              <span>В состав набора входит:</span>
-              <ul>
-                <li>чай травяной, Алтай</li>
-                <li>Ароматическая свеча</li>
-                <li>Мед цветочный 120 гр</li>
-                <li>Джем из голубики 230 гр</li>
-                <li>бумажный наполнитель</li>
-                <li>крафт коробка</li>
-                <li>открытка</li>
-              </ul>
-            </p>
+            <p class="popup-product-info_description"></p>
           </div>
 
           <div class="popup-right">
