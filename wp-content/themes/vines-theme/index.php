@@ -429,41 +429,40 @@
     </section>
 
     <section class="reviews-slider">
-    <h2 class="basic_h2" id="reviews">Отзывы</h2>
+      <h2 class="basic_h2" id="reviews">Отзывы</h2>
 
-    <div class="owl-carousel owl-theme owl-carousel-reviews">
-        <?php
-        $reviews = new WP_Query(array(
-            'post_type' => 'review',
-            'posts_per_page' => -1,
-        ));
-        while($reviews->have_posts()): $reviews->the_post();
+      <div class="owl-carousel owl-theme owl-carousel-reviews">
+          <?php
+          $reviews = new WP_Query(array(
+              'post_type' => 'review',
+              'posts_per_page' => -1,
+          ));
+          while($reviews->have_posts()): $reviews->the_post();
 
-            $photo = get_field('review_photo'); // URL изображения из ACF
-            $author = get_field('review_author'); // автор
-            $text   = get_field('review_text'); // текст отзыва
-        ?>
-            <div class="item review-item">
-                <?php if($photo): ?>
-                <div class="review-photo">
-                    <img data-src="<?php echo esc_url($photo); ?>" alt="<?php the_title(); ?>" class="owl-lazy">
-                </div>
-                <?php endif; ?>
-                <div class="review-title">
-                    <span><?php the_title(); ?></span>
-                </div>
-                <div class="review-text">
-                    <p><?php echo esc_html($text); ?></p>
-                    <?php if($author): ?>
-                    <span class="review-author"><?php echo esc_html($author); ?></span>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endwhile; wp_reset_postdata(); ?>
-    </div>
-</section>
-
-
+              $photo = get_field('review_photo'); // URL изображения из ACF
+              $author = get_field('review_author'); // автор
+              $text   = get_field('review_text'); // текст отзыва
+          ?>
+              <div class="item review-item">
+                  <?php if($photo): ?>
+                  <div class="review-photo">
+                      <img data-src="<?php echo esc_url($photo); ?>" alt="<?php the_title(); ?>" class="owl-lazy">
+                  </div>
+                  <?php endif; ?>
+                  <div class="review-title">
+                      <span><?php the_title(); ?></span>
+                  </div>
+                  <div class="review-text">
+                      <p><?php echo esc_html($text); ?></p>
+                      <?php if($author): ?>
+                      <span class="review-author"><?php echo esc_html($author); ?></span>
+                      <?php endif; ?>
+                  </div>
+              </div>
+          <?php endwhile; wp_reset_postdata(); ?>
+      </div>
+    </section>
+    
     <section class="who-tried">
       <div class="who-tried__container">
         <h2 class="who-tried__title basic_h2" id="who-tried-our-gifts">Кто уже попробовал наши подарки</h2>
