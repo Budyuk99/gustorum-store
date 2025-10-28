@@ -27,11 +27,57 @@ function mytheme_register_products_cpt() {
         'labels' => $labels,
         'public' => true,
         'has_archive' => false,
-        'supports' => array('title', 'editor', 'thumbnail'),
+        'supports' => array('title', 'thumbnail'),
         'menu_icon' => 'dashicons-cart',
     );
 
     register_post_type('product', $args);
 }
 add_action('init', 'mytheme_register_products_cpt');
+
+function mytheme_register_brand_slider_cpt() {
+    $labels = array(
+        'name' => 'Брендирование (слайдер)',
+        'singular_name' => 'Брендирование',
+        'add_new' => 'Добавить бренд',
+        'add_new_item' => 'Добавить новый бренд',
+        'edit_item' => 'Редактировать бренд',
+        'all_items' => 'Все бренды',
+        'menu_name' => 'Бренды',
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'has_archive' => false,
+        'supports' => array('title', 'thumbnail'),
+        'menu_icon' => 'dashicons-format-image',
+    );
+
+    register_post_type('brand_slider', $args);
+}
+add_action('init', 'mytheme_register_brand_slider_cpt');
+
+function mytheme_register_reviews_cpt() {
+    $labels = array(
+        'name' => 'Отзывы',
+        'singular_name' => 'Отзыв',
+        'add_new' => 'Добавить отзыв',
+        'add_new_item' => 'Добавить новый отзыв',
+        'edit_item' => 'Редактировать отзыв',
+        'all_items' => 'Все отзывы',
+        'menu_name' => 'Отзывы',
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'has_archive' => false,
+        'supports' => array('title', 'thumbnail'), // title - для имени автора, editor - для текста
+        'menu_icon' => 'dashicons-testimonial',
+    );
+
+    register_post_type('review', $args);
+}
+add_action('init', 'mytheme_register_reviews_cpt');
 ?>

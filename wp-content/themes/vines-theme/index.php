@@ -277,65 +277,27 @@
     </main>
 
     <section class="second-slider">
-      <h2 class="basic_h2" id="branding">Брендирование</h2>
-      <div class="owl-carousel owl-theme owl-carousel-second">
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8630.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8630.webp" alt="IMG_8630" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8463.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8463.webp" alt="IMG_8463" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8632.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8632.webp" alt="IMG_8632" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8462.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8462.webp" alt="IMG_8462" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8300.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8300.webp" alt="IMG_8300" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8299.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8299.webp" alt="IMG_8299" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8640-1.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_8640-1.webp" alt="IMG_8640-1" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/bw8iinspcrpk10d9wh5k2qhee331cc65.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/bw8iinspcrpk10d9wh5k2qhee331cc65.webp" alt="bw8iinspcrpk10d9wh5k2qhee331cc65" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/dizajn-i-pechat-individualnyh-korobok-2-1200x720.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/dizajn-i-pechat-individualnyh-korobok-2-1200x720.webp" alt="dizajn-i-pechat-individualnyh-korobok-2-1200x720" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/grecija-chk-1.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/grecija-chk-1.webp" alt="grecija-chk-1" loading="lazy">
-            </a>
-        </div>
-        <div class="item">
-            <a href="<?php echo get_template_directory_uri(); ?>/assets/images/kashpo-grecija-chernoe-n_logog-1.webp" data-fancybox="gallery">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/kashpo-grecija-chernoe-n_logog-1.webp" alt="kashpo-grecija-chernoe-n_logog-1" loading="lazy">
-            </a>
-        </div>
-      </div>
-    </section>
+    <h2 class="basic_h2" id="branding">Брендирование</h2>
+    <div class="owl-carousel owl-theme owl-carousel-second">
+        <?php
+        $brands = new WP_Query(array(
+            'post_type' => 'brand_slider', // CPT брендов
+            'posts_per_page' => -1,
+        ));
+
+        while($brands->have_posts()): $brands->the_post();
+            // Берём изображение из custom field
+            $image = get_field('brand_image'); // URL картинки
+            if (!$image) continue; // пропускаем, если нет картинки
+        ?>
+            <div class="item">
+                <a href="<?php echo esc_url($image); ?>" data-fancybox="gallery">
+                    <img src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>" loading="lazy">
+                </a>
+            </div>
+        <?php endwhile; wp_reset_postdata(); ?>
+    </div>
+</section>
 
     <section class="discounts-section discounts-section-first">
       <div class="discounts-section-container">
@@ -467,67 +429,40 @@
     </section>
 
     <section class="reviews-slider">
-      <h2 class="basic_h2" id="reviews">Отзывы</h2>
+    <h2 class="basic_h2" id="reviews">Отзывы</h2>
 
-      <div class="owl-carousel owl-theme owl-carousel-reviews">
-        <div class="item review-item">
-          <div class="review-photo">
-            <img data-src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_3237.webp" alt="Анастасия" class="owl-lazy">
-          </div>
-          <div class="review-title">
-            <span>«Впечатлили даже искушенных гурманов»</span>
-          </div>
-          <div class="review-text">
-            <p>
-              Подарочные наборы от Gustorum мы заказывали к Новому Году для наших ключевых партнеров. 
-              Выбор пал на вас из-за ассортимента, и он себя оправдал на 100%. Отдельное спасибо за 
-              качество: сыры и паштеты были высочайшего уровня, о чем нам многие написали лично. 
-              Упаковка — это отдельный восторг: стильная, прочная, чувствуется, что каждая деталь 
-              продумана. Подарок выглядел дорого и действительно эксклюзивно. Обязательно будем сотрудничать снова.
-            </p>
-            <span class="review-author">— Анастасия Белокурова, основатель цветочного магазина Bouqetist.ru</span>
-          </div>
-        </div>
+    <div class="owl-carousel owl-theme owl-carousel-reviews">
+        <?php
+        $reviews = new WP_Query(array(
+            'post_type' => 'review',
+            'posts_per_page' => -1,
+        ));
+        while($reviews->have_posts()): $reviews->the_post();
 
-        <div class="item review-item">
-          <div class="review-photo">
-            <img data-src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_3238.webp" alt="Елена" class="owl-lazy">
-          </div>
-          <div class="review-title">
-            <span>«Спасли в условиях аврала»</span>
-          </div>
-          <div class="review-text">
-            <p>
-              Хочу выделить невероятную оперативность команды Gustorum. Срочно потребовались подарки для инвесторов — 
-              всего 7 коробок. От заявки до доставки прошло меньше двух дней. При этом никаких компромиссов 
-              в качестве: всё было собрано идеально и упаковано с шиком. Вы настоящие профессионалы, 
-              которые понимают ценность времени в бизнесе. Очень рекомендую!
-            </p>
-            <span class="review-author">— Елена Салахетдинова, директор по digital-маркетингу</span>
-          </div>
-        </div>
+            $photo = get_field('review_photo'); // URL изображения из ACF
+            $author = get_field('review_author'); // автор
+            $text   = get_field('review_text'); // текст отзыва
+        ?>
+            <div class="item review-item">
+                <?php if($photo): ?>
+                <div class="review-photo">
+                    <img data-src="<?php echo esc_url($photo); ?>" alt="<?php the_title(); ?>" class="owl-lazy">
+                </div>
+                <?php endif; ?>
+                <div class="review-title">
+                    <span><?php the_title(); ?></span>
+                </div>
+                <div class="review-text">
+                    <p><?php echo esc_html($text); ?></p>
+                    <?php if($author): ?>
+                    <span class="review-author"><?php echo esc_html($author); ?></span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endwhile; wp_reset_postdata(); ?>
+    </div>
+</section>
 
-        <div class="item review-item">
-          <div class="review-photo">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/IMG_3239.webp" alt="Андрей">
-          </div>
-          <div class="review-title">
-            <span>«Спасли в условиях аврала»</span>
-          </div>
-          <div class="review-text">
-            <p>
-              Обратились в Gustorum с непростой задачей: нужен был тематический бокс для международной конференции, 
-              отражающий наш бренд. Менеджер Ксения проявила невероятное внимание и терпение: помогла подобрать 
-              нетривиальное наполнение, предложила несколько вариантов упаковки и организовала пробный показ. 
-              В итоге мы получили именно то, что хотели, а наши гости — массу приятных эмоций. 
-              Такой персональный подход и глубокая вовлеченность — большая редкость. Спасибо 
-              за безупречный сервис!
-            </p>
-            <span class="review-author">— Андрей Кожевников, CEO Zebra-Group</span>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="who-tried">
       <div class="who-tried__container">
