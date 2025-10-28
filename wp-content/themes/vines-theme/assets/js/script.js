@@ -1,11 +1,11 @@
 // Защита от двойной инициализации
 if (typeof window.sweetgiftInitialized !== 'undefined') {
-    console.log('SweetGift script already initialized, skipping...');
+    console.log('Gustorum script already initialized, skipping...');
 } else {
     window.sweetgiftInitialized = true;
     
     jQuery(document).ready(function($){
-        console.log('SweetGift script initialized');
+        console.log('Gustorum script initialized');
         
         // ===== МОБИЛЬНОЕ МЕНЮ =====
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -179,35 +179,25 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
         const popup = document.getElementById('product-popup');
         const closeBtn = document.querySelector('.popup-close');
 
-        function openPopup(imgSrc, title) {
+        function openPopup(imgSrc, title, price, card) {
             if (!popup) return;
             
             popup.classList.add('show');
             document.body.style.overflow = 'hidden';
 
-            // Скрываем кнопки
-            const whatsappButton = document.getElementById('whatsappButton');
-            const scrollToTop = document.getElementById('scrollToTop');
-            if (whatsappButton) whatsappButton.classList.add('hidden');
-            if (scrollToTop) scrollToTop.classList.add('hidden');
-
-            // === Создаём мини-галерею слева ===
             const popupLeft = popup.querySelector('.popup-left');
             if (popupLeft) {
                 popupLeft.innerHTML = '';
 
-                // Ищем карточку, по которой кликнули
-                const card = document.querySelector(`.product-card img[src="${imgSrc}"]`)?.closest('.product-card');
+                // Берем все изображения внутри карточки
                 const images = card ? card.querySelectorAll('img') : [{ src: imgSrc }];
 
-                // Главное изображение
                 const mainImage = document.createElement('img');
                 mainImage.src = images[0].src;
                 mainImage.classList.add('popup-main-image');
                 mainImage.dataset.fancybox = 'popup-gallery';
                 popupLeft.appendChild(mainImage);
 
-                // Контейнер для миниатюр
                 const galleryContainer = document.createElement('div');
                 galleryContainer.classList.add('popup-thumbnails');
 
@@ -228,24 +218,13 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 popupLeft.appendChild(galleryContainer);
             }
 
-            // === ЗАПОЛНЯЕМ ИНФОРМАЦИЮ О ТОВАРЕ ===
-            if (popup) {
-                const card = document.querySelector(`.product-card img[src="${imgSrc}"]`)?.closest('.product-card');
-                if (card) {
-                    const productTitle = document.getElementById('popup-product-title');
-                    const productPrice = document.getElementById('popup-product-price');
-                    
-                    if (productTitle) {
-                        productTitle.textContent = card.querySelector('.product-info h3')?.textContent || '';
-                    }
-                    
-                    if (productPrice) {
-                        productPrice.textContent = card.querySelector('.price-current')?.textContent || '';
-                    }
-                }
-            }
+            // Заполняем информацию
+            const productTitle = document.getElementById('popup-product-title');
+            const productPrice = document.getElementById('popup-product-price');
 
-            // Подключаем Fancybox
+            if (productTitle) productTitle.textContent = title;
+            if (productPrice) productPrice.textContent = price;
+
             Fancybox.bind("[data-fancybox='popup-gallery']", {
                 Thumbs: true,
                 Toolbar: true,
@@ -273,7 +252,8 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 const card = btn.closest('.product-card');
                 const imgSrc = card.querySelector('.main-img').src;
                 const title = card.querySelector('.product-info h3').innerText;
-                openPopup(imgSrc, title);
+                const price = card.querySelector('.price-current').innerText;
+                openPopup(imgSrc, title, price);
             });
         });
 
@@ -284,7 +264,8 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 const card = btn.closest('.product-card');
                 const imgSrc = card.querySelector('.main-img').src;
                 const title = card.querySelector('.product-info h3').innerText;
-                openPopup(imgSrc, title);
+                const price = card.querySelector('.price-current').innerText;
+                openPopup(imgSrc, title, price);
             });
         });
 

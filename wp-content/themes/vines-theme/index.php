@@ -146,17 +146,6 @@
         </li>
       </ul>
 
-      <!-- <div class="offer-section">
-        <div class="offer-buttons">
-          <a href="#popup:myformkp" class="offer-btn primary btn-primary">Запросить КП</a>
-        </div>
-
-        <div class="offer-image">
-          <img src="https://optim.tildacdn.com/tild3164-6337-4263-b531-363635393762/-/resize/387x/-/format/webp/Mask_group_5_1.png.webp" 
-              alt="Декоративное изображение">
-        </div>
-      </div> -->
-
       <div class="buttons-container buttons-container_baskets">
         <a href="#popup:myformkp" class="btn btn-primary" data-popup="call" data-popup-type="kp">Запросить КП</a>
       </div>
@@ -214,7 +203,7 @@
           <div class="popup-product-info">
             <h3 id="popup-product-title"></h3>
             <div class="popup-product-price" id="popup-product-price"></div>
-            <div class="popup-product-sold" id="popup-product-sold"></div>
+
             <p class="popup-product-info_description">
               <span>В состав набора входит:</span>
               <ul>

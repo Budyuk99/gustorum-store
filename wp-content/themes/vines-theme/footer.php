@@ -30,9 +30,5 @@
 </footer>
 
 <?php wp_footer(); ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/assets/js/script.js"></script>
 </body>
 </html>
