@@ -168,7 +168,7 @@
               $hover_img = get_field('hover_image');
           ?>
             <div class="product-card">
-                <a href="<?php the_permalink(); ?>" class="product-link">
+                <a href="<?php the_permalink(); ?>" class="product-link" data-contents='<?php echo json_encode(get_field('product_contents')); ?>'>
                     <div class="product-image">
                         <img class="main-img" src="<?php echo esc_url($main_img); ?>" alt="<?php the_title(); ?>" loading="lazy">
                         <?php if($hover_img): ?>
