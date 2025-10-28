@@ -4,7 +4,7 @@
             <div class="footer__logo">
                 <div>
                     <a href="/" class="footer__logo-link">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="SweetGift" class="footer__logo-img">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.svg" alt="logo" class="footer__logo-img">
                     </a>
                 </div>
                 <div class="footer__container-first-contacts">
