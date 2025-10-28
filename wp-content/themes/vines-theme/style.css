@@ -31,7 +31,11 @@ body {
   color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Playfair Display";
+  font-family: 'TildaSans', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, li, span {
+    font-family: 'TildaSans', Arial, sans-serif;
 }
 
 .container {
@@ -2009,7 +2013,7 @@ header {
 
 .header-inner_first__logo img {
   height: 60px;
-  width: 200px;
+  width: 150px;
   object-fit: contain;
 }
 
@@ -2879,7 +2883,7 @@ header {
   
   .mobile-menu__logo-additional img {
     height: 35px;
-    width: auto;
+    width: 100px;
   }
   
   header {

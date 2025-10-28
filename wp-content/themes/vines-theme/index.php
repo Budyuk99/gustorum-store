@@ -167,8 +167,20 @@
               $main_img = get_field('main_image');
               $hover_img = get_field('hover_image');
           ?>
+
+            <?php
+              $main_image = get_field('main_image');
+              $hover_image = get_field('hover_image');
+              $additional_image = get_field('additional_image');
+
+              $gallery_urls = [];
+
+              if ($main_image)  $gallery_urls[] = esc_url($main_image);
+              if ($hover_image) $gallery_urls[] = esc_url($hover_image);
+              if ($additional_image) $gallery_urls[] = esc_url($additional_image);
+            ?>
             <div class="product-card">
-                <a href="<?php the_permalink(); ?>" class="product-link" data-contents='<?php echo json_encode(get_field('product_contents')); ?>'>
+                <a href="<?php the_permalink(); ?>" class="product-link" data-contents='<?php echo json_encode(get_field('product_contents')); ?>' data-gallery='<?php echo esc_attr(json_encode($gallery_urls, JSON_UNESCAPED_UNICODE)); ?>'>
                     <div class="product-image">
                         <img class="main-img" src="<?php echo esc_url($main_img); ?>" alt="<?php the_title(); ?>" loading="lazy">
                         <?php if($hover_img): ?>
@@ -184,18 +196,6 @@
                         <div class="price-current"><?php echo esc_html($price); ?> ₽</div>
                     </div>
                 </div>
-
-                <?php
-                  $main_image = get_field('main_image');
-                  $hover_image = get_field('hover_image');
-                  $additional_image = get_field('additional_image');
-
-                  $gallery_urls = [];
-
-                  if ($main_image)  $gallery_urls[] = esc_url($main_image);
-                  if ($hover_image) $gallery_urls[] = esc_url($hover_image);
-                  if ($additional_image) $gallery_urls[] = esc_url($additional_image);
-                ?>
 
                 <a class="btn-buy" href="#" data-contents='<?php echo json_encode(get_field('product_contents')); ?>' data-gallery='<?php echo json_encode($gallery_urls, JSON_UNESCAPED_UNICODE); ?>'>Посмотреть</a>
             </div>

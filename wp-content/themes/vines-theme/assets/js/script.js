@@ -299,7 +299,7 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 const price = card.querySelector('.price-current').innerText;
                 const content = JSON.parse(btn.dataset.contents || '[]');
                 const gallery = JSON.parse(btn.dataset.gallery || '[]');
-                                
+                
                 openPopup({
                     imgSrc: imgSrc,
                     title: title,
