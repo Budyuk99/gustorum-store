@@ -179,7 +179,7 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
         const popup = document.getElementById('product-popup');
         const closeBtn = document.querySelector('.popup-close');
 
-        function openPopup({ imgSrc, title, price, card, content }) {
+        function openPopup({ imgSrc, title, price, card, content, gallery }) {
             if (!popup) return;
             
             popup.classList.add('show');
@@ -189,6 +189,7 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
             if (popupLeft) {
                 popupLeft.innerHTML = '';
 
+                // ==== СТАРЫЙ ВАРИАНТ ====
                 // Берем все изображения внутри карточки
                 const images = card ? card.querySelectorAll('img') : [{ src: imgSrc }];
 
@@ -216,6 +217,40 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 });
 
                 popupLeft.appendChild(galleryContainer);
+
+                // Если передан массив gallery из data-gallery
+                if (gallery && Array.isArray(gallery) && gallery.length > 0) {
+                    popupLeft.innerHTML = ''; // очищаем старую версию, если есть галерея
+
+                    // Главное изображение
+                    const mainImg = document.createElement('img');
+                    mainImg.src = gallery[0];
+                    mainImg.classList.add('popup-main-image');
+                    mainImg.dataset.fancybox = 'popup-gallery';
+                    popupLeft.appendChild(mainImg);
+
+                    // Миниатюры (начинаем со второго элемента, чтобы не дублировать главное)
+                    if (gallery.length > 1) {
+                        const thumbsContainer = document.createElement('div');
+                        thumbsContainer.classList.add('popup-thumbnails');
+
+                        gallery.slice(1).forEach((src, index) => {
+                            const thumbLink = document.createElement('a');
+                            thumbLink.href = src;
+                            thumbLink.dataset.fancybox = 'popup-gallery';
+                            thumbLink.classList.add('popup-thumb');
+
+                            const thumbImg = document.createElement('img');
+                            thumbImg.src = src;
+                            thumbImg.alt = `Фото ${index + 2}`;
+                            thumbLink.appendChild(thumbImg);
+
+                            thumbsContainer.appendChild(thumbLink);
+                        });
+
+                        popupLeft.appendChild(thumbsContainer);
+                    }
+                }
             }
 
             // Заполняем информацию
@@ -233,6 +268,7 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 contentsContainer.innerHTML = content;
             }
 
+            // Fancybox
             Fancybox.bind("[data-fancybox='popup-gallery']", {
                 Thumbs: true,
                 Toolbar: true,
@@ -262,12 +298,14 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 const title = card.querySelector('.product-info h3').innerText;
                 const price = card.querySelector('.price-current').innerText;
                 const content = JSON.parse(btn.dataset.contents || '[]');
+                const gallery = JSON.parse(btn.dataset.gallery || '[]');
   
                 openPopup({
                     imgSrc: imgSrc,
                     title: title,
                     price: price,
-                    content: content
+                    content: content,
+                    gallery: gallery,
                 });
             });
         });
@@ -281,12 +319,14 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 const title = card.querySelector('.product-info h3').innerText;
                 const price = card.querySelector('.price-current').innerText;
                 const content = JSON.parse(btn.dataset.contents || '[]');
+                const gallery = JSON.parse(btn.dataset.gallery || '[]');
 
                 openPopup({
                     imgSrc: imgSrc,
                     title: title,
                     price: price,
-                    content: content
+                    content: content,
+                    gallery: gallery,
                 });
             });
         });
