@@ -1915,7 +1915,7 @@ ease-in-out;
 }
 
 .owl-carousel-reviews .review-item.item {
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   height: max-content;
 }
 
