@@ -225,7 +225,7 @@
             <h2 id="popup-title">Наш менеджер свяжется с вами в ближайшее время</h2>
             <form class="popup-form">
               <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя*" required>
-              <input type="tel" name="phone" class="popup-form_input" placeholder="+7*" required>
+              <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
               <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru">
               <button type="submit" class="popup-submit">Отправить</button>
               <p class="popup-policy">
@@ -506,7 +506,7 @@
           <h2 id="popup-title">Наш менеджер свяжется с вами в ближайшее время</h2>
           <form class="popup-form">
             <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя*" required>
-            <input type="tel" name="phone" class="popup-form_input" placeholder="+7*" required>
+            <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
             <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru">
             <button type="submit" class="popup-submit" id="popup-submit-btn">Отправить</button>
             <p class="popup-policy">

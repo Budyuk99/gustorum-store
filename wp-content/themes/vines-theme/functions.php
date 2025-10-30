@@ -1,14 +1,28 @@
 <?php
 function sweetgift_enqueue_scripts() {
+    // Стили
     wp_enqueue_style('main-style', get_stylesheet_uri());
     wp_enqueue_style('owl-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css');
     wp_enqueue_style('owl-theme', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css');
     wp_enqueue_style('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css');
 
+    // Скрипты
     wp_enqueue_script('jquery');
     wp_enqueue_script('owl-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', array('jquery'), null, true);
-    wp_enqueue_script('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js', array(), null, true);
-    wp_enqueue_script('main-js', get_template_directory_uri() . '/assets/js/script.js', array('jquery'), null, true);
+    wp_enqueue_script('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js', array('jquery'), null, true);
+    wp_enqueue_script('inputmask', 'https://unpkg.com/inputmask@5.x/dist/inputmask.min.js', array('jquery'), null, true);
+    wp_enqueue_script('main-js', get_template_directory_uri() . '/assets/js/script.js', array('jquery', 'inputmask'), null, true);
+
+    // Вставляем inline-инициализацию маски
+    wp_add_inline_script(
+        'inputmask',
+        "document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.querySelector('input[name=\"phone\"]');
+            if (phoneInput) {
+                Inputmask({ mask: '+7 (999) 999-99-99' }).mask(phoneInput);
+            }
+        });"
+    );
 }
 add_action('wp_enqueue_scripts', 'sweetgift_enqueue_scripts');
 

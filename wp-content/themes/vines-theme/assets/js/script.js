@@ -544,4 +544,23 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
             }
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInputs = document.querySelectorAll('input[name="phone"]');
+        if (phoneInputs.length > 0 && typeof Inputmask !== 'undefined') {
+            phoneInputs.forEach(function(input) {
+                Inputmask({
+                    mask: "+7 (999) 999-99-99",
+                    showMaskOnHover: false,
+                    showMaskOnFocus: true,
+                    placeholder: "_",
+                    clearIncomplete: false
+                }).mask(input);
+
+                // Если хочешь, чтобы маска была видна сразу:
+                input.dispatchEvent(new Event('focus'));
+                input.blur();
+            });
+        }
+    });
 }
