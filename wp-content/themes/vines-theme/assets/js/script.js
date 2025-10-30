@@ -562,5 +562,22 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 input.blur();
             });
         }
+
+        // Маска для email
+        const emailInputs = document.querySelectorAll('input[name="email"]');
+        if (emailInputs.length > 0 && typeof Inputmask !== 'undefined') {
+            emailInputs.forEach(function(input) {
+                Inputmask({
+                    alias: "email",
+                    placeholder: "example@email.ru",
+                    showMaskOnFocus: true,
+                    showMaskOnHover: false,
+                    clearIncomplete: false
+                }).mask(input);
+
+                input.dispatchEvent(new Event('focus'));
+                input.blur();
+            });
+        }
     });
 }

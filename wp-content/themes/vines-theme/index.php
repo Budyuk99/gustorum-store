@@ -226,7 +226,7 @@
             <form class="popup-form">
               <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя*" required>
               <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
-              <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru">
+              <input type="email" name="email" class="popup-form_input" placeholder="example@email.ru">
               <button type="submit" class="popup-submit">Отправить</button>
               <p class="popup-policy">
                 Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
@@ -247,7 +247,7 @@
             <form class="popup-form">
               <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя" required>
               <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
-              <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru" required>
+              <input type="email" name="email" class="popup-form_input" placeholder="example@email.ru" required>
               <button type="submit" class="popup-submit">Заказать звонок</button>
               <p class="popup-policy">
                 Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
@@ -507,7 +507,7 @@
           <form class="popup-form">
             <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя*" required>
             <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
-            <input type="email" name="email" class="popup-form_input" placeholder="your@email.ru">
+            <input type="email" name="email" class="popup-form_input" placeholder="example@email.ru">
             <button type="submit" class="popup-submit" id="popup-submit-btn">Отправить</button>
             <p class="popup-policy">
               Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
