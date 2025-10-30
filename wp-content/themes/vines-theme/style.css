@@ -895,6 +895,7 @@ ease-in-out;
 .gift-container {
   margin: 0 auto;
   line-height: 30px;
+  font-size: 18px;
 }
 
 .gift-description p {
@@ -2339,13 +2340,14 @@ header {
   transform: scale(0.8);
   transition: all 0.2s ease-in-out;
   border-radius: 20px;
-  max-height: 90vh;
+  max-height: max-content;
   flex-direction: row;
 }
 
 .popup.show .popup-content {
   transform: scale(1);
   overflow-y: auto;
+  height: 80vh;
 }
 
 .popup-close {
@@ -2642,10 +2644,11 @@ header {
 
 .popup-product-info {
   flex-basis: 30%;
-  padding: 40px;
+  padding: 20px;
   position: relative;
   background: rgba(215, 211, 204, 0.4);
   border-radius: 20px;
+  height: max-content;
 }
 
 .popup-product-info::before {
@@ -2692,6 +2695,22 @@ header {
 
 .review-photo img {
   height: 600px;
+}
+
+.form-message {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #fff;      /* цвет текста */
+  background: #28a745; /* зеленый для успеха */
+  padding: 8px;
+  border-radius: 4px;
+  display: none;    /* изначально скрыт */
+}
+
+.form-message.error {
+  display: flex;
+  background: #dc3545;
+  justify-content: center;
 }
 
 /* Адаптивность для мобильных */

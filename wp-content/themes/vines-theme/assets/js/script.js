@@ -580,4 +580,42 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
             });
         }
     });
+
+    const forms = document.querySelectorAll('.popup-form');
+
+    forms.forEach(function(form) {
+        const messageBlock = form.querySelector('.form-message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            formData.append('action', 'send_popup_form');
+            formData.append('nonce', popupForm.nonce); // переменная из wp_localize_script
+
+            fetch(popupForm.ajaxurl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    messageBlock.textContent = 'Форма успешно отправлена!';
+                    messageBlock.classList.remove('error');
+                    messageBlock.style.display = 'block';
+                    form.reset();
+                } else {
+                    messageBlock.textContent = 'Ошибка: ' + data.data;
+                    messageBlock.classList.add('error');
+                    messageBlock.style.display = 'block';
+                }
+            })
+            .catch(() => {
+                messageBlock.textContent = 'Ошибка сети';
+                messageBlock.classList.add('error');
+                messageBlock.style.display = 'block';
+            });
+        });
+    });
+
 }

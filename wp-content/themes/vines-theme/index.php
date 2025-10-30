@@ -227,6 +227,7 @@
               <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя*" required>
               <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
               <input type="email" name="email" class="popup-form_input" placeholder="example@email.ru">
+              <div id="form-message" class="form-message"></div>
               <button type="submit" class="popup-submit">Отправить</button>
               <p class="popup-policy">
                 Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
@@ -248,6 +249,7 @@
               <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя" required>
               <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
               <input type="email" name="email" class="popup-form_input" placeholder="example@email.ru" required>
+              <div id="form-message" class="form-message"></div>
               <button type="submit" class="popup-submit">Заказать звонок</button>
               <p class="popup-policy">
                 Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
@@ -504,10 +506,11 @@
         <div class="popup-right">
           <div><img src="<?php echo get_template_directory_uri(); ?>/assets/images/quastions_left.svg" class="popup-right_logo" alt="quastions_left" loading="lazy"></div>
           <h2 id="popup-title">Наш менеджер свяжется с вами в ближайшее время</h2>
-          <form class="popup-form">
+          <form class="popup-form" id="popup-form">
             <input type="text" name="name" class="popup-form_input" placeholder="Ваше имя*" required>
             <input type="tel" name="phone" class="popup-form_input" placeholder="+7" required>
             <input type="email" name="email" class="popup-form_input" placeholder="example@email.ru">
+            <div id="form-message" class="form-message"></div>
             <button type="submit" class="popup-submit" id="popup-submit-btn">Отправить</button>
             <p class="popup-policy">
               Нажимая отправить, Вы соглашаетесь с нашей <a href="/policy.html" target="_blank">политикой конфиденциальности</a>.
