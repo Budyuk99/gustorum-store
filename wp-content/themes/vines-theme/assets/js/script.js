@@ -618,4 +618,26 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
         });
     });
 
+      document.addEventListener('DOMContentLoaded', function () {
+    const policyLinks = document.querySelectorAll('.policy-link');
+    const policyPopup = document.getElementById('policy-popup');
+    const policyClose = document.getElementById('policy-close');
+
+    policyLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        policyPopup.classList.add('active');
+      });
+    });
+
+    policyClose.addEventListener('click', function () {
+      policyPopup.classList.remove('active');
+    });
+
+    policyPopup.addEventListener('click', function (e) {
+      if (e.target === policyPopup) {
+        policyPopup.classList.remove('active');
+      }
+    });
+  });
 }

@@ -2713,6 +2713,51 @@ header {
   justify-content: center;
 }
 
+/* ===== Попап политики ===== */
+.policy-popup {
+  display: none; /* по умолчанию скрыт */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.policy-popup.active {
+  display: flex;
+}
+
+.policy-popup__content {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.policy-popup__close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.policy-popup__text {
+  margin-top: 20px;
+  line-height: 1.6;
+  color: #333;
+}
+
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
   .popup-product-description {
