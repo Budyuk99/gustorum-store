@@ -2469,6 +2469,7 @@ header {
 .popup-content.form-only .popup-right {
   width: 100%;
   border-radius: 20px;
+  height: max-content;
 }
 
 .buttons-container_baskets {
