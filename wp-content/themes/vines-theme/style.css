@@ -2864,7 +2864,8 @@ header {
   position: absolute;
   left: 0;
   top: 0;
-  color: #b9975b; /
+  color: #b9975b;
+}
 
 
 /* Адаптивность для мобильных */
