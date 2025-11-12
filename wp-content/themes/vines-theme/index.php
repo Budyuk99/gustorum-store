@@ -65,7 +65,7 @@
 
 
     <section class="cards-section">
-      <h2 class="basic_h2" id="we-offer">Мы предлагаем</h2>
+      <h2 class="basic_h2" id="we-offer">Преимущества</h2>
       <ul class="cards-container">
         <!-- Карточка 1 -->
         <li class="card">
@@ -74,7 +74,7 @@
               <img src="https://optim.tildacdn.com/tild3138-6633-4639-b161-626665626333/-/resize/42x/-/format/webp/Mask_group_4_1.png.webp" loading="lazy" alt="Брендирование">
               <h3>Тираж</h3>
             </div>
-            <p>Заказ от 5 шт до бесконечности</p>
+            <p>Заказ от 1 шт до бесконечности</p>
           </div>
         </li>
 
