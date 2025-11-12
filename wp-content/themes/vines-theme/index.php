@@ -232,14 +232,6 @@
           <div class="popup-left">
             <img id="popup-image" src="" alt="Товар" loading="lazy">
           </div>
-          
-          <!-- Добавляем этот блок для текстовой информации -->
-          <div class="popup-product-info">
-            <h3 id="popup-product-title"></h3>
-            <div class="popup-product-price" id="popup-product-price"></div>
-
-            <p class="popup-product-info_description"></p>
-          </div>
 
           <div class="popup-right">
             <div><img src="<?php echo get_template_directory_uri(); ?>/assets/images/quastions_left.svg" class="popup-right_logo" alt="quastions_left" loading="lazy"></div>
@@ -254,6 +246,14 @@
                 Нажимая отправить, Вы соглашаетесь с нашей <a href="#" class="policy-link">политикой конфиденциальности</a>.
               </p>
             </form>
+          </div>
+          
+          <!-- Добавляем этот блок для текстовой информации -->
+          <div class="popup-product-info">
+            <h3 id="popup-product-title"></h3>
+            <div class="popup-product-price" id="popup-product-price"></div>
+
+            <p class="popup-product-info_description"></p>
           </div>
         </div>
       </div>
