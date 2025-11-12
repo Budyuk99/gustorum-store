@@ -2807,6 +2807,66 @@ header {
   color: #333;
 }
 
+.gift-description {
+  background-color: #faf9f7;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.gift-container {
+  max-width: 900px;
+  margin: 0 auto;
+  color: #333;
+  line-height: 1.7;
+  font-size: 18px;
+}
+
+.gift-title {
+  font-size: 36px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 30px;
+}
+
+.gift-intro {
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.gift-list-block {
+  padding: 40px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.gift-list-block h3 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.gift-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gift-list li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 28px;
+}
+
+.gift-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #b9975b; /
+
+
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
   .popup-product-description {
