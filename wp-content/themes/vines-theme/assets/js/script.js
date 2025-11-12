@@ -454,8 +454,8 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
                 
                 switch(formType) {
                     case 'kp':
-                        this.popupTitle.textContent = 'Запросить коммерческое предложение';
-                        this.popupSubmitBtn.textContent = 'Запросить КП';
+                        this.popupTitle.textContent = 'Получить каталог';
+                        this.popupSubmitBtn.textContent = 'Получить каталог';
                         break;
                     case 'callback':
                         this.popupTitle.textContent = 'Заказать обратный звонок';

@@ -1,20 +1,15 @@
 <?php get_header(); ?>
 
 <main>
-    <section class="main-video">
-        <video autoplay muted loop playsinline class="main-video_block">
-          <source src="<?php echo get_stylesheet_directory_uri(); ?>/assets/video/main_video.mp4" type="video/mp4">
-        </video>
-    </section>
+    <section class="main-hero">
+      <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/main_banner.jpg" alt="GUSTORUM" class="main-hero__bg">
 
-    <section class="text-after-main-slider">
-      <div class="container flex-container flex-container_under-banner">
+      <div class="container hero-content">
         <div class="hero-text">
-          <h1>Коллегам. Партнерам. Клиентам.</h1>
           <div class="hero-text_second">
             <p><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</p>
             <div class="hero-buttons">
-              <a href="#" class="btn btn-primary" data-popup="call" data-popup-type="kp">Запросить КП</a>
+              <a href="#" class="btn btn-primary" data-popup="call" data-popup-type="kp">Получить каталог</a>
             </div>
           </div>
         </div>
@@ -42,6 +37,31 @@
         </div>
       </div>
     </section>
+
+    <section class="gift-description basic-section">
+        <div class="gift-container">
+          <p>
+            <strong>Gustorum: ваш выбор в мире деловых подарков</strong>
+            <br>
+            Дарите не просто подарки, а вкус и эмоции. Наша миссия — превратить корпоративное 
+            внимание в запоминающийся гастрономический опыт.
+            <br>
+            Мы создаем подарочные наборы для тех, кто ценит детали:
+          </p>
+          <p>
+            <ul class="gift-container_list">
+              <li><strong>Качество и вкус:</strong> только тщательно отобранные продукты.</li>
+              <li><strong>Продуманный дизайн:</strong> упаковка, которая усиливает впечатление и сама становится презентом.</li>
+              <li><strong>Исключительность:</strong> решение, которое выгодно отличает вас на фоне стандартных корпоративных сувениров.</li>
+            </ul>
+          </p>
+          <p>
+            Впечатлите всю команду — от сотрудников до руководства. 
+            С Gustorum покупка оригинальных подарков оптом становится 
+            простой и эффективной задачей.
+          </p>
+        </div>
+      </section>
 
     <section class="cards-section">
       <h2 class="basic_h2" id="we-offer">Мы предлагаем</h2>
@@ -147,7 +167,7 @@
       </ul>
 
       <div class="buttons-container buttons-container_baskets">
-        <a href="#popup:myformkp" class="btn btn-primary" data-popup="call" data-popup-type="kp">Запросить КП</a>
+        <a href="#popup:myformkp" class="btn btn-primary" data-popup="call" data-popup-type="kp">Получить каталог</a>
       </div>
     </section>
 
@@ -387,34 +407,9 @@
         </div>
       </div>
 
-      <section class="gift-description basic-section">
-        <div class="gift-container">
-          <p>
-            <strong>Gustorum: ваш выбор в мире деловых подарков</strong>
-            <br>
-            Дарите не просто подарки, а вкус и эмоции. Наша миссия — превратить корпоративное 
-            внимание в запоминающийся гастрономический опыт.
-            <br>
-            Мы создаем подарочные наборы для тех, кто ценит детали:
-          </p>
-          <p>
-            <ul class="gift-container_list">
-              <li><strong>Качество и вкус:</strong> только тщательно отобранные продукты.</li>
-              <li><strong>Продуманный дизайн:</strong> упаковка, которая усиливает впечатление и сама становится презентом.</li>
-              <li><strong>Исключительность:</strong> решение, которое выгодно отличает вас на фоне стандартных корпоративных сувениров.</li>
-            </ul>
-          </p>
-          <p>
-            Впечатлите всю команду — от сотрудников до руководства. 
-            С Gustorum покупка оригинальных подарков оптом становится 
-            простой и эффективной задачей.
-          </p>
-        </div>
-      </section>
-
       <section class="contact-buttons basic-section">
         <div class="buttons-container">
-          <a href="#popup:myformkp" class="btn btn-primary" data-popup="call" data-popup-type="kp">Запросить КП</a>
+          <a href="#popup:myformkp" class="btn btn-primary" data-popup="call" data-popup-type="kp">Получить каталог</a>
         </div>
       </section>
     </main>
@@ -542,7 +537,7 @@
       </div>
 
       <div class="buttons-container-steps">
-        <a href="#" class="btn btn-primary btn-primary-steps" data-popup="call" data-popup-type="kp">Запросить КП</a>
+        <a href="#" class="btn btn-primary btn-primary-steps" data-popup="call" data-popup-type="kp">Получить каталог</a>
       </div>
     </section>
 
