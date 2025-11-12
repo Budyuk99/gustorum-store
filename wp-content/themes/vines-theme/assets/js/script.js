@@ -360,7 +360,7 @@ if (typeof window.sweetgiftInitialized !== 'undefined') {
         const track = document.querySelector('.partners-marquee__track');
         if (track) {
             const items = Array.from(track.children);
-            const MARQUEE_SPEED = 30;
+            const MARQUEE_SPEED = 200;
             
             if (items.length === 0) return;
 

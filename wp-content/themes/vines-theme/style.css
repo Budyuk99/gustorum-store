@@ -554,7 +554,7 @@ ease-in-out;
 .marquee-track, .marquee-track-footer {
   display: flex;
   gap: 60px;
-  animation: marquee 40s linear infinite;
+  animation: marquee 120s linear infinite;
   will-change: transform;
   padding: 0 30px;
 }
