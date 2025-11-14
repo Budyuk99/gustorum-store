@@ -21,7 +21,7 @@
         </div>
         <div class="header-inner_menu">
             <nav>
-                <a href="#we-offer">МЫ ПРЕДЛАГАЕМ</a>
+                <a href="#we-offer">Преимущества</a>
                 <a href="#assortment">АССОРТИМЕНТ</a>
                 <a href="#branding">БРЕНДИРОВАНИЕ</a>
                 <a href="#discounts-on-bulk-orders">СКИДКИ НА ОПТОВЫЕ ЗАКАЗЫ</a>

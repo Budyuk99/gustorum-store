@@ -2209,12 +2209,16 @@ header {
   left: -100%;
   width: 100%;
   height: 100vh;
+  height: 100svh;
   background: #fff;
   z-index: 1000;
   transition: left 0.3s ease;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-menu.active {
@@ -2386,7 +2390,7 @@ header {
 
 .popup-content {
   background: #F0ECE4;
-  width: 60%;
+  width: 70%;
   display: flex;
   overflow: hidden;
   position: relative;
@@ -2402,6 +2406,7 @@ header {
   overflow-y: auto;
   height: 80vh;
   flex-wrap: wrap;
+  flex-direction: row;
 }
 
 #popup-product-title {
@@ -2619,7 +2624,7 @@ header {
   padding: 20px;
   border-radius: 20px;
   flex-basis: 50%;
-  height: 100%;
+  height: 80%;
 }
 
 .popup-left img.popup-main-image {
@@ -3268,6 +3273,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-tap-highlight-color: transparent;
   }
   
   .header-inner_menu nav a {
@@ -3725,6 +3731,9 @@ header {
 
   .popup-left {
     padding: 20px;
+    flex-direction: row;
+    margin-bottom: 20%;
+    justify-content: center;
   }
 
   .popup-left img {
