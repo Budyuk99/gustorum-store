@@ -50,7 +50,7 @@
             <button class="mobile-menu__close" id="mobileMenuClose" aria-label="Закрыть меню">×</button>
         </div>
         <nav class="mobile-menu__nav">
-            <a href="#we-offer">МЫ ПРЕДЛАГАЕМ</a>
+            <a href="#we-offer">ПРЕИМУЩЕСТВА</a>
             <a href="#assortment">АССОРТИМЕНТ</a>
             <a href="#branding">БРЕНДИРОВАНИЕ</a>
             <a href="#discounts-on-bulk-orders">СКИДКИ НА ОПТОВЫЕ ЗАКАЗЫ</a>
