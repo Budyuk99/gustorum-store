@@ -410,7 +410,7 @@
 
       <section class="contact-buttons basic-section">
         <div class="buttons-container">
-          <a href="#popup:myformkp" class="btn btn-primary" data-popup="call" data-popup-type="kp">Получить каталог</a>
+          <a href="#" class="btn btn-primary" data-popup="call" data-popup-type="kp">Получить каталог</a>
         </div>
       </section>
     </main>
@@ -563,6 +563,10 @@
             К 23 февраля — до 5 февраля<br>
             К 8 марта — до 10 февраля
           </p>
+
+          <div class="discounts-section__btn-wrapper">
+            <a href="#" class="discounts-section__btn" data-popup="call" data-popup-type="discount">Зафиксировать скидку до 15%</a>
+          </div>
         </div>
       </div>
     </section>
