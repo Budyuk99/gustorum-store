@@ -3148,6 +3148,8 @@ header {
 
   .popup-left {
     flex-basis: 100%;
+    flex-direction: row;
+    justify-content: center;
   }
 }
 
@@ -3275,7 +3277,7 @@ header {
     justify-content: center;
     -webkit-tap-highlight-color: transparent;
   }
-  
+
   .header-inner_menu nav a {
     padding: 12px 10px;
   }
