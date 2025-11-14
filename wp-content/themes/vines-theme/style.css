@@ -2390,7 +2390,7 @@ header {
 
 .popup-content {
   background: #F0ECE4;
-  width: 70%;
+  width: 80%;
   display: flex;
   overflow: hidden;
   position: relative;
@@ -2620,11 +2620,11 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   padding: 20px;
   border-radius: 20px;
   flex-basis: 50%;
-  height: 80%;
+  height: 90%;
 }
 
 .popup-left img.popup-main-image {
@@ -3021,6 +3021,7 @@ header {
 @media (max-width: 1034px) {
   .popup-left {
     flex-basis: 100%;
+    flex-direction: column;
   }
 }
 
@@ -3148,7 +3149,7 @@ header {
 
   .popup-left {
     flex-basis: 100%;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
   }
 }
@@ -3229,6 +3230,10 @@ header {
   .mobile-menu__call-btn {
     padding: 14px;
     font-size: 15px;
+  }
+
+  .popup-product-info {
+    padding: 10px 20px;
   }
 }
 
@@ -3733,9 +3738,10 @@ header {
 
   .popup-left {
     padding: 20px;
-    flex-direction: row;
-    margin-bottom: 20%;
+    flex-direction: column;
+    margin-bottom: 0;
     justify-content: center;
+    height: 90%;
   }
 
   .popup-left img {
@@ -3746,6 +3752,10 @@ header {
   .popup-left .popup-main-image {
     width: 270px;
     height: 270px;
+  }
+
+  .popup-left img.popup-main-image {
+    height: 65%;
   }
 }
 
