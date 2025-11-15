@@ -2890,47 +2890,6 @@ header {
   color: #b9975b;
 }
 
-
-/* Адаптивность для мобильных */
-/* @media (max-width: 768px) {
-  .popup-product-description {
-    flex: 0 0 100%;
-    border-right: none;
-    border-bottom: 1px solid #E1DBCD;
-    order: 2;
-  }
-  
-  .popup-content {
-    flex-direction: column;
-  }
-  
-  .popup-product-description h3 {
-    font-size: 16px;
-  }
-  
-  .popup-product-price {
-    font-size: 18px;
-  }
-} */
-
-/* Адаптив */
-/* @media (max-width: 768px) {
-  .popup-content {
-    width: 90% !important;
-    flex-direction: column;
-  }
-  
-  .popup-content.form-only {
-    width: 90% !important;
-  }
-  
-  .popup-right {
-    width: 100% !important;
-    border-radius: 20px !important;
-    padding: 30px 20px;
-  }
-} */
-
 @media (max-width: 480px) {
   .popup-content {
     width: 95% !important;
@@ -2950,6 +2909,10 @@ header {
   .call-popup-content {
     width: 90% !important;
     max-width: 400px;
+  }
+
+  .hero-text {
+    margin-top: 70px;
   }
 }
 
@@ -3539,7 +3502,7 @@ header {
   }
   
   .hero-text p {
-    font-size: 18px;
+    font-size: 24px;
     line-height: 1.5;
   }
   
@@ -3807,7 +3770,11 @@ header {
   }
   
   .hero-text p {
-    font-size: 16px;
+    font-size: 24px;
+  }
+
+  .hero-text {
+    width: 70%;
   }
   
   .delivery-info {
