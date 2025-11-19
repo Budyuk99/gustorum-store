@@ -2,14 +2,28 @@
 
 <main>
   <section class="main-hero">
-    <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/main_banner.jpg" alt="GUSTORUM" class="main-hero__bg">
-
     <div class="container hero-content">
-      <div class="hero-text">
-        <div class="hero-text_second">
-          <p><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</p>
-          <div class="hero-buttons">
-            <a href="#" class="btn btn-primary" data-popup="call" data-popup-type="kp">Оставить заявку</a>
+      <div class="hero-form-wrapper">
+        <h2 class="form-title"><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
+        <div class="hero-block">
+          <div class="hero-form">
+            <div class="hero-form_text">
+              <ul>
+                <li>Работаем с любыми объёмами</li>
+                <li>Собираем наборы под ваш бюджет</li>
+                <li>Доставка по Москве и МО до двери</li>
+              </ul>
+            </div>
+            <form action="#" method="post">
+              <div class="form-fields">
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="tel" name="phone" placeholder="Номер телефона" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+          </div>
+          <div class="hero-form-image">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/photo_2025-10-25_20-16-57.webp" alt="VIP">
           </div>
         </div>
       </div>
