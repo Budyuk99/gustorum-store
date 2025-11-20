@@ -3065,7 +3065,8 @@ header {
   font-size: 53px;
   margin: 0;
   margin-bottom: 20px;
-  color: white;
+  color: black;
+  text-align: left;
 }
 
 .main-form_block .form-left,
@@ -3090,12 +3091,13 @@ header {
 }
 
 .form-left input {
-  width: 400px;
+  width: 100%;
   padding: 14px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
   border: 2px solid #902732;
+  background-color: white;
 }
 
 .form-left input:focus {
@@ -3110,7 +3112,9 @@ header {
   color: white;
   border-radius: 8px;
   cursor: pointer;
-  width: 400px;
+  width: 100%;
+  font-size: 16px;
+  letter-spacing: normal;
 }
 
 .form-left button:hover {
@@ -3119,8 +3123,7 @@ header {
 
 .form-right img {
   width: 100%;
-  border-radius: 6px;
-  /* height: 800px; */
+  border-radius: 0;
   object-fit: cover;
   display: flex;
 }
@@ -3163,6 +3166,335 @@ header {
   width: 100%;
 }
 
+/* Основные стили блока - ФИКСИРОВАННАЯ ВЫСОТА */
+.main-form {
+  width: 100%;
+  height: 780px; /* Фиксированная высота */
+  background: white;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.form-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Левая часть - форма */
+.form-left {
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  background: white;
+  height: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.form-title {
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #000;
+  margin: 0;
+}
+
+.form-title strong {
+  font-weight: 700;
+}
+
+.form-features {
+  margin: 10px 0;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feature-item {
+  position: relative;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: black;
+  list-style: disc;
+  list-style-position: inside;
+  padding: 0;
+}
+
+/* Форма */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1rem;
+  border: 2px solid #902732;
+  border-radius: 6px;
+  background: #fff;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #ce1119;
+}
+
+.form-input::placeholder {
+  color: #666;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1.1rem;
+  background: #902732;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  background: #ce1119;
+}
+
+/* Правая часть - изображение */
+.form-right {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.form-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Адаптивность с сохранением фиксированной высоты */
+
+/* Большие экраны */
+@media (min-width: 1920px) {
+  .main-form {
+    min-height: 800px; /* Немного больше на больших экранах */
+  }
+
+  .form-left {
+    padding: 0 80px;
+  }
+
+  .form-title {
+    font-size: 2.5rem;
+  }
+
+  .feature-item {
+    font-size: 1.2rem;
+  }
+
+  .contact-form {
+    max-width: 450px;
+  }
+}
+
+/* Ноутбуки */
+@media (max-width: 1440px) {
+  .main-form {
+    height: 900px;
+  }
+
+  .form-left {
+    padding: 0 40px;
+  }
+
+  .form-title {
+    font-size: 2rem;
+  }
+}
+
+/* Планшеты (ландшафт) */
+@media (max-width: 1024px) {
+  .main-form {
+    height: 970px;
+  }
+
+  .form-content {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-left {
+    padding: 30px 30px;
+  }
+
+  .form-title {
+    font-size: 1.6rem;
+  }
+
+  .feature-item {
+    font-size: 1rem;
+  }
+}
+
+/* Планшеты (портрет) */
+@media (max-width: 768px) {
+  .main-form {
+    height: 900px; /* Увеличиваем высоту для вертикальной компоновки */
+  }
+
+  .form-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr; /* Две равные части */
+  }
+
+  .form-left {
+    padding: 40px 30px;
+    order: 0; /* Форма снизу */
+    justify-content: flex-start;
+  }
+
+  .form-right {
+    order: 1; /* Изображение сверху */
+    height: 100%;
+  }
+
+  .form-title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .contact-form {
+    max-width: 100%;
+  }
+}
+
+/* Мобильные устройства (ландшафт) */
+@media (max-width: 768px) and (orientation: landscape) {
+  .main-form {
+    height: 600px; /* Меньшая высота в альбомной ориентации */
+  }
+}
+
+/* Мобильные устройства (портрет) */
+@media (max-width: 480px) {
+  .main-form {
+    height: 800px;
+  }
+
+  .form-left {
+    padding: 30px 20px;
+  }
+
+  .form-title {
+    font-size: 1.3rem;
+  }
+
+  .feature-item {
+    font-size: 0.9rem;
+  }
+
+  .form-input {
+    padding: 12px 15px;
+  }
+
+  .submit-btn {
+    padding: 12px 15px;
+    font-size: 1rem;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px) {
+  .main-form {
+    height: 750px;
+  }
+
+  .form-left {
+    padding: 25px 15px;
+  }
+
+  .form-title {
+    font-size: 1.2rem;
+  }
+
+  .feature-item {
+    font-size: 0.8rem;
+  }
+}
+
+/* Гарантия что ничего не выходит за границы */
+.main-form {
+  box-sizing: border-box;
+}
+
+.form-content > * {
+  box-sizing: border-box;
+}
+
+/* Убираем возможные скроллы внутри блока */
+.form-left,
+.form-right {
+  overflow: hidden;
+  align-items: center;
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+  .form-left {
+    background: white;
+  }
+
+  .form-title {
+    color: #fff;
+  }
+
+  .feature-item {
+    color: black;
+  }
+
+  .form-input {
+    color: black;
+    background: #2d2d2d;
+    color: black;
+    border-color: #902732;
+  }
+
+  .form-input::placeholder {
+    color: #888;
+  }
+}
+
 @media (max-width: 768px) {
   .form-container {
     grid-template-columns: 1fr;
@@ -3170,7 +3502,7 @@ header {
   }
 
   .form-right {
-    order: -1;
+    order: 1;
   }
 
   .main-form_block {
@@ -3231,6 +3563,10 @@ header {
 
   .form-fields input {
     width: 350px;
+  }
+
+  .main-form {
+    height: 1100px;
   }
 }
 
@@ -3345,8 +3681,6 @@ header {
     font-size: 13px;
     padding: 6px 8px;
   }
-
-
 }
 
 /* Desktops */
@@ -3519,6 +3853,10 @@ header {
     flex-basis: 100%;
     flex-direction: column;
     justify-content: center;
+  }
+
+  .main-form {
+    height: 1700px;
   }
 }
 
@@ -4125,6 +4463,10 @@ header {
   .popup-left img.popup-main-image {
     height: 65%;
   }
+
+  .main-form {
+    height: 1850px;
+  }
 }
 
 /* Mobile Devices */
@@ -4331,9 +4673,19 @@ header {
     padding: 16px;
     font-size: 16px;
   }
+
+  .main-form {
+    height: 1850px;
+  }
 }
 
 /* Small Mobile */
+@media (max-width: 495px) {
+  .main-form {
+    height: 2060px;
+  }
+}
+
 @media (max-width: 480px) {
   .flex-container {
     flex-direction: column;
@@ -4443,6 +4795,16 @@ header {
 
   .marquee-item {
     font-size: 11px;
+  }
+
+  .main-form {
+    height: 2200px;
+  }
+}
+
+@media (max-width: 334px) {
+  .main-form {
+    height: 2400px;
   }
 }
 

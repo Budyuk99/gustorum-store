@@ -2,28 +2,34 @@
 
 <main>
   <section class="main-form">
-    <div class="form-container">
-      <div class="main-form_block">
-        <div class="form-left">
-          <h2><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
-          <div class="form-left_text">
-            <ul>
-              <li>Работаем с любыми объёмами</li>
-              <li>Собираем наборы под ваш бюджет</li>
-              <li>Доставка по Москве и МО до двери</li>
-            </ul>
-          </div>
-          <form>
-            <input type="text" placeholder="Ваше имя" required />
-            <input type="tel" placeholder="Ваш телефон" required />
-            <button type="submit">Отправить</button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <div class="form-content">
+      <!-- Левая часть - форма -->
+      <div class="form-left">
+        <h2 class="form-title"><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
 
-    <div class="form-right">
-      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/photo_2025-10-25_20-16-57.webp" alt="Изображение" />
+        <div class="form-features">
+          <ul class="features-list">
+            <li class="feature-item">Работаем с любыми объёмами</li>
+            <li class="feature-item">Собираем наборы под ваш бюджет</li>
+            <li class="feature-item">Доставка по Москве и МО до двери</li>
+          </ul>
+        </div>
+
+        <form class="contact-form">
+          <div class="form-group">
+            <input type="text" placeholder="Ваше имя" required class="form-input" />
+          </div>
+          <div class="form-group">
+            <input type="tel" placeholder="Ваш телефон" required class="form-input" />
+          </div>
+          <button type="submit" class="submit-btn">Отправить</button>
+        </form>
+      </div>
+
+      <!-- Правая часть - изображение на всю высоту и ширину -->
+      <div class="form-right">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/photo_2025-10-25_20-16-57.webp" alt="Подарочные наборы GUSTORUM" class="form-image" />
+      </div>
     </div>
   </section>
 
