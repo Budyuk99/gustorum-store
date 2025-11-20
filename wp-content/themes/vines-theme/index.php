@@ -495,7 +495,7 @@
       </div>
 
       <div class="discounts-section__btn-wrapper">
-        <a href="#" class="discounts-section__btn" data-popup="call" data-popup-type="discount">Оставить заявку</a>
+        <a href="#" class="btn-primary" data-popup="call" data-popup-type="discount">Оставить заявку</a>
       </div>
     </div>
   </section>

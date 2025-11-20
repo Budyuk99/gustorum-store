@@ -1090,6 +1090,8 @@ a.header-inner_second__make-call:hover {
 
 .discounts-section__btn-wrapper {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .discounts-section__btn {
@@ -3009,7 +3011,6 @@ header {
   font-family: "Calibri";
   border-radius: 6px;
   cursor: pointer;
-  width: 100%;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   border-radius: 6px;
@@ -3051,12 +3052,18 @@ header {
   background: white;
   border-radius: 6px;
   flex-direction: column;
-  border: 3px solid #902732;
+  border: none;
   margin: 0 100px;
 }
 
+.form-left_text {
+  display: flex;
+  justify-content: center;
+}
+
 .form-left h2 {
-  font-size: 28px;
+  font-size: 53px;
+  margin: 0;
   margin-bottom: 20px;
   color: white;
 }
@@ -3078,9 +3085,12 @@ header {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
+  align-items: center;
 }
 
 .form-left input {
+  width: 400px;
   padding: 14px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -3100,6 +3110,7 @@ header {
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  width: 400px;
 }
 
 .form-left button:hover {
@@ -3109,7 +3120,7 @@ header {
 .form-right img {
   width: 100%;
   border-radius: 6px;
-  height: 800px;
+  /* height: 800px; */
   object-fit: cover;
   display: flex;
 }
@@ -3126,6 +3137,7 @@ header {
   list-style-position: inside;
   padding: 0;
   margin: 0;
+  width: 400px;
 }
 
 .form-left_text ul li {
@@ -3148,6 +3160,7 @@ header {
 
 .form-right {
   flex: 1;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -3191,8 +3204,8 @@ header {
   }
 
   .btn-primary {
-    padding: 20px 45px;
-    font-size: 20px;
+    padding: 15px 40px;
+    font-size: 16px;
   }
 
   .hero-form-image img {
@@ -3333,27 +3346,7 @@ header {
     padding: 6px 8px;
   }
 
-  /* .popup-content{
-    width: 70%;
-  }
 
-  .popup-content.form-only {
-    width: 30%;
-  }
-
-  .popup-product-info {
-    padding: 20px;
-  }
-
-  .popup-content {
-    flex-direction: column;
-    display: flex;
-  }
-
-  .popup-left img.popup-main-image {
-    width: 40%;
-    height: 40%;
-  } */
 }
 
 /* Desktops */
@@ -3382,6 +3375,14 @@ header {
   .header-inner_second__make-call {
     padding: 8px 16px;
     font-size: 13px;
+  }
+
+  .form-container {
+    margin: 0 50px;
+  }
+
+  .main-form {
+    flex-direction: column;
   }
 }
 
