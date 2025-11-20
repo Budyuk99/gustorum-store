@@ -3,10 +3,9 @@
 <main>
   <section class="main-form">
     <div class="form-container">
-      <h2><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
-
       <div class="main-form_block">
         <div class="form-left">
+          <h2><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
           <div class="form-left_text">
             <ul>
               <li>Работаем с любыми объёмами</li>
