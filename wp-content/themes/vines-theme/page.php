@@ -3,9 +3,9 @@
 <main class="page-content">
     <?php while (have_posts()) : the_post(); ?>
         <article id="page-<?php the_ID(); ?>" <?php post_class(); ?>>
-            <header class="page-header">
+            <!-- <header class="page-header">
                 <h1 class="page-title"><?php the_title(); ?></h1>
-            </header>
+            </header> -->
             
             <div class="page-content">
                 <?php the_content(); ?>

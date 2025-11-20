@@ -3304,7 +3304,23 @@ header {
   display: block;
 }
 
-/* Адаптивность с сохранением фиксированной высоты */
+/* 1. html и body на всю высоту */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* 2. Обертка на всю высоту, flex-контейнер */
+.site-wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3. Контент растягивается на всё доступное пространство */
+.page-content {
+  flex: 1;
+}
 
 /* Большие экраны */
 @media (min-width: 1920px) {
