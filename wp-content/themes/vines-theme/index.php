@@ -1,30 +1,28 @@
 <?php get_header(); ?>
 
 <main>
-  <section class="main-hero">
-    <div class="container hero-content">
-      <div class="hero-form-wrapper">
-        <h2 class="form-title"><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
-        <div class="hero-block">
-          <div class="hero-form">
-            <div class="hero-form_text">
-              <ul>
-                <li>Работаем с любыми объёмами</li>
-                <li>Собираем наборы под ваш бюджет</li>
-                <li>Доставка по Москве и МО до двери</li>
-              </ul>
-            </div>
-            <form action="#" method="post">
-              <div class="form-fields">
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <input type="tel" name="phone" placeholder="Номер телефона" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Отправить</button>
-            </form>
+  <section class="main-form">
+    <div class="form-container">
+      <h2><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
+
+      <div class="main-form_block">
+        <div class="form-left">
+          <div class="form-left_text">
+            <ul>
+              <li>Работаем с любыми объёмами</li>
+              <li>Собираем наборы под ваш бюджет</li>
+              <li>Доставка по Москве и МО до двери</li>
+            </ul>
           </div>
-          <div class="hero-form-image">
-            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/photo_2025-10-25_20-16-57.webp" alt="VIP">
-          </div>
+          <form>
+            <input type="text" placeholder="Ваше имя" required />
+            <input type="tel" placeholder="Ваш телефон" required />
+            <button type="submit">Отправить</button>
+          </form>
+        </div>
+
+        <div class="form-right">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/photo_2025-10-25_20-16-57.webp" alt="Изображение" />
         </div>
       </div>
     </div>

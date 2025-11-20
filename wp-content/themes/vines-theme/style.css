@@ -2914,7 +2914,7 @@ header {
 
 .main-hero {
     padding: 100px 20px;
-    background: rgb(144,39,50);
+    background: white;
 }
 
 .hero-content {
@@ -3030,6 +3030,96 @@ header {
     height: 100%;
     border-radius: 6px;
     object-fit: cover;
+}
+
+.main-form {padding: 40px 20px;background: white;display: flex;justify-content: center;align-items: center;}
+
+
+.form-container {max-width: 1200px;width: 100%;display: flex;gap: 0px;align-items: center;padding: 40px;background: white;border-radius: 6px;flex-direction: column;border: 3px solid #902732;}
+
+
+.form-left h2 {font-size: 28px;margin-bottom: 20px;color: white;}
+
+.main-form_block .form-left,
+.main-form_block .form-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+}
+
+.form-container h2 {
+  color: black;
+}
+
+.form-left form {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+
+.form-left input {padding: 14px;font-size: 16px;border: 1px solid #ccc;border-radius: 8px;border: 2px solid #902732;}
+
+.form-left input:focus {
+  border: 1px solid #ce1119;
+}
+
+
+.form-left button {padding: 14px;font-size: 18px;border: none;background: #902732;color: white;border-radius: 8px;cursor: pointer;}
+
+
+.form-left button:hover {background: #ce1119;}
+
+
+.form-right img {width: 100%;border-radius: 6px;height: 400px;object-fit: cover;}
+
+.main-form_block {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+}
+
+.form-left_text ul {
+  list-style: disc;
+  list-style-position: inside;
+  padding: 0;
+  margin: 0;
+}
+
+.form-left_text ul li {
+  font-size: 21px;
+  text-align: left;
+}
+
+.form-left input:focus,
+.form-left input:focus-visible {
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: #ce1119 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+.form-container {
+grid-template-columns: 1fr;
+text-align: center;
+}
+
+.form-right {
+order: -1;
+}
+
+.main-form_block {
+  flex-direction: column;
+}
+
+.form-container {
+  padding: 20px;
+}
 }
 
 /* Для очень больших экранов */
