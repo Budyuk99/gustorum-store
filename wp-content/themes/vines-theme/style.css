@@ -3033,7 +3033,7 @@ header {
 }
 
 .main-form {
-  padding: 40px 20px;
+  padding: 0;
   background: white;
   display: flex;
   justify-content: center;
@@ -3041,6 +3041,7 @@ header {
 }
 
 .form-container {
+  flex: 1;
   max-width: 1200px;
   width: 100%;
   display: flex;
@@ -3051,6 +3052,7 @@ header {
   border-radius: 6px;
   flex-direction: column;
   border: 3px solid #902732;
+  margin: 0 100px;
 }
 
 .form-left h2 {
@@ -3107,8 +3109,9 @@ header {
 .form-right img {
   width: 100%;
   border-radius: 6px;
-  height: 400px;
+  height: 800px;
   object-fit: cover;
+  display: flex;
 }
 
 .main-form_block {
@@ -3141,6 +3144,10 @@ header {
 
 .form-left {
   padding: 20px;
+}
+
+.form-right {
+  flex: 1;
 }
 
 @media (max-width: 768px) {

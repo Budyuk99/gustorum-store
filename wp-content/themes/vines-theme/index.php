@@ -19,11 +19,11 @@
             <button type="submit">Отправить</button>
           </form>
         </div>
-
-        <div class="form-right">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/photo_2025-10-25_20-16-57.webp" alt="Изображение" />
-        </div>
       </div>
+    </div>
+
+    <div class="form-right">
+      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/photo_2025-10-25_20-16-57.webp" alt="Изображение" />
     </div>
   </section>
 
