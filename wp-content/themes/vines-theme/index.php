@@ -15,7 +15,7 @@
           </ul>
         </div>
 
-        <form class="contact-form" method="post" action="http://vines/?page_id=86">
+        <form class="contact-form" method="post" action="<?php echo esc_url( get_permalink( 86 ) ); ?>">
           <div class="form-group">
             <input type="text" placeholder="Ваше имя" required class="form-input" />
           </div>
