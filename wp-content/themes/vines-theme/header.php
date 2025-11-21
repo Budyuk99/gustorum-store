@@ -24,13 +24,13 @@
                 </div>
                 <div class="header-inner_menu">
                     <nav>
-                        <a href="#we-offer">ПРЕИМУЩЕСТВА</a>
-                        <a href="#assortment">АССОРТИМЕНТ</a>
-                        <a href="#branding">БРЕНДИРОВАНИЕ</a>
-                        <a href="#discounts-on-bulk-orders">СКИДКИ НА ОПТОВЫЕ ЗАКАЗЫ</a>
-                        <a href="#how-we-work">КАК МЫ РАБОТАЕМ</a>
-                        <a href="#reviews">ОТЗЫВЫ</a>
-                        <a href="#who-tried-our-gifts">КТО УЖЕ ПОПРОБОВАЛ НАШИ ПОДАРКИ</a>
+                        <a href="<?php echo home_url( '/#we-offer' ); ?>">ПРЕИМУЩЕСТВА</a>
+                        <a href="<?php echo home_url( '/#assortment' ); ?>">АССОРТИМЕНТ</a>
+                        <a href="<?php echo home_url( '/#branding' ); ?>">БРЕНДИРОВАНИЕ</a>
+                        <a href="<?php echo home_url( '/#discounts-on-bulk-orders' ); ?>">СКИДКИ НА ОПТОВЫЕ ЗАКАЗЫ</a>
+                        <a href="<?php echo home_url( '/#how-we-work' ); ?>">КАК МЫ РАБОТАЕМ</a>
+                        <a href="<?php echo home_url( '/#reviews' ); ?>">ОТЗЫВЫ</a>
+                        <a href="<?php echo home_url( '/#who-tried-our-gifts' ); ?>">КТО УЖЕ ПОПРОБОВАЛ НАШИ ПОДАРКИ</a>
                     </nav>
                 </div>
                 <div class="header-inner__contact-data">

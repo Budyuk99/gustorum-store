@@ -7,12 +7,13 @@
       <div class="form-left">
         <h2 class="form-title"><strong>GUSTORUM</strong> – эффектные и оригинальные подарочные наборы, которые оценят и запомнят надолго.</h2>
 
-        <div class="form-features">
-          <ul class="features-list">
-            <li class="feature-item">Работаем с любыми объёмами</li>
-            <li class="feature-item">Собираем наборы под ваш бюджет</li>
-            <li class="feature-item">Доставка по Москве и МО до двери</li>
-          </ul>
+        <div class="form-content_block">
+          <div class="form-features">
+            <ul class="features-list">
+              <li class="feature-item">Работаем с любыми объёмами</li>
+              <li class="feature-item">Собираем наборы под ваш бюджет</li>
+              <li class="feature-item">Доставка по Москве и МО до двери</li>
+            </ul>
         </div>
 
         <form class="contact-form" method="post" action="<?php echo esc_url( home_url( '/thank-you/' ) ); ?>">
@@ -24,6 +25,7 @@
           </div>
           <button type="submit" class="submit-btn">Отправить</button>
         </form>
+        </div>
       </div>
 
       <!-- Правая часть - изображение на всю высоту и ширину -->

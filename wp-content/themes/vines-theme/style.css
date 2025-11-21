@@ -3213,6 +3213,8 @@ header {
 
 .form-features {
   margin: 10px 0;
+  width: 100%;
+  text-align: left;
 }
 
 .features-list {
@@ -3366,6 +3368,10 @@ html, body {
 
 .thank-you-left p {
   font-size: 30px;
+}
+
+.form-content_block {
+  display: flex;
 }
 
 @media (max-width: 768px) {
