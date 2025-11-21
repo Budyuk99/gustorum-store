@@ -3318,9 +3318,74 @@ html, body {
 }
 
 /* 3. Контент растягивается на всё доступное пространство */
-.page-content {
+.thank-you {
   flex: 1;
 }
+
+.thank-you {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh; /* The entire block fits screen height */
+  margin: 0;
+  padding: 0;
+}
+
+.thank-you-wrapper {
+  display: flex;
+  width: 100%;
+  height: 70vh;          /* Block = full screen height */
+  max-height: 1000px;     /* But never more than 1000px */
+}
+
+/* Левая часть */
+.thank-you-left {
+  width: 50%;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Правая часть */
+.thank-you-right {
+  width: 50%;
+}
+
+/* Картинка */
+.thank-you-image {
+  width: 100%;
+  height: 100%;
+  max-height: 1000px;     /* ограничения по максимальной высоте */
+  object-fit: cover;      /* красиво заполняет область */
+}
+
+.thank-you-left h1 {
+  font-size: 80px;
+}
+
+.thank-you-left p {
+  font-size: 30px;
+}
+
+@media (max-width: 768px) {
+  .thank-you-wrapper {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+  }
+
+  .thank-you-left,
+  .thank-you-right {
+    width: 100%;
+  }
+
+  .thank-you-image {
+    height: auto;
+    max-height: 300px; /* можно менять */
+  }
+}
+
 
 /* Большие экраны */
 @media (min-width: 1920px) {
@@ -3358,6 +3423,10 @@ html, body {
   .form-title {
     font-size: 2rem;
   }
+
+  .thank-you-left h1 {
+    font-size: 70px;
+  }
 }
 
 /* Планшеты (ландшафт) */
@@ -3380,6 +3449,14 @@ html, body {
 
   .feature-item {
     font-size: 1rem;
+  }
+
+  .thank-you-left h1 {
+    font-size: 35px;
+  }
+
+  .thank-you-left p {
+    font-size: 20px;
   }
 }
 
