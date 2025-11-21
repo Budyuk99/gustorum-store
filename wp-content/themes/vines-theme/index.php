@@ -15,7 +15,7 @@
           </ul>
         </div>
 
-        <form class="contact-form" method="post" action="<?php echo esc_url( get_permalink( 86 ) ); ?>">
+        <form class="contact-form" method="post" action="<?php echo esc_url( home_url( '/thank-you/' ) ); ?>">
           <div class="form-group">
             <input type="text" placeholder="Ваше имя" required class="form-input" />
           </div>
