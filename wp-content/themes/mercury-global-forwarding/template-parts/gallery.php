@@ -4,7 +4,7 @@
  */
 ?>
 <section class="slider">
-    <h2 class="h2_basic h2_basic-slider">Галерея</h2>
+    <h2 class="h2_basic h2_basic-slider"><?php echo esc_html(get_option('mgf_title_gallery', 'Галерея')); ?></h2>
     
     <?php
     // Получаем изображения галереи

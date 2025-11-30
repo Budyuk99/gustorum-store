@@ -928,4 +928,57 @@ function mgf_contacts_ru_email_callback() {
     echo '<input type="email" name="mgf_contacts_ru_email" value="' . esc_attr($value) . '" class="regular-text" />';
 }
 
+// Настройки для заголовков
+function mgf_titles_settings_init() {
+    // Регистрируем новую секцию настроек
+    add_settings_section(
+        'mgf_titles_section',
+        'Заголовки разделов',
+        'mgf_titles_section_callback',
+        'general'
+    );
+
+    // Заголовок раздела услуг
+    add_settings_field(
+        'mgf_title_services',
+        'Заголовок "Услуги"',
+        'mgf_title_services_callback',
+        'general',
+        'mgf_titles_section'
+    );
+
+    // Заголовок раздела галереи
+    add_settings_field(
+        'mgf_title_gallery',
+        'Заголовок "Галерея"',
+        'mgf_title_gallery_callback',
+        'general',
+        'mgf_titles_section'
+    );
+
+    // Регистрируем настройки
+    register_setting('general', 'mgf_title_services');
+    register_setting('general', 'mgf_title_gallery');
+}
+add_action('admin_init', 'mgf_titles_settings_init');
+
+// callback функция для секции
+function mgf_titles_section_callback() {
+    echo '<p>Настройте заголовки основных разделов сайта</p>';
+}
+
+// callback функция для заголовка услуг
+function mgf_title_services_callback() {
+    $value = get_option('mgf_title_services', 'Услуги');
+    echo '<input type="text" name="mgf_title_services" value="' . esc_attr($value) . '" class="regular-text" />';
+    echo '<p class="description">Заголовок раздела услуг (class="h2_basic")</p>';
+}
+
+// callback функция для заголовка галереи
+function mgf_title_gallery_callback() {
+    $value = get_option('mgf_title_gallery', 'Галерея');
+    echo '<input type="text" name="mgf_title_gallery" value="' . esc_attr($value) . '" class="regular-text" />';
+    echo '<p class="description">Заголовок раздела галереи (class="h2_basic h2_basic-slider")</p>';
+}
+
 ?>

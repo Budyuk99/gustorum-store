@@ -4,7 +4,7 @@
  */
 ?>
 <section class="content content-services" id="services">
-    <h2 class="h2_basic">Услуги</h2>
+    <h2 class="h2_basic"><?php echo esc_html(get_option('mgf_title_services', 'Услуги')); ?></h2>
     
     <?php
     // Получаем услуги
