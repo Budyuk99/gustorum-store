@@ -697,4 +697,235 @@ function mgf_services_admin_scripts() {
 }
 add_action('admin_enqueue_scripts', 'mgf_services_admin_scripts');
 
+// Настройки для контактов в футере
+function mgf_contacts_settings_init() {
+    // Регистрируем новую секцию настроек
+    add_settings_section(
+        'mgf_contacts_section',
+        'Контакты в футере',
+        'mgf_contacts_section_callback',
+        'general'
+    );
+
+    // Контакты для Казахстана
+    add_settings_field(
+        'mgf_contacts_kz_company',
+        'Название компании (Казахстан)',
+        'mgf_contacts_kz_company_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_kz_address',
+        'Адрес (Казахстан)',
+        'mgf_contacts_kz_address_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_kz_bin',
+        'БИН (Казахстан)',
+        'mgf_contacts_kz_bin_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_kz_phone',
+        'Телефон (Казахстан)',
+        'mgf_contacts_kz_phone_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_kz_email',
+        'Email (Казахстан)',
+        'mgf_contacts_kz_email_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    // Контакты для Финляндии
+    add_settings_field(
+        'mgf_contacts_fi_company',
+        'Название компании (Финляндия)',
+        'mgf_contacts_fi_company_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_fi_address',
+        'Адрес (Финляндия)',
+        'mgf_contacts_fi_address_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_fi_business_id',
+        'Business ID (Финляндия)',
+        'mgf_contacts_fi_business_id_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_fi_phone',
+        'Телефон (Финляндия)',
+        'mgf_contacts_fi_phone_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_fi_email',
+        'Email (Финляндия)',
+        'mgf_contacts_fi_email_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    // Контакты для России
+    add_settings_field(
+        'mgf_contacts_ru_company',
+        'Название компании (Россия)',
+        'mgf_contacts_ru_company_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_ru_address',
+        'Адрес (Россия)',
+        'mgf_contacts_ru_address_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_ru_inn',
+        'ИНН (Россия)',
+        'mgf_contacts_ru_inn_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_ru_phone',
+        'Телефон (Россия)',
+        'mgf_contacts_ru_phone_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    add_settings_field(
+        'mgf_contacts_ru_email',
+        'Email (Россия)',
+        'mgf_contacts_ru_email_callback',
+        'general',
+        'mgf_contacts_section'
+    );
+
+    // Регистрируем все настройки
+    $contacts_fields = array(
+        'mgf_contacts_kz_company', 'mgf_contacts_kz_address', 'mgf_contacts_kz_bin', 'mgf_contacts_kz_phone', 'mgf_contacts_kz_email',
+        'mgf_contacts_fi_company', 'mgf_contacts_fi_address', 'mgf_contacts_fi_business_id', 'mgf_contacts_fi_phone', 'mgf_contacts_fi_email',
+        'mgf_contacts_ru_company', 'mgf_contacts_ru_address', 'mgf_contacts_ru_inn', 'mgf_contacts_ru_phone', 'mgf_contacts_ru_email'
+    );
+
+    foreach ($contacts_fields as $field) {
+        register_setting('general', $field);
+    }
+}
+add_action('admin_init', 'mgf_contacts_settings_init');
+
+// callback функция для секции
+function mgf_contacts_section_callback() {
+    echo '<p>Настройте контактную информацию для всех офисов компании. Оставьте поле пустым, чтобы скрыть его на сайте.</p>';
+}
+
+// callback функции для Казахстана
+function mgf_contacts_kz_company_callback() {
+    $value = get_option('mgf_contacts_kz_company', 'Mercury Global Forwarding Ltd');
+    echo '<input type="text" name="mgf_contacts_kz_company" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_kz_address_callback() {
+    $value = get_option('mgf_contacts_kz_address', '100017 Республика Казахстан, Карагандинская область, г. Караганда, ул. Ерубаева, дом 50а, н.п. 6.');
+    echo '<textarea name="mgf_contacts_kz_address" rows="3" class="large-text">' . esc_textarea($value) . '</textarea>';
+}
+
+function mgf_contacts_kz_bin_callback() {
+    $value = get_option('mgf_contacts_kz_bin', 'БИН: 230340020517');
+    echo '<input type="text" name="mgf_contacts_kz_bin" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_kz_phone_callback() {
+    $value = get_option('mgf_contacts_kz_phone', '+7 (705) 850-38-45');
+    echo '<input type="text" name="mgf_contacts_kz_phone" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_kz_email_callback() {
+    $value = get_option('mgf_contacts_kz_email', 'info.kz@mercury-gf.com');
+    echo '<input type="email" name="mgf_contacts_kz_email" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+// callback функции для Финляндии
+function mgf_contacts_fi_company_callback() {
+    $value = get_option('mgf_contacts_fi_company', 'Mercury Global Forwarding Oy');
+    echo '<input type="text" name="mgf_contacts_fi_company" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_fi_address_callback() {
+    $value = get_option('mgf_contacts_fi_address', "Haarlankatu 4 B 2,<br> FI-33230 Tampere,<br> Finland");
+    echo '<textarea name="mgf_contacts_fi_address" rows="3" class="large-text">' . esc_textarea($value) . '</textarea>';
+    echo '<p class="description">Используйте &lt;br&gt; для переносов строк</p>';
+}
+
+function mgf_contacts_fi_business_id_callback() {
+    $value = get_option('mgf_contacts_fi_business_id', 'Business ID: 3289135-4');
+    echo '<input type="text" name="mgf_contacts_fi_business_id" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_fi_phone_callback() {
+    $value = get_option('mgf_contacts_fi_phone', '+358 41 570 8237');
+    echo '<input type="text" name="mgf_contacts_fi_phone" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_fi_email_callback() {
+    $value = get_option('mgf_contacts_fi_email', 'info.fi@mercury-gf.com');
+    echo '<input type="email" name="mgf_contacts_fi_email" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+// callback функции для России
+function mgf_contacts_ru_company_callback() {
+    $value = get_option('mgf_contacts_ru_company', 'ООО "Меркури Глобал Форвардинг"');
+    echo '<input type="text" name="mgf_contacts_ru_company" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_ru_address_callback() {
+    $value = get_option('mgf_contacts_ru_address', "197082 Россия, г. Санкт-Петербург,<br> ул. Оптиков д.37, стр.<br> 1, пом. 135-Н, р.м.2");
+    echo '<textarea name="mgf_contacts_ru_address" rows="3" class="large-text">' . esc_textarea($value) . '</textarea>';
+    echo '<p class="description">Используйте &lt;br&gt; для переносов строк</p>';
+}
+
+function mgf_contacts_ru_inn_callback() {
+    $value = get_option('mgf_contacts_ru_inn', 'ИНН 7839045340');
+    echo '<input type="text" name="mgf_contacts_ru_inn" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_ru_phone_callback() {
+    $value = get_option('mgf_contacts_ru_phone', '+7 (911) 180-98-20');
+    echo '<input type="text" name="mgf_contacts_ru_phone" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
+function mgf_contacts_ru_email_callback() {
+    $value = get_option('mgf_contacts_ru_email', 'info.ru@mercury-gf.com');
+    echo '<input type="email" name="mgf_contacts_ru_email" value="' . esc_attr($value) . '" class="regular-text" />';
+}
+
 ?>
