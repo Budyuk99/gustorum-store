@@ -241,7 +241,7 @@ nav a {
     gap: 12px;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .content-block_item-img {
