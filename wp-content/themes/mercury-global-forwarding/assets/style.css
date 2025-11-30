@@ -658,6 +658,10 @@ nav a {
     max-width: 50% !important;
 }
 
+#cn-more-info {
+    color: white;
+}
+
 /* Адаптивность для мобильных */
 @media (max-width: 768px) {
     .footer_container {
