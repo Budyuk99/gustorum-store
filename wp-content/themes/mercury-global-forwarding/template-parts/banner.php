@@ -2,11 +2,17 @@
 /**
  * Banner section template
  */
+
+// Получаем текущий язык
+$current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
+
 $banner_type = get_option('mgf_banner_type', 'video');
 $banner_video = get_option('mgf_banner_video');
 $banner_image = get_option('mgf_banner_image');
-$banner_title = get_option('mgf_banner_title', 'MERCURY GLOBAL FORWARDING');
-$banner_subtitle = get_option('mgf_banner_subtitle', 'Full range of freight forwarding services');
+
+// Используем функцию перевода
+$banner_title = mgf_translate(get_option('mgf_banner_title', 'MERCURY GLOBAL FORWARDING'), 'banner_title');
+$banner_subtitle = mgf_translate(get_option('mgf_banner_subtitle', 'Full range of freight forwarding services'), 'banner_subtitle');
 
 // Если нет кастомных настроек, используем значения по умолчанию
 $default_video = get_template_directory_uri() . '/assets/video/main-banner-video.mp4';
@@ -18,13 +24,13 @@ $default_image = get_template_directory_uri() . '/assets/images/default-banner.j
         <?php if ($banner_video): ?>
             <video class="banner-video" autoplay muted loop playsinline>
                 <source src="<?php echo esc_url($banner_video); ?>" type="video/mp4">
-                Ваш браузер не поддерживает видео.
+                <?php echo mgf_translate('Ваш браузер не поддерживает видео.', 'browser_no_video'); ?>
             </video>
         <?php else: ?>
             <!-- Fallback на видео по умолчанию -->
             <video class="banner-video" autoplay muted loop playsinline>
                 <source src="<?php echo esc_url($default_video); ?>" type="video/mp4">
-                Ваш браузер не поддерживает видео.
+                <?php echo mgf_translate('Ваш браузер не поддерживает видео.', 'browser_no_video'); ?>
             </video>
         <?php endif; ?>
     <?php else: ?>

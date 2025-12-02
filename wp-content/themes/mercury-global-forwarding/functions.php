@@ -6,6 +6,9 @@ function mgf_theme_setup() {
     
     // Добавляем кастомные размеры изображений для галереи
     add_image_size('gallery-slider', 1200, 600, true);
+    
+    // Загрузка текстового домена для перевода
+    load_theme_textdomain('mgf', get_template_directory() . '/languages');
 }
 add_action('after_setup_theme', 'mgf_theme_setup');
 
@@ -21,6 +24,18 @@ function mgf_enqueue_assets() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('owl-carousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js', array('jquery'), null, true);
     wp_enqueue_script('mgf-script', get_template_directory_uri() . '/assets/script.js', array('jquery'), filemtime(get_template_directory() . '/assets/script.js'), true);
+    
+    // Локализация скрипта
+    wp_localize_script('mgf-script', 'mgf_ajax', array(
+        'url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('mgf_language_nonce'),
+        'current_lang' => (!is_admin() && function_exists('pll_current_language')) ? 
+            pll_current_language('slug') : 'ru',
+        'strings' => array(
+            'learn_more' => __('Узнать больше', 'mgf'),
+            'loading' => __('Загрузка...', 'mgf'),
+        )
+    ));
     
     // Инициализация слайдера только если на странице есть галерея
     if (is_front_page() || has_shortcode(get_post()->post_content, 'mgf_gallery')) {
@@ -43,23 +58,97 @@ function mgf_enqueue_assets() {
 }
 add_action('wp_enqueue_scripts', 'mgf_enqueue_assets');
 
+// Регистрация строк для Polylang
+function mgf_register_polylang_strings() {
+    if (function_exists('pll_register_string')) {
+        // Баннер
+        pll_register_string('banner_title', 'MERCURY GLOBAL FORWARDING', 'Mercury Theme', true);
+        pll_register_string('banner_subtitle', 'Full range of freight forwarding services', 'Mercury Theme', true);
+        pll_register_string('browser_no_video', 'Ваш браузер не поддерживает видео.', 'Mercury Theme', true);
+        
+        // Навигация
+        pll_register_string('services_nav', 'Услуги', 'Mercury Theme', true);
+        pll_register_string('contacts_nav', 'Контакты', 'Mercury Theme', true);
+        
+        // Заголовки секций
+        pll_register_string('services_title', 'Услуги', 'Mercury Theme', true);
+        pll_register_string('gallery_title', 'Галерея', 'Mercury Theme', true);
+        
+        // Кнопки
+        pll_register_string('learn_more', 'Узнать больше', 'Mercury Theme', true);
+        
+        // Контакты
+        pll_register_string('phone', 'Тел:', 'Mercury Theme', true);
+        pll_register_string('email', 'Эл. почта:', 'Mercury Theme', true);
+        pll_register_string('bin', 'БИН:', 'Mercury Theme', true);
+        pll_register_string('business_id', 'Business ID:', 'Mercury Theme', true);
+        pll_register_string('inn', 'ИНН:', 'Mercury Theme', true);
+        
+        // Имена компаний
+        pll_register_string('kz_company', 'Mercury Global Forwarding Ltd', 'Mercury Theme', true);
+        pll_register_string('fi_company', 'Mercury Global Forwarding Oy', 'Mercury Theme', true);
+        pll_register_string('ru_company', 'ООО "Меркури Глобал Форвардинг"', 'Mercury Theme', true);
+        
+        // Адреса
+        pll_register_string('kz_address', '100017 Республика Казахстан, Карагандинская область, г. Караганда, ул. Ерубаева, дом 50а, н.п. 6.', 'Mercury Theme', true);
+        pll_register_string('fi_address', 'Haarlankatu 4 B 2, FI-33230 Tampere, Finland', 'Mercury Theme', true);
+        pll_register_string('ru_address', '197082 Россия, г. Санкт-Петербург, ул. Оптиков д.37, стр. 1, пом. 135-Н, р.м.2', 'Mercury Theme', true);
+        
+        // Названия услуг (fallback)
+        pll_register_string('international_shipping', 'Международные перевозки', 'Mercury Theme', false);
+        pll_register_string('customs_clearance', 'Таможенное оформление', 'Mercury Theme', false);
+        pll_register_string('project_shipping', 'Проектные перевозки', 'Mercury Theme', false);
+        pll_register_string('storage', 'Ответственное хранение', 'Mercury Theme', false);
+        pll_register_string('purchasing', 'Закупка товара', 'Mercury Theme', false);
+        pll_register_string('cargo_insurance', 'Страхование грузов', 'Mercury Theme', false);
+        
+        // Языки в переключателе
+        pll_register_string('russian', 'Русский', 'Mercury Theme', false);
+        pll_register_string('english', 'English', 'Mercury Theme', false);
+        pll_register_string('chinese', '中文', 'Mercury Theme', false);
+        pll_register_string('finnish', 'Suomi', 'Mercury Theme', false);
+    }
+}
+add_action('init', 'mgf_register_polylang_strings');
+
+// Включение перевода для Custom Post Types
+function mgf_polylang_cpt_support($post_types) {
+    $post_types[] = 'services';
+    $post_types[] = 'gallery';
+    return $post_types;
+}
+add_filter('pll_get_post_types', 'mgf_polylang_cpt_support');
+
+// Вспомогательная функция для получения перевода
+function mgf_translate($string, $context = '') {
+    if (function_exists('pll__')) {
+        return pll__($string);
+    }
+    return __($string, 'mgf');
+}
+
+// Получение перевода с параметрами
+function mgf_e($string, $context = '') {
+    echo mgf_translate($string, $context);
+}
+
 // Настройки для ссылок на мессенджеры
 function mgf_messenger_settings_init() {
     // Регистрируем новую секцию настроек
     add_settings_section(
         'mgf_messenger_section',
-        'Ссылки на мессенджеры',
+        __('Ссылки на мессенджеры', 'mgf'),
         'mgf_messenger_section_callback',
         'general'
     );
 
     // Регистрируем поля для каждого мессенджера
     $messengers = array(
-        'whatsapp' => 'WhatsApp',
-        'telegram' => 'Telegram', 
-        'teams' => 'Microsoft Teams',
-        'messages' => 'Сообщения',
-        'mail' => 'Email'
+        'whatsapp' => __('WhatsApp', 'mgf'),
+        'telegram' => __('Telegram', 'mgf'), 
+        'teams' => __('Microsoft Teams', 'mgf'),
+        'messages' => __('Сообщения', 'mgf'),
+        'mail' => __('Email', 'mgf')
     );
 
     foreach ($messengers as $key => $name) {
@@ -79,7 +168,7 @@ add_action('admin_init', 'mgf_messenger_settings_init');
 
 // callback функция для секции
 function mgf_messenger_section_callback() {
-    echo '<p>Введите ссылки для мессенджеров в футере сайта. Оставьте поле пустым, чтобы скрыть иконку.</p>';
+    echo '<p>' . __('Введите ссылки для мессенджеров в футере сайта. Оставьте поле пустым, чтобы скрыть иконку.', 'mgf') . '</p>';
 }
 
 // callback функция для полей
@@ -89,9 +178,9 @@ function mgf_messenger_field_callback($args) {
     
     // Подсказки для популярных мессенджеров
     $examples = array(
-        'whatsapp' => ' (пример: https://wa.me/79001234567)',
-        'telegram' => ' (пример: https://t.me/username, БЕЗ СИМВОЛА @)',
-        'mail' => ' (пример: mailto:info@example.com)'
+        'whatsapp' => __(' (пример: https://wa.me/79001234567)', 'mgf'),
+        'telegram' => __(' (пример: https://t.me/username, БЕЗ СИМВОЛА @)', 'mgf'),
+        'mail' => __(' (пример: mailto:info@example.com)', 'mgf')
     );
     
     if (isset($examples[$args['messenger']])) {
@@ -101,26 +190,28 @@ function mgf_messenger_field_callback($args) {
 
 // Создаем Custom Post Type для галереи
 function mgf_gallery_post_type() {
+    $labels = array(
+        'name' => __('Галерея', 'mgf'),
+        'singular_name' => __('Изображение', 'mgf'),
+        'add_new' => __('Добавить изображение', 'mgf'),
+        'add_new_item' => __('Добавить новое изображение', 'mgf'),
+        'edit_item' => __('Редактировать изображение', 'mgf'),
+        'new_item' => __('Новое изображение', 'mgf'),
+        'view_item' => __('Просмотреть изображение', 'mgf'),
+        'search_items' => __('Поиск изображений', 'mgf'),
+        'not_found' => __('Изображения не найдены', 'mgf'),
+        'not_found_in_trash' => __('В корзине изображений не найдено', 'mgf')
+    );
+    
     register_post_type('gallery',
         array(
-            'labels' => array(
-                'name' => 'Галерея',
-                'singular_name' => 'Изображение',
-                'add_new' => 'Добавить изображение',
-                'add_new_item' => 'Добавить новое изображение',
-                'edit_item' => 'Редактировать изображение',
-                'new_item' => 'Новое изображение',
-                'view_item' => 'Просмотреть изображение',
-                'search_items' => 'Поиск изображений',
-                'not_found' => 'Изображения не найдены',
-                'not_found_in_trash' => 'В корзине изображений не найдено'
-            ),
+            'labels' => $labels,
             'public' => true,
             'has_archive' => false,
             'menu_icon' => 'dashicons-format-gallery',
             'supports' => array('title', 'thumbnail'),
             'show_in_rest' => true,
-            'publicly_queryable' => false, // Запрещаем прямые ссылки на изображения
+            'publicly_queryable' => false,
         )
     );
 }
@@ -130,7 +221,7 @@ add_action('init', 'mgf_gallery_post_type');
 function mgf_gallery_meta_boxes() {
     add_meta_box(
         'gallery_order',
-        'Порядок сортировки',
+        __('Порядок сортировки', 'mgf'),
         'mgf_gallery_order_callback',
         'gallery',
         'side',
@@ -145,28 +236,24 @@ function mgf_gallery_order_callback($post) {
     if (empty($order)) {
         $order = 0;
     }
-    echo '<label for="gallery_order">Порядок (чем меньше число, тем выше в галерее):</label>';
+    echo '<label for="gallery_order">' . __('Порядок (чем меньше число, тем выше в галерее):', 'mgf') . '</label>';
     echo '<input type="number" id="gallery_order" name="gallery_order" value="' . esc_attr($order) . '" class="widefat" min="0" />';
-    echo '<p class="description">Изображения сортируются по возрастанию этого числа</p>';
+    echo '<p class="description">' . __('Изображения сортируются по возрастанию этого числа', 'mgf') . '</p>';
 }
 
 function mgf_save_gallery_order($post_id) {
-    // Проверяем nonce
     if (!isset($_POST['gallery_order_nonce']) || !wp_verify_nonce($_POST['gallery_order_nonce'], 'gallery_order_nonce')) {
         return;
     }
     
-    // Проверяем права пользователя
     if (!current_user_can('edit_post', $post_id)) {
         return;
     }
     
-    // Проверяем автосохранение
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
     }
     
-    // Сохраняем данные
     if (array_key_exists('gallery_order', $_POST)) {
         $order = sanitize_text_field($_POST['gallery_order']);
         update_post_meta($post_id, 'gallery_order', $order);
@@ -212,7 +299,7 @@ function mgf_gallery_shortcode($atts) {
         endwhile;
         echo '</div>';
     else :
-        echo '<p>В галерее пока нет изображений.</p>';
+        echo '<p>' . __('В галерее пока нет изображений.', 'mgf') . '</p>';
     endif;
     
     wp_reset_postdata();
@@ -226,8 +313,8 @@ function mgf_gallery_admin_columns($columns) {
     foreach ($columns as $key => $value) {
         $new_columns[$key] = $value;
         if ($key == 'title') {
-            $new_columns['gallery_order'] = 'Порядок';
-            $new_columns['thumbnail'] = 'Изображение';
+            $new_columns['gallery_order'] = __('Порядок', 'mgf');
+            $new_columns['thumbnail'] = __('Изображение', 'mgf');
         }
     }
     return $new_columns;
@@ -270,60 +357,53 @@ add_action('pre_get_posts', 'mgf_gallery_orderby');
 
 // Настройки для баннера
 function mgf_banner_settings_init() {
-    // Регистрируем новую секцию настроек
     add_settings_section(
         'mgf_banner_section',
-        'Настройки баннера',
+        __('Настройки баннера', 'mgf'),
         'mgf_banner_section_callback',
         'general'
     );
 
-    // Поле для типа контента (видео/изображение)
     add_settings_field(
         'mgf_banner_type',
-        'Тип контента',
+        __('Тип контента', 'mgf'),
         'mgf_banner_type_callback',
         'general',
         'mgf_banner_section'
     );
 
-    // Поле для видео
     add_settings_field(
         'mgf_banner_video',
-        'Видео баннера',
+        __('Видео баннера', 'mgf'),
         'mgf_banner_video_callback',
         'general',
         'mgf_banner_section'
     );
 
-    // Поле для изображения
     add_settings_field(
         'mgf_banner_image',
-        'Изображение баннера',
+        __('Изображение баннера', 'mgf'),
         'mgf_banner_image_callback',
         'general',
         'mgf_banner_section'
     );
 
-    // Поле для заголовка
     add_settings_field(
         'mgf_banner_title',
-        'Заголовок баннера',
+        __('Заголовок баннера', 'mgf'),
         'mgf_banner_title_callback',
         'general',
         'mgf_banner_section'
     );
 
-    // Поле для подзаголовка
     add_settings_field(
         'mgf_banner_subtitle',
-        'Подзаголовок баннера',
+        __('Подзаголовок баннера', 'mgf'),
         'mgf_banner_subtitle_callback',
         'general',
         'mgf_banner_section'
     );
 
-    // Регистрируем настройки
     register_setting('general', 'mgf_banner_type');
     register_setting('general', 'mgf_banner_video');
     register_setting('general', 'mgf_banner_image');
@@ -332,20 +412,18 @@ function mgf_banner_settings_init() {
 }
 add_action('admin_init', 'mgf_banner_settings_init');
 
-// callback функция для секции
 function mgf_banner_section_callback() {
-    echo '<p>Настройте баннер на главной странице. Можно использовать видео или изображение.</p>';
+    echo '<p>' . __('Настройте баннер на главной странице. Можно использовать видео или изображение.', 'mgf') . '</p>';
 }
 
-// callback функция для типа контента
 function mgf_banner_type_callback() {
     $type = get_option('mgf_banner_type', 'video');
     ?>
     <select name="mgf_banner_type" id="mgf_banner_type">
-        <option value="video" <?php selected($type, 'video'); ?>>Видео</option>
-        <option value="image" <?php selected($type, 'image'); ?>>Изображение</option>
+        <option value="video" <?php selected($type, 'video'); ?>><?php _e('Видео', 'mgf'); ?></option>
+        <option value="image" <?php selected($type, 'image'); ?>><?php _e('Изображение', 'mgf'); ?></option>
     </select>
-    <p class="description">Выберите тип контента для баннера</p>
+    <p class="description"><?php _e('Выберите тип контента для баннера', 'mgf'); ?></p>
     <script>
     jQuery(document).ready(function($) {
         function toggleBannerFields() {
@@ -366,19 +444,18 @@ function mgf_banner_type_callback() {
     <?php
 }
 
-// callback функция для видео
 function mgf_banner_video_callback() {
     $video = get_option('mgf_banner_video');
     ?>
     <div class="banner-video-field">
         <input type="url" name="mgf_banner_video" value="<?php echo esc_url($video); ?>" class="regular-text" />
-        <button type="button" class="button mgf-upload-video">Выбрать видео</button>
-        <p class="description">Загрузите видео в формате MP4 или укажите ссылку на видео</p>
+        <button type="button" class="button mgf-upload-video"><?php _e('Выбрать видео', 'mgf'); ?></button>
+        <p class="description"><?php _e('Загрузите видео в формате MP4 или укажите ссылку на видео', 'mgf'); ?></p>
         <?php if ($video): ?>
             <div style="margin-top: 10px;">
                 <video style="max-width: 300px; height: auto;" controls>
                     <source src="<?php echo esc_url($video); ?>" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
+                    <?php _e('Ваш браузер не поддерживает видео.', 'mgf'); ?>
                 </video>
             </div>
         <?php endif; ?>
@@ -386,55 +463,54 @@ function mgf_banner_video_callback() {
     <?php
 }
 
-// callback функция для изображения
 function mgf_banner_image_callback() {
     $image = get_option('mgf_banner_image');
     ?>
     <div class="banner-image-field" style="display: none;">
         <input type="url" name="mgf_banner_image" value="<?php echo esc_url($image); ?>" class="regular-text" />
-        <button type="button" class="button mgf-upload-image">Выбрать изображение</button>
-        <p class="description">Загрузите изображение для баннера</p>
+        <button type="button" class="button mgf-upload-image"><?php _e('Выбрать изображение', 'mgf'); ?></button>
+        <p class="description"><?php _e('Загрузите изображение для баннера', 'mgf'); ?></p>
         <?php if ($image): ?>
             <div style="margin-top: 10px;">
-                <img src="<?php echo esc_url($image); ?>" style="max-width: 300px; height: auto;" alt="Баннер" />
+                <img src="<?php echo esc_url($image); ?>" style="max-width: 300px; height: auto;" alt="<?php _e('Баннер', 'mgf'); ?>" />
             </div>
         <?php endif; ?>
     </div>
     <?php
 }
 
-// callback функция для заголовка
 function mgf_banner_title_callback() {
     $title = get_option('mgf_banner_title', 'MERCURY GLOBAL FORWARDING');
     ?>
     <input type="text" name="mgf_banner_title" value="<?php echo esc_attr($title); ?>" class="regular-text" />
-    <p class="description">Заголовок баннера</p>
+    <p class="description"><?php _e('Заголовок баннера', 'mgf'); ?></p>
     <?php
 }
 
-// callback функция для подзаголовка
 function mgf_banner_subtitle_callback() {
     $subtitle = get_option('mgf_banner_subtitle', 'Full range of freight forwarding services');
     ?>
     <input type="text" name="mgf_banner_subtitle" value="<?php echo esc_attr($subtitle); ?>" class="regular-text" />
-    <p class="description">Подзаголовок баннера</p>
+    <p class="description"><?php _e('Подзаголовок баннера', 'mgf'); ?></p>
     <?php
 }
 
 // Скрипты для загрузки медиафайлов
-function mgf_banner_admin_scripts() {
+function mgf_banner_admin_scripts($hook) {
+    if ('options-general.php' !== $hook) {
+        return;
+    }
     wp_enqueue_media();
     wp_add_inline_script('jquery', '
         jQuery(document).ready(function($) {
-            // Загрузка видео
             $(".mgf-upload-video").click(function(e) {
                 e.preventDefault();
                 var button = $(this);
                 var frame = wp.media({
-                    title: "Выберите видео",
+                    title: "' . __('Выберите видео', 'mgf') . '",
                     library: { type: "video" },
                     multiple: false,
-                    button: { text: "Выбрать" }
+                    button: { text: "' . __('Выбрать', 'mgf') . '" }
                 });
                 frame.on("select", function() {
                     var attachment = frame.state().get("selection").first().toJSON();
@@ -443,15 +519,14 @@ function mgf_banner_admin_scripts() {
                 frame.open();
             });
 
-            // Загрузка изображения
             $(".mgf-upload-image").click(function(e) {
                 e.preventDefault();
                 var button = $(this);
                 var frame = wp.media({
-                    title: "Выберите изображение",
+                    title: "' . __('Выберите изображение', 'mgf') . '",
                     library: { type: "image" },
                     multiple: false,
-                    button: { text: "Выбрать" }
+                    button: { text: "' . __('Выбрать', 'mgf') . '" }
                 });
                 frame.on("select", function() {
                     var attachment = frame.state().get("selection").first().toJSON();
@@ -466,20 +541,22 @@ add_action('admin_enqueue_scripts', 'mgf_banner_admin_scripts');
 
 // Создаем Custom Post Type для услуг
 function mgf_services_post_type() {
+    $labels = array(
+        'name' => __('Услуги', 'mgf'),
+        'singular_name' => __('Услуга', 'mgf'),
+        'add_new' => __('Добавить услугу', 'mgf'),
+        'add_new_item' => __('Добавить новую услугу', 'mgf'),
+        'edit_item' => __('Редактировать услугу', 'mgf'),
+        'new_item' => __('Новая услуга', 'mgf'),
+        'view_item' => __('Просмотреть услугу', 'mgf'),
+        'search_items' => __('Поиск услуг', 'mgf'),
+        'not_found' => __('Услуги не найдены', 'mgf'),
+        'not_found_in_trash' => __('В корзине услуг не найдено', 'mgf')
+    );
+    
     register_post_type('services',
         array(
-            'labels' => array(
-                'name' => 'Услуги',
-                'singular_name' => 'Услуга',
-                'add_new' => 'Добавить услугу',
-                'add_new_item' => 'Добавить новую услугу',
-                'edit_item' => 'Редактировать услугу',
-                'new_item' => 'Новая услуга',
-                'view_item' => 'Просмотреть услугу',
-                'search_items' => 'Поиск услуг',
-                'not_found' => 'Услуги не найдены',
-                'not_found_in_trash' => 'В корзине услуг не найдено'
-            ),
+            'labels' => $labels,
             'public' => true,
             'has_archive' => false,
             'menu_icon' => 'dashicons-admin-tools',
@@ -495,7 +572,7 @@ add_action('init', 'mgf_services_post_type');
 function mgf_services_meta_boxes() {
     add_meta_box(
         'services_short_description',
-        'Краткое описание',
+        __('Краткое описание', 'mgf'),
         'mgf_services_short_description_callback',
         'services',
         'normal',
@@ -504,7 +581,7 @@ function mgf_services_meta_boxes() {
     
     add_meta_box(
         'services_icon',
-        'Иконка услуги',
+        __('Иконка услуги', 'mgf'),
         'mgf_services_icon_callback',
         'services',
         'side',
@@ -513,7 +590,7 @@ function mgf_services_meta_boxes() {
     
     add_meta_box(
         'services_order',
-        'Порядок сортировки',
+        __('Порядок сортировки', 'mgf'),
         'mgf_services_order_callback',
         'services',
         'side',
@@ -522,48 +599,45 @@ function mgf_services_meta_boxes() {
 }
 add_action('add_meta_boxes', 'mgf_services_meta_boxes');
 
-// callback функция для краткого описания
 function mgf_services_short_description_callback($post) {
     wp_nonce_field('services_short_description_nonce', 'services_short_description_nonce');
     $short_description = get_post_meta($post->ID, 'services_short_description', true);
     ?>
     <textarea id="services_short_description" name="services_short_description" rows="4" class="widefat"><?php echo esc_textarea($short_description); ?></textarea>
-    <p class="description">Краткое описание, которое отображается в свернутом состоянии</p>
+    <p class="description"><?php _e('Краткое описание, которое отображается в свернутом состоянии', 'mgf'); ?></p>
     <?php
 }
 
-// callback функция для иконки
 function mgf_services_icon_callback($post) {
     wp_nonce_field('services_icon_nonce', 'services_icon_nonce');
     $icon = get_post_meta($post->ID, 'services_icon', true);
     $default_icons = array(
-        'earth.svg' => 'Международные перевозки',
-        'clipboard.svg' => 'Таможенное оформление',
-        'box.svg' => 'Проектные перевозки',
-        'building.svg' => 'Ответственное хранение',
-        'money.svg' => 'Закупка товара',
-        'receipt.svg' => 'Страхование грузов'
+        'earth.svg' => __('Международные перевозки', 'mgf'),
+        'clipboard.svg' => __('Таможенное оформление', 'mgf'),
+        'box.svg' => __('Проектные перевозки', 'mgf'),
+        'building.svg' => __('Ответственное хранение', 'mgf'),
+        'money.svg' => __('Закупка товара', 'mgf'),
+        'receipt.svg' => __('Страхование грузов', 'mgf')
     );
     ?>
     <select name="services_icon" id="services_icon" class="widefat">
-        <option value="">— Выберите иконку —</option>
+        <option value="">— <?php _e('Выберите иконку', 'mgf'); ?> —</option>
         <?php foreach ($default_icons as $icon_file => $icon_name): ?>
             <option value="<?php echo esc_attr($icon_file); ?>" <?php selected($icon, $icon_file); ?>>
                 <?php echo esc_html($icon_name); ?>
             </option>
         <?php endforeach; ?>
     </select>
-    <p class="description">Выберите иконку для услуги из существующих</p>
+    <p class="description"><?php _e('Выберите иконку для услуги из существующих', 'mgf'); ?></p>
     
     <div style="margin-top: 10px;">
-        <strong>Или загрузите свою иконку:</strong>
+        <strong><?php _e('Или загрузите свою иконку:', 'mgf'); ?></strong>
         <input type="url" name="services_custom_icon" value="<?php echo esc_url(get_post_meta($post->ID, 'services_custom_icon', true)); ?>" class="widefat" style="margin: 5px 0;" />
-        <button type="button" class="button mgf-upload-icon">Выбрать иконку</button>
+        <button type="button" class="button mgf-upload-icon"><?php _e('Выбрать иконку', 'mgf'); ?></button>
     </div>
     <?php
 }
 
-// callback функция для порядка сортировки
 function mgf_services_order_callback($post) {
     wp_nonce_field('services_order_nonce', 'services_order_nonce');
     $order = get_post_meta($post->ID, 'services_order', true);
@@ -571,31 +645,27 @@ function mgf_services_order_callback($post) {
         $order = 0;
     }
     ?>
-    <label for="services_order">Порядок (чем меньше число, тем выше в списке):</label>
+    <label for="services_order"><?php _e('Порядок (чем меньше число, тем выше в списке):', 'mgf'); ?></label>
     <input type="number" id="services_order" name="services_order" value="<?php echo esc_attr($order); ?>" class="widefat" min="0" />
-    <p class="description">Услуги сортируются по возрастанию этого числа</p>
+    <p class="description"><?php _e('Услуги сортируются по возрастанию этого числа', 'mgf'); ?></p>
     <?php
 }
 
 // Сохраняем метаполя
 function mgf_save_services_meta($post_id) {
-    // Проверяем nonce
     if (!isset($_POST['services_short_description_nonce']) || 
         !wp_verify_nonce($_POST['services_short_description_nonce'], 'services_short_description_nonce')) {
         return;
     }
     
-    // Проверяем права пользователя
     if (!current_user_can('edit_post', $post_id)) {
         return;
     }
     
-    // Проверяем автосохранение
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
     }
     
-    // Сохраняем данные
     $fields = array(
         'services_short_description',
         'services_icon',
@@ -624,8 +694,8 @@ function mgf_services_admin_columns($columns) {
     foreach ($columns as $key => $value) {
         $new_columns[$key] = $value;
         if ($key == 'title') {
-            $new_columns['services_icon'] = 'Иконка';
-            $new_columns['services_order'] = 'Порядок';
+            $new_columns['services_icon'] = __('Иконка', 'mgf');
+            $new_columns['services_order'] = __('Порядок', 'mgf');
         }
     }
     return $new_columns;
@@ -638,9 +708,9 @@ function mgf_services_admin_column_content($column_name, $post_id) {
         $custom_icon = get_post_meta($post_id, 'services_custom_icon', true);
         
         if ($custom_icon) {
-            echo '<img src="' . esc_url($custom_icon) . '" style="width: 32px; height: 32px;" alt="Иконка" />';
+            echo '<img src="' . esc_url($custom_icon) . '" style="width: 32px; height: 32px;" alt="' . __('Иконка', 'mgf') . '" />';
         } elseif ($icon) {
-            echo '<img src="' . get_template_directory_uri() . '/assets/images/' . esc_attr($icon) . '" style="width: 32px; height: 32px;" alt="Иконка" />';
+            echo '<img src="' . get_template_directory_uri() . '/assets/images/' . esc_attr($icon) . '" style="width: 32px; height: 32px;" alt="' . __('Иконка', 'mgf') . '" />';
         } else {
             echo '—';
         }
@@ -672,19 +742,27 @@ function mgf_services_orderby($query) {
 add_action('pre_get_posts', 'mgf_services_orderby');
 
 // Скрипты для загрузки медиафайлов (дополнение)
-function mgf_services_admin_scripts() {
+function mgf_services_admin_scripts($hook) {
+    if (!in_array($hook, array('post.php', 'post-new.php'))) {
+        return;
+    }
+    
+    $screen = get_current_screen();
+    if ($screen && $screen->post_type !== 'services') {
+        return;
+    }
+    
     wp_enqueue_media();
     wp_add_inline_script('jquery', '
         jQuery(document).ready(function($) {
-            // Загрузка кастомной иконки
             $(".mgf-upload-icon").click(function(e) {
                 e.preventDefault();
                 var button = $(this);
                 var frame = wp.media({
-                    title: "Выберите иконку",
+                    title: "' . __('Выберите иконку', 'mgf') . '",
                     library: { type: "image" },
                     multiple: false,
-                    button: { text: "Выбрать" }
+                    button: { text: "' . __('Выбрать', 'mgf') . '" }
                 });
                 frame.on("select", function() {
                     var attachment = frame.state().get("selection").first().toJSON();
@@ -699,10 +777,9 @@ add_action('admin_enqueue_scripts', 'mgf_services_admin_scripts');
 
 // Настройки для контактов в футере
 function mgf_contacts_settings_init() {
-    // Регистрируем новую секцию настроек
     add_settings_section(
         'mgf_contacts_section',
-        'Контакты в футере',
+        __('Контакты в футере', 'mgf'),
         'mgf_contacts_section_callback',
         'general'
     );
@@ -710,7 +787,7 @@ function mgf_contacts_settings_init() {
     // Контакты для Казахстана
     add_settings_field(
         'mgf_contacts_kz_company',
-        'Название компании (Казахстан)',
+        __('Название компании (Казахстан)', 'mgf'),
         'mgf_contacts_kz_company_callback',
         'general',
         'mgf_contacts_section'
@@ -718,7 +795,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_kz_address',
-        'Адрес (Казахстан)',
+        __('Адрес (Казахстан)', 'mgf'),
         'mgf_contacts_kz_address_callback',
         'general',
         'mgf_contacts_section'
@@ -726,7 +803,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_kz_bin',
-        'БИН (Казахстан)',
+        __('БИН (Казахстан)', 'mgf'),
         'mgf_contacts_kz_bin_callback',
         'general',
         'mgf_contacts_section'
@@ -734,7 +811,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_kz_phone',
-        'Телефон (Казахстан)',
+        __('Телефон (Казахстан)', 'mgf'),
         'mgf_contacts_kz_phone_callback',
         'general',
         'mgf_contacts_section'
@@ -742,7 +819,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_kz_email',
-        'Email (Казахстан)',
+        __('Email (Казахстан)', 'mgf'),
         'mgf_contacts_kz_email_callback',
         'general',
         'mgf_contacts_section'
@@ -751,7 +828,7 @@ function mgf_contacts_settings_init() {
     // Контакты для Финляндии
     add_settings_field(
         'mgf_contacts_fi_company',
-        'Название компании (Финляндия)',
+        __('Название компании (Финляндия)', 'mgf'),
         'mgf_contacts_fi_company_callback',
         'general',
         'mgf_contacts_section'
@@ -759,7 +836,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_fi_address',
-        'Адрес (Финляндия)',
+        __('Адрес (Финляндия)', 'mgf'),
         'mgf_contacts_fi_address_callback',
         'general',
         'mgf_contacts_section'
@@ -767,7 +844,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_fi_business_id',
-        'Business ID (Финляндия)',
+        __('Business ID (Финляндия)', 'mgf'),
         'mgf_contacts_fi_business_id_callback',
         'general',
         'mgf_contacts_section'
@@ -775,7 +852,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_fi_phone',
-        'Телефон (Финляндия)',
+        __('Телефон (Финляндия)', 'mgf'),
         'mgf_contacts_fi_phone_callback',
         'general',
         'mgf_contacts_section'
@@ -783,7 +860,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_fi_email',
-        'Email (Финляндия)',
+        __('Email (Финляндия)', 'mgf'),
         'mgf_contacts_fi_email_callback',
         'general',
         'mgf_contacts_section'
@@ -792,7 +869,7 @@ function mgf_contacts_settings_init() {
     // Контакты для России
     add_settings_field(
         'mgf_contacts_ru_company',
-        'Название компании (Россия)',
+        __('Название компании (Россия)', 'mgf'),
         'mgf_contacts_ru_company_callback',
         'general',
         'mgf_contacts_section'
@@ -800,7 +877,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_ru_address',
-        'Адрес (Россия)',
+        __('Адрес (Россия)', 'mgf'),
         'mgf_contacts_ru_address_callback',
         'general',
         'mgf_contacts_section'
@@ -808,7 +885,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_ru_inn',
-        'ИНН (Россия)',
+        __('ИНН (Россия)', 'mgf'),
         'mgf_contacts_ru_inn_callback',
         'general',
         'mgf_contacts_section'
@@ -816,7 +893,7 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_ru_phone',
-        'Телефон (Россия)',
+        __('Телефон (Россия)', 'mgf'),
         'mgf_contacts_ru_phone_callback',
         'general',
         'mgf_contacts_section'
@@ -824,13 +901,12 @@ function mgf_contacts_settings_init() {
 
     add_settings_field(
         'mgf_contacts_ru_email',
-        'Email (Россия)',
+        __('Email (Россия)', 'mgf'),
         'mgf_contacts_ru_email_callback',
         'general',
         'mgf_contacts_section'
     );
 
-    // Регистрируем все настройки
     $contacts_fields = array(
         'mgf_contacts_kz_company', 'mgf_contacts_kz_address', 'mgf_contacts_kz_bin', 'mgf_contacts_kz_phone', 'mgf_contacts_kz_email',
         'mgf_contacts_fi_company', 'mgf_contacts_fi_address', 'mgf_contacts_fi_business_id', 'mgf_contacts_fi_phone', 'mgf_contacts_fi_email',
@@ -843,9 +919,8 @@ function mgf_contacts_settings_init() {
 }
 add_action('admin_init', 'mgf_contacts_settings_init');
 
-// callback функция для секции
 function mgf_contacts_section_callback() {
-    echo '<p>Настройте контактную информацию для всех офисов компании. Оставьте поле пустым, чтобы скрыть его на сайте.</p>';
+    echo '<p>' . __('Настройте контактную информацию для всех офисов компании. Оставьте поле пустым, чтобы скрыть его на сайте.', 'mgf') . '</p>';
 }
 
 // callback функции для Казахстана
@@ -881,9 +956,9 @@ function mgf_contacts_fi_company_callback() {
 }
 
 function mgf_contacts_fi_address_callback() {
-    $value = get_option('mgf_contacts_fi_address', "Haarlankatu 4 B 2,<br> FI-33230 Tampere,<br> Finland");
+    $value = get_option('mgf_contacts_fi_address', "Haarlankatu 4 B 2, FI-33230 Tampere, Finland");
     echo '<textarea name="mgf_contacts_fi_address" rows="3" class="large-text">' . esc_textarea($value) . '</textarea>';
-    echo '<p class="description">Используйте &lt;br&gt; для переносов строк</p>';
+    echo '<p class="description">' . __('Используйте &lt;br&gt; для переносов строк', 'mgf') . '</p>';
 }
 
 function mgf_contacts_fi_business_id_callback() {
@@ -908,9 +983,9 @@ function mgf_contacts_ru_company_callback() {
 }
 
 function mgf_contacts_ru_address_callback() {
-    $value = get_option('mgf_contacts_ru_address', "197082 Россия, г. Санкт-Петербург,<br> ул. Оптиков д.37, стр.<br> 1, пом. 135-Н, р.м.2");
+    $value = get_option('mgf_contacts_ru_address', "197082 Россия, г. Санкт-Петербург, ул. Оптиков д.37, стр. 1, пом. 135-Н, р.м.2");
     echo '<textarea name="mgf_contacts_ru_address" rows="3" class="large-text">' . esc_textarea($value) . '</textarea>';
-    echo '<p class="description">Используйте &lt;br&gt; для переносов строк</p>';
+    echo '<p class="description">' . __('Используйте &lt;br&gt; для переносов строк', 'mgf') . '</p>';
 }
 
 function mgf_contacts_ru_inn_callback() {
@@ -930,55 +1005,294 @@ function mgf_contacts_ru_email_callback() {
 
 // Настройки для заголовков
 function mgf_titles_settings_init() {
-    // Регистрируем новую секцию настроек
     add_settings_section(
         'mgf_titles_section',
-        'Заголовки разделов',
+        __('Заголовки разделов', 'mgf'),
         'mgf_titles_section_callback',
         'general'
     );
 
-    // Заголовок раздела услуг
     add_settings_field(
         'mgf_title_services',
-        'Заголовок "Услуги"',
+        __('Заголовок "Услуги"', 'mgf'),
         'mgf_title_services_callback',
         'general',
         'mgf_titles_section'
     );
 
-    // Заголовок раздела галереи
     add_settings_field(
         'mgf_title_gallery',
-        'Заголовок "Галерея"',
+        __('Заголовок "Галерея"', 'mgf'),
         'mgf_title_gallery_callback',
         'general',
         'mgf_titles_section'
     );
 
-    // Регистрируем настройки
     register_setting('general', 'mgf_title_services');
     register_setting('general', 'mgf_title_gallery');
 }
 add_action('admin_init', 'mgf_titles_settings_init');
 
-// callback функция для секции
 function mgf_titles_section_callback() {
-    echo '<p>Настройте заголовки основных разделов сайта</p>';
+    echo '<p>' . __('Настройте заголовки основных разделов сайта', 'mgf') . '</p>';
 }
 
-// callback функция для заголовка услуг
 function mgf_title_services_callback() {
     $value = get_option('mgf_title_services', 'Услуги');
     echo '<input type="text" name="mgf_title_services" value="' . esc_attr($value) . '" class="regular-text" />';
-    echo '<p class="description">Заголовок раздела услуг (class="h2_basic")</p>';
+    echo '<p class="description">' . __('Заголовок раздела услуг', 'mgf') . '</p>';
 }
 
-// callback функция для заголовка галереи
 function mgf_title_gallery_callback() {
     $value = get_option('mgf_title_gallery', 'Галерея');
     echo '<input type="text" name="mgf_title_gallery" value="' . esc_attr($value) . '" class="regular-text" />';
-    echo '<p class="description">Заголовок раздела галереи (class="h2_basic h2_basic-slider")</p>';
+    echo '<p class="description">' . __('Заголовок раздела галереи', 'mgf') . '</p>';
 }
 
+// AJAX обработчик для смены языка
+add_action('wp_ajax_mgf_switch_language', 'mgf_switch_language_ajax');
+add_action('wp_ajax_nopriv_mgf_switch_language', 'mgf_switch_language_ajax');
+
+function mgf_switch_language_ajax() {
+    if (!wp_verify_nonce($_POST['nonce'], 'mgf_language_nonce')) {
+        wp_die('Security check failed');
+    }
+    
+    // Проверяем, не админка ли
+    if (is_admin()) {
+        wp_send_json_error(array('message' => 'Cannot switch language in admin area'));
+    }
+    
+    $lang = sanitize_text_field($_POST['lang']);
+    
+    if (function_exists('pll_set_current_language')) {
+        pll_set_current_language($lang);
+        
+        // Устанавливаем куки ТОЛЬКО для фронтенда
+        setcookie('mgf_frontend_language', $lang, time() + (365 * 24 * 60 * 60), '/');
+        
+        $response = array(
+            'success' => true,
+            'current_lang' => $lang,
+            'url' => pll_current_language_url(),
+            'language_name' => pll_current_language('name')
+        );
+        
+        wp_send_json_success($response);
+    } else {
+        wp_send_json_error(array('message' => 'Polylang not active'));
+    }
+}
+
+// Добавляем hreflang для SEO
+function mgf_add_hreflang_tags() {
+    if (function_exists('pll_the_languages')) {
+        $languages = pll_the_languages(array('raw' => 1));
+        
+        foreach ($languages as $lang) {
+            echo '<link rel="alternate" hreflang="' . esc_attr($lang['locale']) . '" href="' . esc_url($lang['url']) . '" />' . "\n";
+        }
+        
+        // Добавляем x-default
+        $default_lang = pll_default_language();
+        foreach ($languages as $lang) {
+            if ($lang['slug'] === $default_lang) {
+                echo '<link rel="alternate" hreflang="x-default" href="' . esc_url($lang['url']) . '" />' . "\n";
+                break;
+            }
+        }
+    }
+}
+add_action('wp_head', 'mgf_add_hreflang_tags', 2);
+
+// Функция для получения текущего языка с fallback
+function mgf_get_current_language() {
+    if (function_exists('pll_current_language')) {
+        return pll_current_language('slug');
+    }
+    return 'ru';
+}
+
+// Функция для получения языка по умолчанию
+function mgf_get_default_language() {
+    if (function_exists('pll_default_language')) {
+        return pll_default_language();
+    }
+    return 'ru';
+}
+
+// Функция для получения списка языков
+function mgf_get_languages() {
+    if (function_exists('pll_the_languages')) {
+        return pll_the_languages(array('raw' => 1));
+    }
+    return array(array('slug' => 'ru', 'name' => 'Русский', 'url' => home_url('/')));
+}
+
+// Устанавливаем язык из параметра URL
+function mgf_set_language_from_url() {
+    // Не устанавливаем язык для админки
+    if (is_admin() || wp_doing_ajax() || (defined('DOING_CRON') && DOING_CRON)) {
+        return;
+    }
+    
+    // Проверяем параметр lang в URL
+    if (isset($_GET['lang'])) {
+        $lang = sanitize_text_field($_GET['lang']);
+        $allowed_langs = array('ru', 'en', 'zh', 'fi');
+        
+        if (in_array($lang, $allowed_langs)) {
+            // Устанавливаем куки ТОЛЬКО для фронтенда
+            setcookie('mgf_frontend_language', $lang, time() + (365 * 24 * 60 * 60), '/');
+            
+            // Устанавливаем язык для Polylang
+            if (function_exists('pll_set_current_language')) {
+                pll_set_current_language($lang);
+            }
+        }
+    } 
+    // Проверяем фронтенд куки
+    elseif (isset($_COOKIE['mgf_frontend_language'])) {
+        $lang = $_COOKIE['mgf_frontend_language'];
+        if (function_exists('pll_set_current_language')) {
+            pll_set_current_language($lang);
+        }
+    }
+}
+add_action('init', 'mgf_set_language_from_url', 1);
+
+// Редирект для сохранения параметра lang на всех страницах
+function mgf_redirect_with_language() {
+    // Не редиректим в админке и если это AJAX
+    if (is_admin() || wp_doing_ajax()) {
+        return;
+    }
+    
+    // Проверяем, есть ли куки с языком
+    if (isset($_COOKIE['mgf_language'])) {
+        $cookie_lang = $_COOKIE['mgf_language'];
+        $current_url = home_url($_SERVER['REQUEST_URI']);
+        
+        // Если в URL нет параметра lang, но есть в куках
+        if (!isset($_GET['lang']) && !strpos($current_url, '?lang=')) {
+            // Для главной страницы добавляем параметр
+            if (is_front_page() || is_home()) {
+                wp_redirect(add_query_arg('lang', $cookie_lang, $current_url));
+                exit;
+            }
+        }
+    }
+}
+add_action('template_redirect', 'mgf_redirect_with_language');
+
+// Добавляем поддержку Polylang для параметра lang
+function mgf_polylang_lang_param($url, $lang) {
+    // Добавляем параметр lang к URL
+    return add_query_arg('lang', $lang, remove_query_arg('lang', $url));
+}
+add_filter('pll_language_link', 'mgf_polylang_lang_param', 10, 2);
+
+// Создаем языковые ссылки для навигации
+function mgf_get_language_switcher() {
+    if (!function_exists('pll_the_languages')) {
+        return array();
+    }
+    
+    $languages = pll_the_languages(array('raw' => 1, 'hide_if_no_translation' => 0));
+    
+    foreach ($languages as &$lang) {
+        // Добавляем параметр lang к URL
+        $lang['url'] = add_query_arg('lang', $lang['slug'], remove_query_arg('lang', $lang['url']));
+    }
+    
+    return $languages;
+}
+
+// Шорткод для языкового переключателя
+function mgf_language_switcher_shortcode($atts) {
+    ob_start();
+    ?>
+    <div class="mgf-language-switcher">
+        <?php
+        $current_lang = isset($_GET['lang']) ? $_GET['lang'] : 'ru';
+        $clean_url = remove_query_arg('lang', home_url($_SERVER['REQUEST_URI']));
+        
+        $languages = array(
+            'ru' => 'Русский',
+            'en' => 'English',
+            'zh' => '中文',
+            'fi' => 'Suomi'
+        );
+        
+        foreach ($languages as $code => $name) {
+            $active = ($current_lang === $code) ? 'active' : '';
+            $url = ($code === 'fi') 
+                ? 'https://mercury-gf.com/fi/' 
+                : add_query_arg('lang', $code, $clean_url);
+            
+            $target = ($code === 'fi') ? ' target="_blank"' : '';
+            
+            echo '<a href="' . esc_url($url) . '" class="' . esc_attr($active) . '"' . $target . '>' . esc_html($name) . '</a> ';
+        }
+        ?>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('mgf_lang_switcher', 'mgf_language_switcher_shortcode');
+
+// Добавляем параметр lang ко всем ссылкам
+function mgf_add_lang_to_links($link) {
+    if (is_admin()) {
+        return $link;
+    }
+    
+    $current_lang = 'ru';
+    if (isset($_GET['lang'])) {
+        $current_lang = sanitize_text_field($_GET['lang']);
+    } elseif (isset($_COOKIE['mgf_language'])) {
+        $current_lang = $_COOKIE['mgf_language'];
+    }
+    
+    // Не добавляем к внешним ссылкам и ссылкам, которые уже имеют параметр
+    if (strpos($link, home_url()) !== false && strpos($link, '?lang=') === false) {
+        return add_query_arg('lang', $current_lang, $link);
+    }
+    
+    return $link;
+}
+add_filter('post_link', 'mgf_add_lang_to_links');
+add_filter('page_link', 'mgf_add_lang_to_links');
+add_filter('term_link', 'mgf_add_lang_to_links');
+
+// JavaScript для переключения языка
+function mgf_language_switcher_js() {
+    ?>
+    <script>
+    jQuery(document).ready(function($) {
+        $('.lang-option').on('click', function(e) {
+            var lang = $(this).data('lang');
+            
+            if (!$(this).attr('target')) {
+                // Устанавливаем куки ТОЛЬКО для фронтенда
+                document.cookie = "mgf_frontend_language=" + lang + "; path=/; max-age=" + (365*24*60*60);
+                
+                // Обновляем кнопку текущего языка
+                $('.lang-btn').text(lang.toUpperCase());
+            }
+        });
+    });
+    </script>
+    <?php
+}
+add_action('wp_footer', 'mgf_language_switcher_js');
+
+// Сохраняем язык админки отдельно
+function mgf_save_admin_language() {
+    if (is_admin() && isset($_GET['lang']) && current_user_can('manage_options')) {
+        $lang = sanitize_text_field($_GET['lang']);
+        setcookie('mgf_admin_language', $lang, time() + (365 * 24 * 60 * 60), '/');
+    }
+}
+add_action('admin_init', 'mgf_save_admin_language', 1);
 ?>

@@ -2,9 +2,12 @@
 /**
  * Gallery section template
  */
+
+// Получаем текущий язык
+$current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
 ?>
 <section class="slider">
-    <h2 class="h2_basic h2_basic-slider"><?php echo esc_html(get_option('mgf_title_gallery', 'Галерея')); ?></h2>
+    <h2 class="h2_basic h2_basic-slider"><?php echo mgf_translate(get_option('mgf_title_gallery', 'Галерея'), 'gallery_title'); ?></h2>
     
     <?php
     // Получаем изображения галереи
@@ -22,6 +25,11 @@
         )
     );
     
+    // Если Polylang активен, фильтруем по языку
+    if (function_exists('pll_current_language')) {
+        $gallery_args['lang'] = $current_lang;
+    }
+    
     $gallery_query = new WP_Query($gallery_args);
     
     if ($gallery_query->have_posts()) :
@@ -38,8 +46,8 @@
     <?php else : ?>
         <!-- Fallback - статические изображения, если нет записей в галерее -->
         <div class="owl-carousel gallery-slider owl-theme">
-            <div class="slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/slide_1.png" alt="Слайд 1"></div>
-            <div class="slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/slide_1.png" alt="Слайд 2"></div>
+            <div class="slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/slide_1.png" alt="<?php echo mgf_translate('Слайд 1', 'slide_1'); ?>"></div>
+            <div class="slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/slide_1.png" alt="<?php echo mgf_translate('Слайд 2', 'slide_2'); ?>"></div>
         </div>
     <?php endif; ?>
     
