@@ -168,34 +168,45 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
             'whatsapp' => array(
                 'class' => 'whatsapp',
                 'title' => mgf_translate('WhatsApp', 'whatsapp'),
-                'icon' => 'whatsApp.svg'
+                'icon' => 'whatsApp.svg',
+                'type' => 'regular'
             ),
             'telegram' => array(
                 'class' => 'telegram', 
                 'title' => mgf_translate('Telegram', 'telegram'),
-                'icon' => 'telegram.svg'
+                'icon' => 'telegram.svg',
+                'type' => 'regular'
             ),
             'teams' => array(
                 'class' => 'teams',
                 'title' => mgf_translate('Teams', 'teams'),
-                'icon' => 'teams.svg'
+                'icon' => 'teams.svg',
+                'type' => 'regular'
             ),
-            'wechat' => array( // Заменили messages на wechat
+            'wechat' => array(
                 'class' => 'wechat',
                 'title' => mgf_translate('WeChat', 'wechat'),
-                'icon' => 'Wechat.svg' // Вам понадобится иконка wechat.svg
+                'icon' => 'wechat.svg',
+                'type' => 'wechat' // специальный тип для WeChat
             ),
             'mail' => array(
                 'class' => 'mail',
                 'title' => mgf_translate('Email', 'mail'),
-                'icon' => 'mail.svg'
+                'icon' => 'mail.svg',
+                'type' => 'regular'
             )
         );
 
         foreach ($messengers as $key => $messenger) {
             $link = get_option('mgf_messenger_' . $key);
             if (!empty($link)) {
-                echo '<a href="' . esc_url($link) . '" target="_blank" class="messenger-option ' . esc_attr($messenger['class']) . '" title="' . esc_attr($messenger['title']) . '">';
+                if ($messenger['type'] === 'wechat') {
+                    // Для WeChat используем data-атрибут и JavaScript
+                    echo '<a href="#" class="messenger-option ' . esc_attr($messenger['class']) . '" title="' . esc_attr($messenger['title']) . '" data-wechat-url="' . esc_attr($link) . '">';
+                } else {
+                    // Для остальных обычные ссылки
+                    echo '<a href="' . esc_url($link) . '" target="_blank" class="messenger-option ' . esc_attr($messenger['class']) . '" title="' . esc_attr($messenger['title']) . '">';
+                }
                 echo '<img src="' . get_template_directory_uri() . '/assets/images/' . esc_attr($messenger['icon']) . '" alt="' . esc_attr($messenger['title']) . '">';
                 echo '</a>';
             }
@@ -203,6 +214,56 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
         ?>
     </div>
 </div>
+
+<!-- JavaScript для обработки WeChat ссылок -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработка WeChat ссылок
+    document.querySelectorAll('[data-wechat-url]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var wechatUrl = this.getAttribute('data-wechat-url');
+            
+            // Проверяем, мобильное ли устройство
+            var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // На мобильных пытаемся открыть через weixin://
+                window.location.href = wechatUrl;
+                
+                // Если через 500ms не открылось, показываем альтернативу
+                setTimeout(function() {
+                    // Можно показать QR-код или сообщение
+                    if (document.querySelector('#wechat-qr-modal')) {
+                        document.querySelector('#wechat-qr-modal').style.display = 'block';
+                    } else {
+                        alert('<?php echo esc_js(mgf_translate("Откройте WeChat и добавьте контакт вручную", "wechat_manual")); ?>');
+                    }
+                }, 500);
+            } else {
+                // На десктопе показываем QR-код или инструкции
+                if (document.querySelector('#wechat-qr-modal')) {
+                    document.querySelector('#wechat-qr-modal').style.display = 'block';
+                } else {
+                    // Создаем модальное окно с QR-кодом
+                    var modal = document.createElement('div');
+                    modal.id = 'wechat-qr-modal';
+                    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;';
+                    modal.innerHTML = '<div style="background:white;padding:20px;border-radius:10px;text-align:center;"><h3><?php echo esc_js(mgf_translate("WeChat", "wechat")); ?></h3><p><?php echo esc_js(mgf_translate("Отсканируйте QR-код в WeChat", "scan_qr_in_wechat")); ?></p><div style="margin:20px 0;"><img src="<?php echo esc_url(get_option("mgf_messenger_wechat_qr", "")); ?>" alt="WeChat QR" style="max-width:200px;"></div><button onclick="this.parentElement.parentElement.style.display=\'none\'"><?php echo esc_js(mgf_translate("Закрыть", "close")); ?></button></div>';
+                    document.body.appendChild(modal);
+                    
+                    // Закрытие по клику вне окна
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
 
 <!-- Добавляем стили для финской версии футера -->
 <style>

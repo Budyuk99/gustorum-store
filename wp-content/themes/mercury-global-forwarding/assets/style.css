@@ -556,7 +556,7 @@ nav a {
 }
 
 .messenger-wrapper.active .messenger-btn {
-    border: 4px solid #fff;
+    box-shadow: 0 0 0 6px white;
 }
 
 .banner-content_first {
