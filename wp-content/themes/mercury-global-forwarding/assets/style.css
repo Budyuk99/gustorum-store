@@ -581,12 +581,12 @@ nav a {
     display: grid;
     grid-auto-rows: min-content; /* строки по размеру содержимого */
     gap: 8px; /* расстояние между строками */
-    width: 330px;
+    width: 100%;
 }
 
 .footer_item.logo img {
     width: 100%;
-    max-width: 260px;
+    max-width: 100%;
 }
 
 /* Стили ссылок */
@@ -660,6 +660,19 @@ nav a {
 
 #cn-more-info {
     color: white;
+}
+
+@media (min-width: 1600px) {
+    .footer_item.logo img {
+        width: 60%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .footer_container {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 /* Адаптивность для мобильных */

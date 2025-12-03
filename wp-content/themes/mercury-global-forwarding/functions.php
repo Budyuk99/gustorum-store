@@ -107,6 +107,13 @@ function mgf_register_polylang_strings() {
         pll_register_string('english', 'English', 'Mercury Theme', false);
         pll_register_string('chinese', '中文', 'Mercury Theme', false);
         pll_register_string('finnish', 'Suomi', 'Mercury Theme', false);
+
+        // Названия мессенджеров
+        pll_register_string('whatsapp', 'WhatsApp', 'Mercury Theme', false);
+        pll_register_string('telegram', 'Telegram', 'Mercury Theme', false);
+        pll_register_string('teams', 'Teams', 'Mercury Theme', false);
+        pll_register_string('wechat', 'WeChat', 'Mercury Theme', false); // Добавили WeChat
+        pll_register_string('mail', 'Email', 'Mercury Theme', false);
     }
 }
 add_action('init', 'mgf_register_polylang_strings');
@@ -147,7 +154,7 @@ function mgf_messenger_settings_init() {
         'whatsapp' => __('WhatsApp', 'mgf'),
         'telegram' => __('Telegram', 'mgf'), 
         'teams' => __('Microsoft Teams', 'mgf'),
-        'messages' => __('Сообщения', 'mgf'),
+        'wechat' => __('WeChat', 'mgf'),
         'mail' => __('Email', 'mgf')
     );
 
@@ -166,25 +173,45 @@ function mgf_messenger_settings_init() {
 }
 add_action('admin_init', 'mgf_messenger_settings_init');
 
-// callback функция для секции
+// callback функция для секции - ДОБАВЬТЕ ЭТУ ФУНКЦИЮ
 function mgf_messenger_section_callback() {
     echo '<p>' . __('Введите ссылки для мессенджеров в футере сайта. Оставьте поле пустым, чтобы скрыть иконку.', 'mgf') . '</p>';
 }
 
-// callback функция для полей
+// callback функция для полей с WeChat
 function mgf_messenger_field_callback($args) {
     $option = get_option('mgf_messenger_' . $args['messenger']);
     echo '<input type="url" name="mgf_messenger_' . $args['messenger'] . '" value="' . esc_url($option) . '" class="regular-text" />';
     
     // Подсказки для популярных мессенджеров
     $examples = array(
-        'whatsapp' => __(' (пример: https://wa.me/79001234567)', 'mgf'),
+        'whatsapp' => __(' (пример: https://wa.me/79001234567 или https://wa.me/79001234567?text=Здравствуйте!)', 'mgf'),
         'telegram' => __(' (пример: https://t.me/username, БЕЗ СИМВОЛА @)', 'mgf'),
+        'teams' => __(' (пример: https://teams.microsoft.com/l/chat/0/0?users=email@example.com)', 'mgf'),
+        'wechat' => __(' (пример: weixin://dl/chat?username=WeChatID или QR код)', 'mgf'),
         'mail' => __(' (пример: mailto:info@example.com)', 'mgf')
+    );
+    
+    // Дополнительные пояснения для каждого мессенджера
+    $descriptions = array(
+        'whatsapp' => __('<p class="description"><strong>Формат:</strong><br>Для контакта: https://wa.me/79001234567<br>Для контакта с предзаполненным сообщением: https://wa.me/79001234567?text=Ваше%20сообщение<br><em>Замените 79001234567 на ваш номер телефона в международном формате (без +)</em></p>', 'mgf'),
+        
+        'telegram' => __('<p class="description"><strong>Формат:</strong><br>Для контакта: https://t.me/username<br>Для контакта с предзаполненным сообщением: https://t.me/username?text=Здравствуйте<br>Для группы: https://t.me/groupname<br><em>Используйте только имя пользователя или группы, без символа @</em></p>', 'mgf'),
+        
+        'teams' => __('<p class="description"><strong>Формат ссылок Microsoft Teams:</strong><br><strong>1. Для чата с пользователем:</strong><br>https://teams.microsoft.com/l/chat/0/0?users=email@example.com<br><br><strong>2. Для присоединения к собранию:</strong><br>https://teams.microsoft.com/l/meetup-join/19:meeting_ID@thread.v2/0?context={"Tid":"tenant-id","Oid":"user-id"}<br><br><strong>3. Для канала команды:</strong><br>https://teams.microsoft.com/l/channel/19%3Achannel-id%40thread.tacv2/General?groupId=group-id&tenantId=tenant-id<br><br><em>Замените email@example.com на реальный email или используйте ссылку из самого Teams</em></p>', 'mgf'),
+        
+        'wechat' => __('<p class="description"><strong>Формат ссылок WeChat:</strong><br><br><strong>1. Для перехода в чат по ID пользователя:</strong><br>weixin://dl/chat?username=WeChatID<br><br><strong>2. Для добавления контакта по ID:</strong><br>weixin://dl/add?username=WeChatID<br><br><strong>3. Для открытия официального аккаунта:</strong><br>weixin://dl/officialaccounts?username=OfficialAccountID<br><br><strong>4. Ссылка на QR-код (самый надежный способ):</strong><br>https://ваш-сайт.com/path/to/wechat-qr-code.jpg<br><br><em>Примечание: Ссылки WeChat работают только на мобильных устройствах с установленным WeChat. Для десктопа рекомендуется использовать QR-код.</em></p>', 'mgf'),
+        
+        'mail' => __('<p class="description"><strong>Формат:</strong><br>Просто email: mailto:info@example.com<br>С темой: mailto:info@example.com?subject=Вопрос<br>С темой и текстом: mailto:info@example.com?subject=Вопрос&body=Здравствуйте%21<br><br><em>Для пробелов используйте %20, для восклицательного знака %21</em></p>', 'mgf')
     );
     
     if (isset($examples[$args['messenger']])) {
         echo '<p class="description">' . $examples[$args['messenger']] . '</p>';
+    }
+    
+    // Выводим подробное описание
+    if (isset($descriptions[$args['messenger']])) {
+        echo $descriptions[$args['messenger']];
     }
 }
 

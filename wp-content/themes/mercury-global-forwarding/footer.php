@@ -5,13 +5,22 @@
 
 // Получаем текущий язык
 $current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
+
+// Проверяем, это финская версия?
+$is_finnish_version = ($current_lang === 'fi');
+
+// Класс для логотипа в зависимости от версии
+$logo_class = $is_finnish_version ? 'footer_item logo logo-extra-wide' : 'footer_item logo';
+
+// Класс для контейнера в зависимости от версии
+$container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'footer_container';
 ?>
 </main>
 
 <footer class="footer" id="contacts">
-    <div class="footer_container">
+    <div class="<?php echo esc_attr($container_class); ?>">
         <!-- Логотип -->
-        <div class="footer_item logo">
+        <div class="<?php echo esc_attr($logo_class); ?>">
             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo_footer.svg" alt="logo">
         </div>
 
@@ -101,7 +110,8 @@ $current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru'
             </div>
         </div>
 
-        <!-- Россия -->
+        <!-- Россия - скрываем только в финской версии -->
+        <?php if (!$is_finnish_version): ?>
         <div class="footer_item">
             <?php 
             $ru_company = mgf_translate(get_option('mgf_contacts_ru_company', 'ООО "Меркури Глобал Форвардинг"'), 'ru_company');
@@ -143,6 +153,7 @@ $current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru'
                 <?php endif; ?>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </footer>
 
@@ -169,10 +180,10 @@ $current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru'
                 'title' => mgf_translate('Teams', 'teams'),
                 'icon' => 'teams.svg'
             ),
-            'messages' => array(
-                'class' => 'messages',
-                'title' => mgf_translate('Сообщения', 'messages'),
-                'icon' => 'messages.svg'
+            'wechat' => array( // Заменили messages на wechat
+                'class' => 'wechat',
+                'title' => mgf_translate('WeChat', 'wechat'),
+                'icon' => 'Wechat.svg' // Вам понадобится иконка wechat.svg
             ),
             'mail' => array(
                 'class' => 'mail',
@@ -192,6 +203,49 @@ $current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru'
         ?>
     </div>
 </div>
+
+<!-- Добавляем стили для финской версии футера -->
+<style>
+    .footer_container.footer-finnish {
+        display: grid;
+        grid-template-columns: 50% 25% 25% !important; /* 50% | 25% | 25% */
+    }
+    
+    /* Адаптация для мобильных устройств */
+    @media (max-width: 768px) {
+        .footer_container.footer-finnish,
+        .footer_container {
+            flex-direction: column !important;
+            grid-template-columns: 1fr !important;
+        }
+        
+        .footer_container.footer-finnish .logo-extra-wide,
+        .footer_container.footer-finnish .footer_item:not(.logo),
+        .footer_container .footer_item {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            margin-bottom: 30px;
+        }
+        
+        .footer_container.footer-finnish .logo-extra-wide {
+            margin-bottom: 20px;
+        }
+    }
+    
+    /* Адаптация для планшетов */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .footer_container.footer-finnish .logo-extra-wide {
+            flex: 0 0 40% !important;
+            max-width: 40% !important;
+        }
+        
+        .footer_container.footer-finnish .footer_item:not(.logo) {
+            flex: 0 0 30% !important;
+            max-width: 30% !important;
+        }
+    }
+</style>
 
 <?php wp_footer(); ?>
 </body>
