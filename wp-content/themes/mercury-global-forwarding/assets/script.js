@@ -59,11 +59,15 @@ jQuery(function ($) {
             const parent = this.closest('.content-block_item-text');
             const fullText = parent.querySelector('.full-text');
             const isExpanded = parent.classList.contains('expanded');
+            
+            // Получаем тексты из data-атрибутов
+            const learnMoreText = this.dataset.learnMore || 'Узнать больше';
+            const hideText = this.dataset.hideText || 'Скрыть';
 
             if (!isExpanded) {
                 parent.classList.add('expanded');
                 fullText.style.maxHeight = fullText.scrollHeight + "px";
-                this.textContent = "Скрыть";
+                this.textContent = hideText;
             } else {
                 fullText.style.maxHeight = fullText.scrollHeight + "px";
                 requestAnimationFrame(() => {
@@ -75,7 +79,7 @@ jQuery(function ($) {
                     fullText.removeEventListener('transitionend', handler);
                 });
 
-                this.textContent = "Узнать больше";
+                this.textContent = learnMoreText;
             }
         });
     });

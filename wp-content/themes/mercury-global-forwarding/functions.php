@@ -32,7 +32,8 @@ function mgf_enqueue_assets() {
         'current_lang' => (!is_admin() && function_exists('pll_current_language')) ? 
             pll_current_language('slug') : 'ru',
         'strings' => array(
-            'learn_more' => __('Узнать больше', 'mgf'),
+            'learn_more' => mgf_translate(get_option('mgf_button_learn_more', 'Узнать больше'), 'learn_more'),
+            'hide_text' => mgf_translate(get_option('mgf_button_hide', 'Скрыть'), 'hide_text'),
             'loading' => __('Загрузка...', 'mgf'),
         )
     ));
@@ -76,6 +77,7 @@ function mgf_register_polylang_strings() {
         
         // Кнопки
         pll_register_string('learn_more', 'Узнать больше', 'Mercury Theme', true);
+        pll_register_string('hide_text', 'Скрыть', 'Mercury Theme', true);
         
         // Контакты
         pll_register_string('phone', 'Тел:', 'Mercury Theme', true);
@@ -1120,9 +1122,18 @@ function mgf_titles_settings_init() {
         'general',
         'mgf_titles_section'
     );
+    
+    add_settings_field(
+        'mgf_button_hide',
+        __('Текст кнопки "Скрыть"', 'mgf'),
+        'mgf_button_hide_callback',
+        'general',
+        'mgf_titles_section'
+    );
 
     register_setting('general', 'mgf_title_services');
     register_setting('general', 'mgf_title_gallery');
+    register_setting('general', 'mgf_button_hide');
 }
 add_action('admin_init', 'mgf_titles_settings_init');
 
@@ -1140,6 +1151,14 @@ function mgf_title_gallery_callback() {
     $value = get_option('mgf_title_gallery', 'Галерея');
     echo '<input type="text" name="mgf_title_gallery" value="' . esc_attr($value) . '" class="regular-text" />';
     echo '<p class="description">' . __('Заголовок раздела галереи', 'mgf') . '</p>';
+}
+
+function mgf_button_hide_callback() {
+    $value = get_option('mgf_button_hide', 'Скрыть');
+    ?>
+    <input type="text" name="mgf_button_hide" value="<?php echo esc_attr($value); ?>" class="regular-text" />
+    <p class="description"><?php _e('Текст кнопки, которая появляется после раскрытия подробного описания', 'mgf'); ?></p>
+    <?php
 }
 
 // AJAX обработчик для смены языка

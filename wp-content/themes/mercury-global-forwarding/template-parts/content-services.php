@@ -78,7 +78,9 @@ $current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru'
                         
                         <?php if (get_the_content()): ?>
                             <div class="content-block_item-third">
-                                <a href="#" class="toggle-text-link"><?php echo mgf_translate('Узнать больше', 'learn_more'); ?></a>
+                                <a href="#" class="toggle-text-link" data-learn-more="<?php echo esc_attr(mgf_translate(get_option('mgf_button_learn_more', 'Узнать больше'), 'learn_more')); ?>" data-hide-text="<?php echo esc_attr(mgf_translate(get_option('mgf_button_hide', 'Скрыть'), 'hide_text')); ?>">
+                                    <?php echo mgf_translate(get_option('mgf_button_learn_more', 'Узнать больше'), 'learn_more'); ?>
+                                </a>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -177,7 +179,11 @@ $current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru'
                             <img src="<?php echo get_template_directory_uri(); ?>/assets/images/international_transportation.svg" alt="international_transportation">
                         </div>
                     </div>
-                    <div class="content-block_item-third"><a href="#" class="toggle-text-link"><?php echo mgf_translate('Узнать больше', 'learn_more'); ?></a></div>
+                    <div class="content-block_item-third">
+                        <a href="#" class="toggle-text-link" data-learn-more="<?php echo esc_attr(mgf_translate(get_option('mgf_button_learn_more', 'Узнать больше'), 'learn_more')); ?>" data-hide-text="<?php echo esc_attr(mgf_translate(get_option('mgf_button_hide', 'Скрыть'), 'hide_text')); ?>">
+                            <?php echo mgf_translate(get_option('mgf_button_learn_more', 'Узнать больше'), 'learn_more'); ?>
+                        </a>
+                    </div>
                 </div>
             </div>
             <!-- Добавьте остальные статические услуги по аналогии -->
