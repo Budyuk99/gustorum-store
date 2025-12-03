@@ -105,19 +105,19 @@ if (!is_admin()) {
                 // Это фиксированные названия, которые не должны переводиться
                 $languages = array(
                     'ru' => array(
-                        'name' => 'Русский', // Русский всегда на русском
+                        'name' => 'Русский',
                         'external' => false
                     ),
-                    'en' => array(
-                        'name' => 'English', // Английский всегда на английском
+                    'en' => array(  // Используем слаг 'en', а не код 'en_GB'
+                        'name' => 'English',
                         'external' => false
                     ),
-                    'ch' => array(
-                        'name' => '中文', // Китайский всегда на китайском
+                    'zh' => array(  // Используем слаг 'zh', а не код 'zh_CN'
+                        'name' => '中文',
                         'external' => false
                     ),
                     'fi' => array(
-                        'name' => 'Suomi', // Финский всегда на финском
+                        'name' => 'Suomi',
                         'external' => false,
                     )
                 );
