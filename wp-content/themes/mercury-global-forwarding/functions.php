@@ -139,42 +139,60 @@ function mgf_e($string, $context = '') {
     echo mgf_translate($string, $context);
 }
 
+// Настройки для ссылок на мессенджеры (мультиязычные)
 function mgf_messenger_settings_init() {
-    // Регистрируем новую секцию настроек
-    add_settings_section(
-        'mgf_messenger_section',
-        __('Ссылки на мессенджеры', 'mgf'),
-        'mgf_messenger_section_callback',
-        'general'
-    );
-
-    // Регистрируем поля для каждого мессенджера
-    $messengers = array(
-        'whatsapp' => __('WhatsApp', 'mgf'),
-        'telegram' => __('Telegram', 'mgf'), 
-        'teams' => __('Microsoft Teams', 'mgf'),
-        'wechat' => __('WeChat', 'mgf'),
-        'mail' => __('Email', 'mgf')
-    );
-
-    foreach ($messengers as $key => $name) {
-        add_settings_field(
-            'mgf_messenger_' . $key,
-            $name,
-            'mgf_messenger_field_callback',
-            'general',
-            'mgf_messenger_section',
-            array('messenger' => $key)
+    // Регистрируем новую секцию настроек для каждого языка
+    $languages = array('ru', 'en', 'zh', 'fi');
+    
+    foreach ($languages as $lang) {
+        $lang_name = '';
+        switch ($lang) {
+            case 'ru': $lang_name = 'русском'; break;
+            case 'en': $lang_name = 'английском'; break;
+            case 'zh': $lang_name = 'китайском'; break;
+            case 'fi': $lang_name = 'финском'; break;
+        }
+        
+        add_settings_section(
+            'mgf_messenger_section_' . $lang,
+            sprintf(__('Ссылки на мессенджеры на %s языке', 'mgf'), $lang_name),
+            function() use ($lang_name) {
+                echo '<p>' . sprintf(__('Введите ссылки для мессенджеров для версии на %s языке. Оставьте поле пустым, чтобы скрыть иконку.', 'mgf'), $lang_name) . '</p>';
+            },
+            'general'
         );
 
-        // Для WeChat используем кастомную санитизацию
-        if ($key === 'wechat') {
-            register_setting('general', 'mgf_messenger_' . $key, array(
-                'type' => 'string',
-                'sanitize_callback' => 'mgf_sanitize_wechat_url'
-            ));
-        } else {
-            register_setting('general', 'mgf_messenger_' . $key);
+        // Регистрируем поля для каждого мессенджера для текущего языка
+        $messengers = array(
+            'whatsapp' => __('WhatsApp', 'mgf'),
+            'telegram' => __('Telegram', 'mgf'), 
+            'teams' => __('Microsoft Teams', 'mgf'),
+            'wechat' => __('WeChat', 'mgf'),
+            'mail' => __('Email', 'mgf')
+        );
+
+        foreach ($messengers as $key => $name) {
+            add_settings_field(
+                'mgf_messenger_' . $key . '_' . $lang,
+                $name . ' (' . strtoupper($lang) . ')',
+                'mgf_messenger_field_callback',
+                'general',
+                'mgf_messenger_section_' . $lang,
+                array(
+                    'messenger' => $key,
+                    'language' => $lang
+                )
+            );
+
+            // Для WeChat используем кастомную санитизацию
+            if ($key === 'wechat') {
+                register_setting('general', 'mgf_messenger_' . $key . '_' . $lang, array(
+                    'type' => 'string',
+                    'sanitize_callback' => 'mgf_sanitize_wechat_url'
+                ));
+            } else {
+                register_setting('general', 'mgf_messenger_' . $key . '_' . $lang);
+            }
         }
     }
 }
@@ -221,13 +239,14 @@ function mgf_messenger_section_callback() {
 
 // callback функция для полей с WeChat
 function mgf_messenger_field_callback($args) {
-    $option = get_option('mgf_messenger_' . $args['messenger']);
+    $option_name = 'mgf_messenger_' . $args['messenger'] . '_' . $args['language'];
+    $option = get_option($option_name);
     
     // Для WeChat используем текстовое поле, для остальных - url поле
     if ($args['messenger'] === 'wechat') {
-        echo '<input type="text" name="mgf_messenger_' . $args['messenger'] . '" value="' . esc_attr($option) . '" class="regular-text" />';
+        echo '<input type="text" name="' . esc_attr($option_name) . '" value="' . esc_attr($option) . '" class="regular-text" />';
     } else {
-        echo '<input type="url" name="mgf_messenger_' . $args['messenger'] . '" value="' . esc_url($option) . '" class="regular-text" />';
+        echo '<input type="url" name="' . esc_attr($option_name) . '" value="' . esc_url($option) . '" class="regular-text" />';
     }
     
     // Подсказки для популярных мессенджеров
@@ -256,8 +275,8 @@ function mgf_messenger_field_callback($args) {
         echo '<p class="description">' . $examples[$args['messenger']] . '</p>';
     }
     
-    // Выводим подробное описание
-    if (isset($descriptions[$args['messenger']])) {
+    // Выводим подробное описание для первого языка (ru), чтобы не дублировать
+    if ($args['language'] === 'ru' && isset($descriptions[$args['messenger']])) {
         echo $descriptions[$args['messenger']];
     }
 }
