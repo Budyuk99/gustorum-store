@@ -312,7 +312,7 @@ nav a {
 }
 
 .content-services {
-    background-image: url(/assets/images/background-image.svg);
+    background-image: url(images/background-image.svg);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
