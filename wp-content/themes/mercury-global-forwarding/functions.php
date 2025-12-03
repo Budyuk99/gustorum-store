@@ -1388,4 +1388,47 @@ function mgf_save_admin_language() {
     }
 }
 add_action('admin_init', 'mgf_save_admin_language', 1);
+
+// Добавление favicon
+function mgf_add_favicon() {
+    // Путь к favicon в теме
+    $favicon_url = get_template_directory_uri() . '/assets/images/favicon.ico';
+    
+    echo '<link rel="shortcut icon" href="' . esc_url($favicon_url) . '" type="image/x-icon" />' . "\n";
+    echo '<link rel="icon" href="' . esc_url($favicon_url) . '" type="image/x-icon" />' . "\n";
+    
+    // Для современных браузеров (разные размеры)
+    $favicon_png_16 = get_template_directory_uri() . '/assets/images/favicon-16x16.png';
+    $favicon_png_32 = get_template_directory_uri() . '/assets/images/favicon-32x32.png';
+    $favicon_png_180 = get_template_directory_uri() . '/assets/images/apple-touch-icon.png';
+    
+    if (file_exists(get_template_directory() . '/assets/images/favicon-16x16.png')) {
+        echo '<link rel="icon" type="image/png" sizes="16x16" href="' . esc_url($favicon_png_16) . '" />' . "\n";
+    }
+    
+    if (file_exists(get_template_directory() . '/assets/images/favicon-32x32.png')) {
+        echo '<link rel="icon" type="image/png" sizes="32x32" href="' . esc_url($favicon_png_32) . '" />' . "\n";
+    }
+    
+    if (file_exists(get_template_directory() . '/assets/images/apple-touch-icon.png')) {
+        echo '<link rel="apple-touch-icon" sizes="180x180" href="' . esc_url($favicon_png_180) . '" />' . "\n";
+    }
+    
+    // Для Windows 8/10
+    $favicon_metro = get_template_directory_uri() . '/assets/images/mstile-150x150.png';
+    if (file_exists(get_template_directory() . '/assets/images/mstile-150x150.png')) {
+        echo '<meta name="msapplication-TileImage" content="' . esc_url($favicon_metro) . '" />' . "\n";
+        echo '<meta name="msapplication-TileColor" content="#ffffff" />' . "\n";
+    }
+    
+    // Web App Manifest
+    $manifest_url = get_template_directory_uri() . '/assets/images/site.webmanifest';
+    if (file_exists(get_template_directory() . '/assets/images/site.webmanifest')) {
+        echo '<link rel="manifest" href="' . esc_url($manifest_url) . '" />' . "\n";
+    }
+}
+add_action('wp_head', 'mgf_add_favicon');
+add_action('admin_head', 'mgf_add_favicon'); // Для админки
+add_action('login_head', 'mgf_add_favicon'); // Для страницы входа
+
 ?>
