@@ -29,7 +29,7 @@ header .logo {
 .main-nav {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 32px;
     margin-left: 0; /* <-- прижимаем меню вправо */
     justify-content: right;
 }
@@ -37,10 +37,11 @@ header .logo {
 .main-nav a {
     text-decoration: none;
     color: #212121;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
     transition: color 0.3s;
-    padding: 10px;
+    padding: 0;
+    letter-spacing: 0;
 }
 
 .main-nav a:hover {
@@ -221,7 +222,7 @@ nav a {
 
 .divider {
     width: 1px;
-    height: 100%;
+    height: 44px;
     background-color: rgba(33, 33, 33, 0.12);
     margin: 0 10px;
 }
@@ -461,7 +462,7 @@ nav a {
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     position: relative;
     z-index: 2;
-    box-shadow: 0 0 0 6px #25323a;
+    box-shadow: 0 0 0 6px #A4D9FF38;
 }
 
 .messenger-btn img {
@@ -512,33 +513,35 @@ nav a {
 
 /* Позиционирование иконок по кругу */
 .messenger-wrapper.active .messenger-option:nth-child(1) {
-    transform: translate(-120px, 0) scale(1);
+    transform: translate(-98px, 0) scale(1);
     opacity: 1;
     transition-delay: 0.1s;
 }
 
 .messenger-wrapper.active .messenger-option:nth-child(2) {
-    transform: translate(-100px, -70px) scale(1);
+    transform: translate(-158px, -63px) scale(1);
     opacity: 1;
     transition-delay: 0.15s;
 }
 
 .messenger-wrapper.active .messenger-option:nth-child(3) {
-    transform: translate(-50px, -120px) scale(1);
+    transform: translate(-140px, -145px) scale(1);
     opacity: 1;
     transition-delay: 0.2s;
 }
 
 .messenger-wrapper.active .messenger-option:nth-child(4) {
-    transform: translate(20px, -120px) scale(1);
+    transform: translate(-55px, -158px) scale(1);
     opacity: 1;
     transition-delay: 0.25s;
+    background: #45b035;
 }
 
 .messenger-wrapper.active .messenger-option:nth-child(5) {
-    transform: translate(80px, -70px) scale(1);
+    transform: translate(4px, -96px) scale(1);
     opacity: 1;
     transition-delay: 0.3s;
+    background: white;
 }
 
 .messenger-wrapper.active .messenger-option:nth-child(6) {
@@ -1005,16 +1008,18 @@ body.menu-open {
     }
 
     header {
-        padding: 15px 20px;
+        padding: 11px 11px;
         max-width: 100%;
     }
 
     .main-nav {
          /* центрируем при узком экране */
          flex-wrap: nowrap;
-         gap: 0;
+         \: 0;
          width: 100%;
          justify-content: right;
+         gap: 20px;
+         height: 100%;
     }
 
     .lang-dropdown {
@@ -1088,5 +1093,15 @@ body.menu-open {
         height: 90vh;
         min-height: 800px;
         max-height: 1200px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 360px) {
+    .main-nav a {
+        font-size: 14px;
+    }
+
+    .main-nav {
+        gap: 10px;
     }
 }
