@@ -74,7 +74,7 @@ header nav a:hover {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     object-fit: cover;
     transform: translate(-50%, -50%);
@@ -691,6 +691,250 @@ nav a {
 .footer_container.footer-finnish .footer_item.logo img {
     width: 100%;
     height: 135px;
+}
+
+/* ===== СТРАНИЦА ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ ===== */
+.privacy-policy-section {
+    padding: 80px 0 60px;
+    min-height: 100vh;
+}
+
+.privacy-policy-section .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Заголовок */
+.privacy-policy-header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid rgba(0, 115, 170, 0.1);
+}
+
+.privacy-icon {
+    margin-bottom: 20px;
+}
+
+.privacy-icon svg {
+    filter: drop-shadow(0 4px 6px rgba(0, 115, 170, 0.2));
+}
+
+.privacy-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #1a365d;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.privacy-subtitle {
+    font-size: 16px;
+    color: #718096;
+    font-weight: 500;
+}
+
+/* Контент */
+.privacy-policy-content {
+    background: white;
+    border-radius: 16px;
+    padding: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 115, 170, 0.1);
+}
+
+.privacy-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #4a5568;
+}
+
+.privacy-text h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 40px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0069b4;
+}
+
+.privacy-text h3 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 30px 0 15px;
+}
+
+.privacy-text h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4a5568;
+    margin: 25px 0 10px;
+}
+
+.privacy-text p {
+    margin-bottom: 20px;
+}
+
+.privacy-text ul,
+.privacy-text ol {
+    margin-left: 25px;
+    margin-bottom: 20px;
+}
+
+.privacy-text li {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.privacy-text ul li:before {
+    content: "•";
+    color: #0073aa;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.privacy-text ol {
+    counter-reset: item;
+}
+
+.privacy-text ol li {
+    counter-increment: item;
+}
+
+.privacy-text ol li:before {
+    content: counter(item) ".";
+    color: #0073aa;
+    font-weight: bold;
+    position: absolute;
+    left: -25px;
+}
+
+.privacy-text strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.privacy-text a {
+    color: #0073aa;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 115, 170, 0.3);
+    transition: all 0.3s ease;
+}
+
+.privacy-text a:hover {
+    color: #0056b3;
+    border-bottom-color: #0056b3;
+}
+
+/* Контактная информация */
+.privacy-contact {
+    margin-top: 50px;
+    padding: 30px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+    border-radius: 12px;
+    border-left: 4px solid #0069b4;
+}
+
+.privacy-contact h3 {
+    color: #1a365d;
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.contact-details {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.contact-details p {
+    margin: 10px 0;
+    color: #4a5568;
+}
+
+.contact-details strong {
+    color: #2d3748;
+    font-size: 18px;
+}
+
+/* Для других страниц */
+.default-page {
+    padding: 60px 0;
+}
+
+.page-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a365d;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.page-content-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #4a5568;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .privacy-policy-section {
+        padding: 40px 0;
+    }
+    
+    .privacy-title {
+        font-size: 32px;
+    }
+    
+    .privacy-policy-content {
+        padding: 30px 20px;
+    }
+    
+    .privacy-text h2 {
+        font-size: 24px;
+    }
+    
+    .privacy-text h3 {
+        font-size: 20px;
+    }
+    
+    .privacy-contact {
+        padding: 20px;
+    }
+    
+    .page-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .privacy-title {
+        font-size: 26px;
+    }
+    
+    .privacy-policy-content {
+        padding: 20px 15px;
+    }
+    
+    .privacy-text {
+        font-size: 15px;
+    }
+    
+    .privacy-text h2 {
+        font-size: 22px;
+    }
 }
 
 @media (min-width: 1600px) {
