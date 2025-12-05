@@ -98,14 +98,14 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
                 $fi_phone = get_option('mgf_contacts_fi_phone', '+358 41 570 8237');
                 if ($fi_phone && trim($fi_phone) !== ''): 
                 ?>
-                    <p class="line"><?php echo mgf_translate('Тел:', 'phone'); ?> <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $fi_phone)); ?>"><?php echo esc_html($fi_phone); ?></a></p>
+                    <p class="line">Phone: <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $fi_phone)); ?>"><?php echo esc_html($fi_phone); ?></a></p>
                 <?php endif; ?>
                 
                 <?php 
                 $fi_email = get_option('mgf_contacts_fi_email', 'info.fi@mercury-gf.com');
                 if ($fi_email && trim($fi_email) !== ''): 
                 ?>
-                    <p class="line"><?php echo mgf_translate('Эл. почта:', 'email'); ?> <a href="mailto:<?php echo esc_attr($fi_email); ?>"><?php echo esc_html($fi_email); ?></a></p>
+                    <p class="line">Email: <a href="mailto:<?php echo esc_attr($fi_email); ?>"><?php echo esc_html($fi_email); ?></a></p>
                 <?php endif; ?>
             </div>
         </div>

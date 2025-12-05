@@ -576,7 +576,7 @@ nav a {
 .footer_container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 32px;
+    gap: 31.5px;
 }
 
 /* Каждая колонка - таблица для выравнивания строк */
@@ -584,12 +584,12 @@ nav a {
     display: grid;
     grid-auto-rows: min-content; /* строки по размеру содержимого */
     gap: 8px; /* расстояние между строками */
-    width: 100%;
 }
 
 .footer_item.logo img {
-    width: 100%;
+    width: 263px;
     max-width: 100%;
+    height: 72px;
 }
 
 /* Стили ссылок */
@@ -620,6 +620,9 @@ nav a {
 
 .footer_item_without-ing {
     margin-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .footer_block {
@@ -627,7 +630,7 @@ nav a {
 }
 
 .line_second {
-    min-height: 70px;
+    min-height: 80px;
 }
 
 .full-text {
@@ -667,7 +670,7 @@ nav a {
 
 @media (min-width: 1600px) {
     .footer_item.logo img {
-        width: 60%;
+        width: 90%;
         max-width: 100%;
     }
 }
@@ -875,6 +878,12 @@ body.menu-open {
     
     .content-block_item {
         flex-basis: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .footer_item.logo img {
+        width: 50%;
     }
 }
 
