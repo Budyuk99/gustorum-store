@@ -39,6 +39,7 @@ jQuery(function ($) {
         margin: 20,
         nav: true,
         dots: true,
+        autoplay: true,
         smartSpeed: 600,
         responsive: {
             0: { items: 1.05, stagePadding: 30 },
