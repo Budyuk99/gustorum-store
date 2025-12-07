@@ -917,6 +917,10 @@ nav a {
     .page-title {
         font-size: 28px;
     }
+    
+    .owl-carousel .owl-dots {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
