@@ -1070,7 +1070,7 @@ nav a {
 
 @media (max-width: 480px) {
     .messenger-wrapper {
-        bottom: 30px;
+        bottom: 100px;
         right: 40px;
     }
     
