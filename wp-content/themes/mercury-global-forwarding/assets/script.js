@@ -86,14 +86,14 @@ jQuery(function ($) {
     });
 
     // ============================
-    // Мессенджер-кнопка
+    // Кнопка мессенджера
     // ============================
 
-    const messengerBtn = document.querySelector('.messenger-btn');
+    const messengerBtnTrigger = document.querySelector('.messenger-btn'); // Переименовал
     const messengerWrapper = document.querySelector('.messenger-wrapper');
 
-    if (messengerBtn && messengerWrapper) {
-        messengerBtn.addEventListener('click', (e) => {
+    if (messengerBtnTrigger && messengerWrapper) {
+        messengerBtnTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             messengerWrapper.classList.toggle('active');
         });
@@ -113,4 +113,43 @@ jQuery(function ($) {
         });
     }
 
-});
+    // ============================
+    // Скрытие кнопки мессенджера при прокрутке к футеру
+    // ============================
+
+    const footer = document.querySelector('.footer');
+    
+    if (messengerWrapper && footer) {
+        // Функция для проверки видимости футера
+        function checkFooterVisibility() {
+            const footerRect = footer.getBoundingClientRect();
+            const footerTop = footerRect.top;
+            const windowHeight = window.innerHeight;
+            
+            // Если верх футера находится в видимой области окна (или выше)
+            if (footerTop <= windowHeight) {
+                // Футер виден или почти виден - скрываем кнопку
+                messengerWrapper.style.opacity = '0';
+                messengerWrapper.style.visibility = 'hidden';
+                messengerWrapper.style.pointerEvents = 'none';
+                messengerWrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+            } else {
+                // Футер не виден - показываем кнопку
+                messengerWrapper.style.opacity = '1';
+                messengerWrapper.style.visibility = 'visible';
+                messengerWrapper.style.pointerEvents = 'auto';
+                messengerWrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+            }
+        }
+        
+        // Проверяем при загрузке страницы
+        checkFooterVisibility();
+        
+        // Проверяем при прокрутке
+        window.addEventListener('scroll', checkFooterVisibility);
+        
+        // Проверяем при изменении размера окна
+        window.addEventListener('resize', checkFooterVisibility);
+    }
+
+}); // Конец jQuery(function ($)
