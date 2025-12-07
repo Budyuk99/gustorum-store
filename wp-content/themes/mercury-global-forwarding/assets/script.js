@@ -30,7 +30,7 @@ jQuery(function ($) {
     }
 
     // ============================
-    // Owl Carousel
+    // Owl Carousel с невидимой Hover Navigation
     // ============================
 
     $(".gallery-slider").owlCarousel({
@@ -42,11 +42,131 @@ jQuery(function ($) {
         autoplay: true,
         smartSpeed: 600,
         responsive: {
-            0: { items: 1.05, stagePadding: 30 },
-            768: { items: 1.05, stagePadding: 60 },
-            1200: { items: 1.05, stagePadding: 100 },
-            1600: { items: 1.05, stagePadding: 140 },
-        },
+            0: { 
+                items: 1.05, 
+                stagePadding: 30
+            },
+            768: { 
+                items: 1.05, 
+                stagePadding: 60
+            },
+            1200: { 
+                items: 1.05, 
+                stagePadding: 100
+            },
+            1600: { 
+                items: 1.05, 
+                stagePadding: 140
+            },
+        }
+    });
+
+    // Невидимая hover навигация
+    function initInvisibleHoverNav() {
+        const slider = $('.gallery-slider');
+        
+        // Отключаем на мобильных
+        if (window.innerWidth < 768) {
+            removeHoverZones();
+            return;
+        }
+        
+        // Если зоны уже есть - удаляем
+        removeHoverZones();
+        
+        // Создаем невидимые зоны
+        slider.css('position', 'relative');
+        slider.append(`
+            <div class="invisible-hover-zone left-hover-zone"></div>
+            <div class="invisible-hover-zone right-hover-zone"></div>
+        `);
+        
+        // Настройка зон
+        const leftZone = $('.left-hover-zone');
+        const rightZone = $('.right-hover-zone');
+        const zoneWidth = 80; // Ширина зоны в пикселях
+        
+        leftZone.css({
+            'position': 'absolute',
+            'left': '0',
+            'top': '0',
+            'width': zoneWidth + 'px',
+            'height': '100%',
+            'z-index': '10',
+            'cursor': 'pointer'
+        });
+        
+        rightZone.css({
+            'position': 'absolute',
+            'right': '0',
+            'top': '0',
+            'width': zoneWidth + 'px',
+            'height': '100%',
+            'z-index': '10',
+            'cursor': 'pointer'
+        });
+        
+        // Обработчики для левой зоны
+        let leftTimer;
+        leftZone.hover(
+            function() {
+                // Навели курсор
+                leftTimer = setTimeout(function() {
+                    slider.trigger('prev.owl.carousel');
+                }, 300); // Задержка 300ms
+            },
+            function() {
+                // Убрали курсор
+                clearTimeout(leftTimer);
+            }
+        );
+        
+        // Обработчики для правой зоны
+        let rightTimer;
+        rightZone.hover(
+            function() {
+                rightTimer = setTimeout(function() {
+                    slider.trigger('next.owl.carousel');
+                }, 300);
+            },
+            function() {
+                clearTimeout(rightTimer);
+            }
+        );
+        
+        // Также клик для мгновенного переключения
+        leftZone.on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            slider.trigger('prev.owl.carousel');
+        });
+        
+        rightZone.on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            slider.trigger('next.owl.carousel');
+        });
+    }
+    
+    // Удаление зон
+    function removeHoverZones() {
+        $('.invisible-hover-zone').remove();
+    }
+    
+    // Инициализация после загрузки
+    $(document).ready(function() {
+        // Даем время Owl Carousel на инициализацию
+        setTimeout(initInvisibleHoverNav, 1000);
+    });
+    
+    // Обновление при ресайзе
+    let resizeTimer;
+    $(window).on('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            removeHoverZones();
+            initInvisibleHoverNav();
+        }, 250);
     });
 
     // ============================
@@ -89,7 +209,7 @@ jQuery(function ($) {
     // Кнопка мессенджера
     // ============================
 
-    const messengerBtnTrigger = document.querySelector('.messenger-btn'); // Переименовал
+    const messengerBtnTrigger = document.querySelector('.messenger-btn');
     const messengerWrapper = document.querySelector('.messenger-wrapper');
 
     if (messengerBtnTrigger && messengerWrapper) {
@@ -120,21 +240,17 @@ jQuery(function ($) {
     const footer = document.querySelector('.footer');
     
     if (messengerWrapper && footer) {
-        // Функция для проверки видимости футера
         function checkFooterVisibility() {
             const footerRect = footer.getBoundingClientRect();
             const footerTop = footerRect.top;
             const windowHeight = window.innerHeight;
             
-            // Если верх футера находится в видимой области окна (или выше)
             if (footerTop <= windowHeight) {
-                // Футер виден или почти виден - скрываем кнопку
                 messengerWrapper.style.opacity = '0';
                 messengerWrapper.style.visibility = 'hidden';
                 messengerWrapper.style.pointerEvents = 'none';
                 messengerWrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
             } else {
-                // Футер не виден - показываем кнопку
                 messengerWrapper.style.opacity = '1';
                 messengerWrapper.style.visibility = 'visible';
                 messengerWrapper.style.pointerEvents = 'auto';
@@ -142,13 +258,8 @@ jQuery(function ($) {
             }
         }
         
-        // Проверяем при загрузке страницы
         checkFooterVisibility();
-        
-        // Проверяем при прокрутке
         window.addEventListener('scroll', checkFooterVisibility);
-        
-        // Проверяем при изменении размера окна
         window.addEventListener('resize', checkFooterVisibility);
     }
 

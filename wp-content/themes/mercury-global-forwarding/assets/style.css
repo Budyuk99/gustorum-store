@@ -888,6 +888,46 @@ nav a {
     color: #4a5568;
 }
 
+/* Невидимые hover зоны - ТОЛЬКО функциональность */
+.invisible-hover-zone {
+    position: absolute !important;
+    top: 0 !important;
+    height: 100% !important;
+    z-index: 10 !important;
+    cursor: pointer !important;
+    background: transparent !important;
+    opacity: 0 !important; /* Полностью невидимые */
+    pointer-events: auto !important;
+}
+
+.left-hover-zone {
+    left: 0 !important;
+    width: 80px !important;
+}
+
+.right-hover-zone {
+    right: 0 !important;
+    width: 80px !important;
+}
+
+/* НИКАКИХ визуальных эффектов при наведении */
+.invisible-hover-zone:hover {
+    background: transparent !important;
+    opacity: 0 !important;
+}
+
+/* Отключаем на мобильных */
+@media (max-width: 767px) {
+    .invisible-hover-zone {
+        display: none !important;
+    }
+}
+
+/* Убедимся что курсор правильный только при наведении */
+.invisible-hover-zone:hover {
+    cursor: pointer !important;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .privacy-policy-section {
