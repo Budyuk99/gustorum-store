@@ -118,22 +118,22 @@ if (!is_admin()) {
 
                     // Языки - ВСЕГДА показываем на родном языке
                     $languages = array(
-                        'ru' => array(
-                            'name' => 'Русский',
-                            'external' => false
-                        ),
                         'en' => array(
                             'name' => 'English',
-                            'external' => false
-                        ),
-                        'zh' => array(
-                            'name' => '中文',
                             'external' => false
                         ),
                         'fi' => array(
                             'name' => 'Suomi',
                             'external' => false,
-                        )
+                        ),
+                        'zh' => array(
+                            'name' => '中文',
+                            'external' => false
+                        ),
+                        'ru' => array(
+                            'name' => 'Русский',
+                            'external' => false
+                        ),
                     );
 
                     foreach ($languages as $code => $lang_data) {

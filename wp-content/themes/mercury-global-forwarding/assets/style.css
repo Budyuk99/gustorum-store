@@ -979,6 +979,10 @@ nav a {
     .privacy-text h2 {
         font-size: 22px;
     }
+
+    .main-nav a {
+        font-size: 15px;
+    }
 }
 
 @media (min-width: 1600px) {
@@ -1070,7 +1074,7 @@ nav a {
 
 @media (max-width: 480px) {
     .messenger-wrapper {
-        bottom: 100px;
+        bottom: 25%;
         right: 40px;
     }
     
@@ -1335,13 +1339,16 @@ body.menu-open {
     }
 
     .main-nav {
-         /* центрируем при узком экране */
-         flex-wrap: nowrap;
-         \: 0;
-         width: 100%;
-         justify-content: right;
-         gap: 20px;
-         height: 100%;
+        /* центрируем при узком экране */
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: right;
+        gap: 10px;
+        height: 100%;
+    }
+
+    .lang-btn {
+        font-size: 15px;
     }
 
     .lang-dropdown {
@@ -1424,6 +1431,12 @@ body.menu-open {
     }
 
     .main-nav {
-        gap: 10px;
+        gap: 4px;
+    }
+}
+
+@media (max-width: 320px) {
+    .mobile_logo {
+        display: none;
     }
 }
