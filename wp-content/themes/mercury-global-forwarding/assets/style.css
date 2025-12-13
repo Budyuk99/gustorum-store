@@ -577,7 +577,7 @@ nav a {
     display: flex;
     gap: 31.5px;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 /* Каждая колонка - таблица для выравнивания строк */
@@ -1231,6 +1231,13 @@ body.menu-open {
     
     .footer_container {
         margin: 0 40px;
+    }
+
+    .footer_container {
+        display: flex;
+        gap: 32px;
+        justify-content: space-between;
+        flex-wrap: wrap;
     }
 }
 
