@@ -276,7 +276,7 @@ nav a {
     flex-basis: calc(50% - 6px);
     justify-content: space-between;
     width: 100%;
-    min-height: 300px;
+    min-height: 330px;
 }
 
 .content-block_item-first {
