@@ -178,15 +178,15 @@ jQuery(function ($) {
             e.preventDefault();
 
             const parent = this.closest('.content-block_item-text');
-            const fullText = parent.querySelector('.full-text');
             const isExpanded = parent.classList.contains('expanded');
-            
-            // Получаем тексты из data-атрибутов
-            const learnMoreText = this.dataset.learnMore || 'Узнать больше';
-            const hideText = this.dataset.hideText || 'Скрыть';
 
+            const item = this.closest('.content-block_item');
+            const textWrapper = item.querySelector('.content-block_item-text');
+            const fullText = item.querySelector('.full-text');
+            
             if (!isExpanded) {
-                parent.classList.add('expanded');
+                item.classList.add('expanded');
+                textWrapper.classList.add('expanded');
                 fullText.style.maxHeight = fullText.scrollHeight + "px";
                 this.textContent = hideText;
             } else {
@@ -196,7 +196,8 @@ jQuery(function ($) {
                 });
 
                 fullText.addEventListener('transitionend', function handler() {
-                    parent.classList.remove('expanded');
+                    item.classList.remove('expanded');
+                    textWrapper.classList.remove('expanded');
                     fullText.removeEventListener('transitionend', handler);
                 });
 
