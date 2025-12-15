@@ -4,7 +4,7 @@
  */
 
 // Получаем текущий язык
-$current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
+$current_lang = mgf_get_current_language();
 ?>
 <section class="slider">
     <h2 class="h2_basic h2_basic-slider"><?php echo mgf_translate(get_option('mgf_title_gallery', 'Галерея'), 'gallery_title'); ?></h2>

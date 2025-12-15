@@ -6,7 +6,11 @@
 
 // Получаем текущий язык только для фронтенда
 // Админка использует свои языковые настройки
-$current_lang = 'ru'; // Значение по умолчанию
+$current_lang = mgf_get_current_language(); // Значение по умолчанию
+
+if (function_exists('pll_set_current_language') && in_array($current_lang, ['ru', 'en', 'zh', 'fi'])) {
+    pll_set_current_language($current_lang);
+}
 
 // Определяем язык только для фронтенда
 if (!is_admin()) {
@@ -25,15 +29,6 @@ if (!is_admin()) {
     if (function_exists('pll_set_current_language') && in_array($current_lang, array('ru', 'en', 'ch', 'fi'))) {
         pll_set_current_language($current_lang);
     }
-
-    // Для языкового переключателя всегда используем URL с параметром lang
-    add_filter('home_url', function ($url) use ($current_lang) {
-        if (strpos($url, 'wp-admin') !== false || strpos($url, 'wp-login') !== false) {
-            return $url;
-        }
-        // Добавляем параметр lang ко всем ссылкам на фронтенде
-        return add_query_arg('lang', $current_lang, remove_query_arg('lang', $url));
-    }, 10, 1);
 }
 ?>
 <!DOCTYPE html>
@@ -102,10 +97,10 @@ if (!is_admin()) {
                     <?php
                     // Маппинг языков для кнопки (должен совпадать с JavaScript маппингом)
                     $language_codes = array(
-                        'ru' => 'RU',
-                        'en' => 'EN',
+                        'en' => 'EN', // Английский теперь первый
+                        'fi' => 'SU',
                         'zh' => '中文',
-                        'fi' => 'SU'
+                        'ru' => 'RU',
                     );
                     echo isset($language_codes[$current_lang]) ? $language_codes[$current_lang] : strtoupper($current_lang);
                     ?>

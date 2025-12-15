@@ -1217,14 +1217,6 @@ function mgf_add_hreflang_tags() {
 }
 add_action('wp_head', 'mgf_add_hreflang_tags', 2);
 
-// Функция для получения текущего языка с fallback
-function mgf_get_current_language() {
-    if (function_exists('pll_current_language')) {
-        return pll_current_language('slug');
-    }
-    return 'ru';
-}
-
 // Функция для получения языка по умолчанию
 function mgf_get_default_language() {
     if (function_exists('pll_default_language')) {
@@ -1295,7 +1287,20 @@ function mgf_redirect_with_language() {
         }
     }
 }
-add_action('template_redirect', 'mgf_redirect_with_language');
+add_action('template_redirect', 'mgf_homepage_language_redirect');
+
+function mgf_homepage_language_redirect() {
+    // Только для главной страницы без параметра lang
+    if (is_front_page() && !isset($_GET['lang'])) {
+        $lang = mgf_get_current_language();
+        
+        // Если язык не английский (теперь по умолчанию английский)
+        if ($lang !== 'en') {
+            wp_redirect(add_query_arg('lang', $lang, home_url('/')));
+            exit;
+        }
+    }
+}
 
 // Добавляем поддержку Polylang для параметра lang
 function mgf_polylang_lang_param($url, $lang) {
@@ -1326,7 +1331,7 @@ function mgf_language_switcher_shortcode($atts) {
     ?>
     <div class="mgf-language-switcher">
         <?php
-        $current_lang = isset($_GET['lang']) ? $_GET['lang'] : 'ru';
+        $current_lang = mgf_get_current_language();
         $clean_url = remove_query_arg('lang', home_url($_SERVER['REQUEST_URI']));
         
         $languages = array(
@@ -1449,5 +1454,57 @@ function mgf_add_favicon() {
 add_action('wp_head', 'mgf_add_favicon');
 add_action('admin_head', 'mgf_add_favicon'); // Для админки
 add_action('login_head', 'mgf_add_favicon'); // Для страницы входа
+
+function mgf_get_current_language() {
+    // 1. Проверяем параметр URL (приоритет 1 - самый высокий)
+    if (isset($_GET['lang'])) {
+        $lang = sanitize_text_field($_GET['lang']);
+        $allowed = ['ru', 'en', 'zh', 'fi'];
+        if (in_array($lang, $allowed)) {
+            // Сохраняем в куки для сессии
+            if (!headers_sent()) {
+                setcookie('mgf_lang', $lang, time() + (3600 * 24 * 30), '/', '', false, true);
+                setcookie('mgf_frontend_language', $lang, time() + (3600 * 24 * 30), '/', '', false, true);
+            }
+            return $lang;
+        }
+    }
+    
+    // 2. Проверяем куки (приоритет 2)
+    if (isset($_COOKIE['mgf_lang'])) {
+        $lang = $_COOKIE['mgf_lang'];
+        $allowed = ['ru', 'en', 'zh', 'fi'];
+        if (in_array($lang, $allowed)) {
+            return $lang;
+        }
+    }
+    
+    if (isset($_COOKIE['mgf_frontend_language'])) {
+        $lang = $_COOKIE['mgf_frontend_language'];
+        $allowed = ['ru', 'en', 'zh', 'fi'];
+        if (in_array($lang, $allowed)) {
+            return $lang;
+        }
+    }
+    
+    // 3. Используем Polylang если доступен (приоритет 3)
+    if (function_exists('pll_current_language')) {
+        $lang = pll_current_language('slug');
+        if ($lang) {
+            return $lang;
+        }
+    }
+    
+    // 4. Определяем по браузеру (приоритет 4)
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        $browser_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        if (in_array($browser_lang, ['ru', 'en', 'zh', 'fi'])) {
+            return $browser_lang;
+        }
+    }
+    
+    // 5. Язык по умолчанию - АНГЛИЙСКИЙ
+    return 'en';
+}
 
 ?>

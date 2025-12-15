@@ -5,7 +5,7 @@
 get_header();
 
 // Получаем текущий язык
-$current_lang = isset($_GET['lang']) ? $_GET['lang'] : 'ru';
+$current_lang = mgf_get_current_language();
 ?>
 
 <main class="page-content">

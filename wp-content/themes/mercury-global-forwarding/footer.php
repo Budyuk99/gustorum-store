@@ -4,7 +4,7 @@
  */
 
 // Получаем текущий язык
-$current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
+$current_lang = mgf_get_current_language();
 
 // Проверяем, это финская версия?
 $is_finnish_version = ($current_lang === 'fi');
@@ -160,7 +160,7 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
 <!-- Кнопка мессенджера -->
 <?php
 // Определяем текущий язык
-$current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
+$current_lang = mgf_get_current_language();
 
 $messengers = array(
     'whatsapp' => array(

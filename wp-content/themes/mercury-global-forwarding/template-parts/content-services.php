@@ -4,7 +4,7 @@
  */
 
 // Получаем текущий язык
-$current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
+$current_lang = mgf_get_current_language();
 ?>
 <section class="content content-services" id="services">
     <h2 class="h2_basic"><?php echo mgf_translate(get_option('mgf_title_services', 'Услуги'), 'services_title'); ?></h2>

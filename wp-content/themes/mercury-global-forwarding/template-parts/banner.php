@@ -4,7 +4,7 @@
  */
 
 // Получаем текущий язык
-$current_lang = isset($_GET['lang']) ? sanitize_text_field($_GET['lang']) : 'ru';
+$current_lang = mgf_get_current_language();
 
 $banner_type = get_option('mgf_banner_type', 'video');
 $banner_video = get_option('mgf_banner_video');
