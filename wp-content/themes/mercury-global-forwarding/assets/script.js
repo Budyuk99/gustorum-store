@@ -177,22 +177,26 @@ jQuery(function ($) {
         link.addEventListener('click', function (e) {
             e.preventDefault();
 
-            const parent = this.closest('.content-block_item-text');
-            const isExpanded = parent.classList.contains('expanded');
-
             const item = this.closest('.content-block_item');
             const textWrapper = item.querySelector('.content-block_item-text');
             const fullText = item.querySelector('.full-text');
-            
+
+            const learnMoreText = this.dataset.learnMore;
+            const hideText = this.dataset.hideText;
+
+            const isExpanded = item.classList.contains('expanded');
+
             if (!isExpanded) {
                 item.classList.add('expanded');
                 textWrapper.classList.add('expanded');
-                fullText.style.maxHeight = fullText.scrollHeight + "px";
+
+                fullText.style.maxHeight = fullText.scrollHeight + 'px';
                 this.textContent = hideText;
             } else {
-                fullText.style.maxHeight = fullText.scrollHeight + "px";
+                fullText.style.maxHeight = fullText.scrollHeight + 'px';
+
                 requestAnimationFrame(() => {
-                    fullText.style.maxHeight = "0";
+                    fullText.style.maxHeight = '0';
                 });
 
                 fullText.addEventListener('transitionend', function handler() {
@@ -205,6 +209,7 @@ jQuery(function ($) {
             }
         });
     });
+
 
     // ============================
     // Кнопка мессенджера

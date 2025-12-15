@@ -922,6 +922,12 @@ nav a {
     align-self: stretch;
 }
 
+.full-text {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
 /* Отключаем на мобильных */
 @media (max-width: 767px) {
     .invisible-hover-zone {
