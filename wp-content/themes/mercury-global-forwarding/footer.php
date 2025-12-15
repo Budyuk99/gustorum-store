@@ -45,24 +45,37 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
                 <?php endif; ?>
                 
                 <?php 
-                $kz_bin = mgf_translate(get_option('mgf_contacts_kz_bin', 'БИН: 230340020517'), 'bin');
-                if ($kz_bin && trim($kz_bin) !== ''): 
+                $kz_bin_value = get_option('mgf_contacts_kz_bin', '230340020517');
+                if ($kz_bin_value && trim($kz_bin_value) !== ''): 
                 ?>
-                    <p class="line"><?php echo esc_html($kz_bin); ?></p>
+                    <p class="line">
+                        <?php echo mgf_translate('БИН:', 'bin'); ?> 
+                        <?php echo esc_html(str_replace('БИН:', '', $kz_bin_value)); ?>
+                    </p>
                 <?php endif; ?>
                 
                 <?php 
                 $kz_phone = get_option('mgf_contacts_kz_phone', '+7 (705) 850-38-45');
                 if ($kz_phone && trim($kz_phone) !== ''): 
                 ?>
-                    <p class="line"><?php echo mgf_translate('Тел:', 'phone'); ?> <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $kz_phone)); ?>"><?php echo esc_html($kz_phone); ?></a></p>
+                    <p class="line">
+                        <?php echo mgf_translate('Тел:', 'phone'); ?> 
+                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $kz_phone)); ?>">
+                            <?php echo esc_html($kz_phone); ?>
+                        </a>
+                    </p>
                 <?php endif; ?>
                 
                 <?php 
                 $kz_email = get_option('mgf_contacts_kz_email', 'info.kz@mercury-gf.com');
                 if ($kz_email && trim($kz_email) !== ''): 
                 ?>
-                    <p class="line"><?php echo mgf_translate('Эл. почта:', 'email'); ?> <a href="mailto:<?php echo esc_attr($kz_email); ?>"><?php echo esc_html($kz_email); ?></a></p>
+                    <p class="line">
+                        <?php echo mgf_translate('Эл. почта:', 'email'); ?> 
+                        <a href="mailto:<?php echo esc_attr($kz_email); ?>">
+                            <?php echo esc_html($kz_email); ?>
+                        </a>
+                    </p>
                 <?php endif; ?>
             </div>
         </div>
@@ -88,24 +101,37 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
                 <?php endif; ?>
                 
                 <?php 
-                $fi_business_id = mgf_translate(get_option('mgf_contacts_fi_business_id', 'Business ID: 3289135-4'), 'business_id');
-                if ($fi_business_id && trim($fi_business_id) !== ''): 
+                $fi_business_id_value = get_option('mgf_contacts_fi_business_id', '3289135-4');
+                if ($fi_business_id_value && trim($fi_business_id_value) !== ''): 
                 ?>
-                    <p class="line"><?php echo esc_html($fi_business_id); ?></p>
+                    <p class="line">
+                        <?php echo mgf_translate('Business ID:', 'business_id'); ?> 
+                        <?php echo esc_html(str_replace('Business ID:', '', $fi_business_id_value)); ?>
+                    </p>
                 <?php endif; ?>
                 
                 <?php 
                 $fi_phone = get_option('mgf_contacts_fi_phone', '+358 41 570 8237');
                 if ($fi_phone && trim($fi_phone) !== ''): 
                 ?>
-                    <p class="line">Phone: <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $fi_phone)); ?>"><?php echo esc_html($fi_phone); ?></a></p>
+                    <p class="line">
+                        <?php echo mgf_translate('Phone:', 'phone'); ?> 
+                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $fi_phone)); ?>">
+                            <?php echo esc_html($fi_phone); ?>
+                        </a>
+                    </p>
                 <?php endif; ?>
                 
                 <?php 
                 $fi_email = get_option('mgf_contacts_fi_email', 'info.fi@mercury-gf.com');
                 if ($fi_email && trim($fi_email) !== ''): 
                 ?>
-                    <p class="line">Email: <a href="mailto:<?php echo esc_attr($fi_email); ?>"><?php echo esc_html($fi_email); ?></a></p>
+                    <p class="line">
+                        <?php echo mgf_translate('Email:', 'email'); ?> 
+                        <a href="mailto:<?php echo esc_attr($fi_email); ?>">
+                            <?php echo esc_html($fi_email); ?>
+                        </a>
+                    </p>
                 <?php endif; ?>
             </div>
         </div>
@@ -132,24 +158,37 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
                 <?php endif; ?>
                 
                 <?php 
-                $ru_inn = mgf_translate(get_option('mgf_contacts_ru_inn', 'ИНН 7839045340'), 'inn');
-                if ($ru_inn && trim($ru_inn) !== ''): 
+                $ru_inn_value = get_option('mgf_contacts_ru_inn', '7839045340');
+                if ($ru_inn_value && trim($ru_inn_value) !== ''): 
                 ?>
-                    <p class="line"><?php echo esc_html($ru_inn); ?></p>
+                    <p class="line">
+                        <?php echo mgf_translate('ИНН:', 'inn'); ?> 
+                        <?php echo esc_html(str_replace('ИНН:', '', $ru_inn_value)); ?>
+                    </p>
                 <?php endif; ?>
                 
                 <?php 
                 $ru_phone = get_option('mgf_contacts_ru_phone', '+7 (911) 180-98-20');
                 if ($ru_phone && trim($ru_phone) !== ''): 
                 ?>
-                    <p class="line"><?php echo mgf_translate('Тел:', 'phone'); ?> <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $ru_phone)); ?>"><?php echo esc_html($ru_phone); ?></a></p>
+                    <p class="line">
+                        <?php echo mgf_translate('Тел:', 'phone'); ?> 
+                        <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $ru_phone)); ?>">
+                            <?php echo esc_html($ru_phone); ?>
+                        </a>
+                    </p>
                 <?php endif; ?>
                 
                 <?php 
                 $ru_email = get_option('mgf_contacts_ru_email', 'info.ru@mercury-gf.com');
                 if ($ru_email && trim($ru_email) !== ''): 
                 ?>
-                    <p class="line"><?php echo mgf_translate('Эл. почта:', 'email'); ?> <a href="mailto:<?php echo esc_attr($ru_email); ?>"><?php echo esc_html($ru_email); ?></a></p>
+                    <p class="line">
+                        <?php echo mgf_translate('Эл. почта:', 'email'); ?> 
+                        <a href="mailto:<?php echo esc_attr($ru_email); ?>">
+                            <?php echo esc_html($ru_email); ?>
+                        </a>
+                    </p>
                 <?php endif; ?>
             </div>
         </div>
@@ -159,9 +198,6 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
 
 <!-- Кнопка мессенджера -->
 <?php
-// Определяем текущий язык
-$current_lang = mgf_get_current_language();
-
 $messengers = array(
     'whatsapp' => array(
         'class' => 'whatsapp',
@@ -198,14 +234,9 @@ $messengers = array(
 $active_messengers = array();
 
 foreach ($messengers as $key => $messenger) {
-    // Получаем ссылку ТОЛЬКО для текущего языка
     $option_name = 'mgf_messenger_' . $key . '_' . $current_lang;
     $link = get_option($option_name);
     
-    // УБИРАЕМ FALLBACK НА РУССКУЮ ВЕРСИЮ
-    // Если для текущего языка нет ссылки - иконка НЕ показывается
-    
-    // Если ссылка есть и не пустая - добавляем в активные
     if (!empty($link) && trim($link) !== '') {
         $active_messengers[$key] = array(
             'messenger' => $messenger,
@@ -214,7 +245,6 @@ foreach ($messengers as $key => $messenger) {
     }
 }
 
-// Показываем кнопку мессенджера только если есть активные мессенджеры
 if (!empty($active_messengers)): ?>
 <div class="messenger-wrapper">
     <div class="messenger-btn">
@@ -226,10 +256,8 @@ if (!empty($active_messengers)): ?>
             $link = $data['link'];
             
             if ($messenger['type'] === 'wechat') {
-                // Для WeChat используем data-атрибут и JavaScript
                 echo '<a href="#" class="messenger-option ' . esc_attr($messenger['class']) . '" title="' . esc_attr($messenger['title']) . '" data-wechat-url="' . esc_attr($link) . '" data-lang="' . esc_attr($current_lang) . '">';
             } else {
-                // Для остальных обычные ссылки
                 echo '<a href="' . esc_url($link) . '" target="_blank" class="messenger-option ' . esc_attr($messenger['class']) . '" title="' . esc_attr($messenger['title']) . '" data-lang="' . esc_attr($current_lang) . '">';
             }
             echo '<img src="' . get_template_directory_uri() . '/assets/images/' . esc_attr($messenger['icon']) . '" alt="' . esc_attr($messenger['title']) . '">';
@@ -238,26 +266,20 @@ if (!empty($active_messengers)): ?>
     </div>
 </div>
 
-<!-- JavaScript для обработки WeChat ссылок с учетом языка -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Обработка WeChat ссылок
     document.querySelectorAll('[data-wechat-url]').forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             var wechatUrl = this.getAttribute('data-wechat-url');
             var lang = this.getAttribute('data-lang');
             
-            // Проверяем, мобильное ли устройство
             var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
             if (isMobile && wechatUrl.startsWith('weixin://')) {
-                // На мобильных пытаемся открыть через weixin://
                 window.location.href = wechatUrl;
                 
-                // Если через 500ms не открылось, показываем альтернативу
                 setTimeout(function() {
-                    // Показываем сообщение на нужном языке
                     var messages = {
                         'ru': 'Откройте WeChat и добавьте контакт вручную',
                         'en': 'Open WeChat and add contact manually',
@@ -268,11 +290,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert(message);
                 }, 500);
             } else {
-                // На десктопе или если это не weixin:// ссылка, открываем в новом окне
                 if (wechatUrl.startsWith('http')) {
                     window.open(wechatUrl, '_blank');
                 } else {
-                    // Показываем инструкции на нужном языке
                     var instructions = {
                         'ru': 'WeChat ID для поиска: ' + wechatUrl.replace('weixin://dl/chat?username=', '').replace('weixin://dl/add?username=', ''),
                         'en': 'WeChat ID to search: ' + wechatUrl.replace('weixin://dl/chat?username=', '').replace('weixin://dl/add?username=', ''),
@@ -289,14 +309,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <?php endif; ?>
 
-<!-- Добавляем стили для финской версии футера -->
 <style>
     .footer_container.footer-finnish {
         display: grid;
-        grid-template-columns: 50% 25% 25% !important; /* 50% | 25% | 25% */
+        grid-template-columns: 50% 25% 25% !important;
     }
     
-    /* Адаптация для мобильных устройств */
     @media (max-width: 768px) {
         .footer_container.footer-finnish,
         .footer_container {
@@ -318,7 +336,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    /* Адаптация для планшетов */
     @media (min-width: 769px) and (max-width: 1024px) {
         .footer_container.footer-finnish .logo-extra-wide {
             flex: 0 0 40% !important;
