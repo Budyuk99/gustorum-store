@@ -239,10 +239,10 @@ nav a {
 
 .content-block {
     justify-content: center;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
     align-items: start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .content-block_item-img {
@@ -269,14 +269,13 @@ nav a {
 
 .content-block_item {
     justify-content: space-between;
+    min-height: 330px;
+    width: calc(50% - 6px);
     display: flex;
-    padding: 28px;
     gap: 20px;
+    padding: 28px;
     border-radius: 20px;
     border: 1.5px solid #0069B4;
-    width: 100%;
-    min-height: 330px;
-    align-self: start;
     transition: height 0.3s ease;
 }
 
