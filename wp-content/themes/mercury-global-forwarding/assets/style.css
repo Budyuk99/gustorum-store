@@ -927,6 +927,10 @@ nav a {
     .invisible-hover-zone {
         display: none !important;
     }
+
+    .content-block {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 /* Убедимся что курсор правильный только при наведении */
