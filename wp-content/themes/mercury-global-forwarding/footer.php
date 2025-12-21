@@ -278,33 +278,172 @@ if (!empty($active_messengers)): ?>
             link.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                var wechatId = this.getAttribute('data-wechat-url');
+                var wechatUrl = this.getAttribute('data-wechat-url');
                 var lang = this.getAttribute('data-lang');
+                
+                // Извлекаем WeChat ID из ссылки
+                var wechatId = wechatUrl;
+                if (wechatUrl.includes('weixin://dl/chat?username=')) {
+                    wechatId = wechatUrl.replace('weixin://dl/chat?username=', '');
+                } else if (wechatUrl.includes('weixin://dl/add?username=')) {
+                    wechatId = wechatUrl.replace('weixin://dl/add?username=', '');
+                }
 
                 var messages = {
-                    ru: 'WeChat ID для поиска: ',
-                    en: 'WeChat ID to search: ',
-                    zh: '微信ID搜索: ',
-                    fi: 'WeChat ID hakuun: '
+                    ru: {
+                        title: 'Контакт WeChat',
+                        mobile: 'Пытаемся открыть WeChat...\n\nЕсли приложение не открылось:\nWeChat ID: ' + wechatId + '\n\nСкопируйте этот ID и найдите в поиске WeChat',
+                        desktop: 'WeChat ID: ' + wechatId + '\n\nСкопируйте этот ID и найдите в WeChat на телефоне',
+                        copy: 'Скопировать ID',
+                        copied: 'Скопировано!',
+                        close: 'Закрыть'
+                    },
+                    en: {
+                        title: 'WeChat Contact',
+                        mobile: 'Opening WeChat...\n\nIf the app didn\'t open:\nWeChat ID: ' + wechatId + '\n\nCopy this ID and search in WeChat',
+                        desktop: 'WeChat ID: ' + wechatId + '\n\nCopy this ID and search in WeChat on your phone',
+                        copy: 'Copy ID',
+                        copied: 'Copied!',
+                        close: 'Close'
+                    },
+                    zh: {
+                        title: '微信联系方式',
+                        mobile: '正在打开微信...\n\n如果应用没有打开:\n微信号: ' + wechatId + '\n\n复制此ID并在微信中搜索',
+                        desktop: '微信号: ' + wechatId + '\n\n复制此ID并在手机微信中搜索',
+                        copy: '复制ID',
+                        copied: '已复制!',
+                        close: '关闭'
+                    },
+                    fi: {
+                        title: 'WeChat Yhteystiedot',
+                        mobile: 'Avataan WeChat...\n\nJos sovellus ei avaudu:\nWeChat ID: ' + wechatId + '\n\nKopioi tämä ID ja etsi WeChat-sovelluksessa',
+                        desktop: 'WeChat ID: ' + wechatId + '\n\nKopioi tämä ID ja etsi WeChat-sovelluksessa puhelimellasi',
+                        copy: 'Kopioi ID',
+                        copied: 'Kopioitu!',
+                        close: 'Sulje'
+                    }
                 };
 
+                var msg = messages[lang] || messages['en'];
+
                 if (isMobile()) {
-                    // ⚡️ важно: через iframe — так браузеры реже блокируют
+                    // На мобильных показываем сообщение сразу
+                    showWeChatModal(wechatId, isMobile(), msg);
+                    
+                    // Пытаемся открыть WeChat
                     var iframe = document.createElement('iframe');
                     iframe.style.display = 'none';
                     iframe.src = 'weixin://dl/chat?username=' + wechatId;
                     document.body.appendChild(iframe);
-
+                    
+                    // Проверяем через 2 секунды, открылся ли WeChat
                     setTimeout(function () {
                         document.body.removeChild(iframe);
+                        
+                        // Если всё ещё на странице (WeChat не открылся), оставляем модалку
+                        // Модалка уже показывается с инструкциями
                     }, 2000);
                 } else {
-                    alert((messages[lang] || messages.ru) + wechatId);
-                    window.open('https://weixin.qq.com', '_blank');
+                    // На десктопе сразу показываем инструкции
+                    showWeChatModal(wechatId, false, msg);
                 }
             });
 
         });
+        
+        function showWeChatModal(wechatId, isMobile, messages) {
+            // Удаляем старые модалки
+            var oldModal = document.getElementById('wechat-modal');
+            var oldOverlay = document.getElementById('wechat-overlay');
+            if (oldModal) oldModal.remove();
+            if (oldOverlay) oldOverlay.remove();
+            
+            // Создаем оверлей
+            var overlay = document.createElement('div');
+            overlay.id = 'wechat-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(0,0,0,0.7);
+                z-index: 99998;
+            `;
+            
+            // Создаем модалку
+            var modal = document.createElement('div');
+            modal.id = 'wechat-modal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 99999;
+                max-width: 400px;
+                width: 90%;
+                text-align: center;
+                font-family: Arial, sans-serif;
+            `;
+            
+            var messageText = isMobile ? messages.mobile : messages.desktop;
+            
+            modal.innerHTML = `
+                <h3 style="color: #07C160; margin-top: 0;">${messages.title}</h3>
+                <div style="margin: 15px 0; color: #333; line-height: 1.5; white-space: pre-line;">${messageText}</div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <div style="font-family: monospace; word-break: break-all; padding: 10px; background: white; border: 1px solid #ddd; border-radius: 4px;">${wechatId}</div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button id="copyWeChatId" style="flex: 1; background: #07C160; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">${messages.copy}</button>
+                    <button id="closeWeChatModal" style="flex: 1; background: #6c757d; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer;">${messages.close}</button>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            document.body.appendChild(modal);
+            
+            // Копирование WeChat ID
+            document.getElementById('copyWeChatId').addEventListener('click', function() {
+                navigator.clipboard.writeText(wechatId).then(function() {
+                    var btn = this;
+                    btn.textContent = messages.copied;
+                    btn.style.background = '#28a745';
+                    setTimeout(function() {
+                        btn.textContent = messages.copy;
+                        btn.style.background = '#07C160';
+                    }, 2000);
+                }.bind(this)).catch(function() {
+                    // Fallback для старых браузеров
+                    var textArea = document.createElement("textarea");
+                    textArea.value = wechatId;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    var btn = document.getElementById('copyWeChatId');
+                    btn.textContent = messages.copied;
+                    btn.style.background = '#28a745';
+                    setTimeout(function() {
+                        btn.textContent = messages.copy;
+                        btn.style.background = '#07C160';
+                    }, 2000);
+                });
+            });
+            
+            // Закрытие модалки
+            document.getElementById('closeWeChatModal').addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+            
+            function closeModal() {
+                document.body.removeChild(modal);
+                document.body.removeChild(overlay);
+            }
+        }
     });
 </script>
 
@@ -314,6 +453,39 @@ if (!empty($active_messengers)): ?>
     .footer_container.footer-finnish {
         display: grid;
         grid-template-columns: 50% 25% 25% !important;
+    }
+
+    #wechat-overlay {
+        animation: fadeIn 0.2s ease-out;
+    }
+    
+    #wechat-modal {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+        from { 
+            opacity: 0;
+            transform: translate(-50%, -48%);
+        }
+        to { 
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+    
+    #wechat-modal button {
+        transition: all 0.2s ease;
+    }
+    
+    #wechat-modal button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
     @media (max-width: 768px) {
