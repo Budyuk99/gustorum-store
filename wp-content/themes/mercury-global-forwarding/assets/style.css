@@ -265,6 +265,7 @@ nav a {
     gap: 20px;
     min-width: 0;
     width: 100%;
+    justify-content: space-between;
 }
 
 .content-block_item {
@@ -665,6 +666,8 @@ nav a {
 .full-text_img img {
     height: 400px !important;
     max-width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
 }
 
 #cn-more-info {
@@ -925,6 +928,14 @@ nav a {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+}
+
+.content-block_item-second.full-text p {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    color: #212121;
+    line-height: 120%;
 }
 
 /* Отключаем на мобильных */
@@ -1210,6 +1221,15 @@ body.menu-open {
     
     .content-block_item {
         flex-basis: 100%;
+    }
+
+    .content-block_item-text {
+        justify-content: start;
+    }
+
+    .full-text_img img {
+        height: 220px !important;
+        border-radius: 20px;
     }
 }
 
