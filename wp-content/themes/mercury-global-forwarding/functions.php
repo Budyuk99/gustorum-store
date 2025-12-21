@@ -94,7 +94,7 @@ function mgf_register_polylang_strings() {
         // Адреса
         pll_register_string('kz_address', '100017 Республика Казахстан, Карагандинская область, г. Караганда, ул. Ерубаева, дом 50а, н.п. 6.', 'Mercury Theme', true);
         pll_register_string('fi_address', 'Haarlankatu 4 B 2, FI-33230 Tampere, Finland', 'Mercury Theme', true);
-        pll_register_string('ru_address', '197082 Россия, г. Санкт-Петербург, ул. Оптиков д.37, стр. 1, пом. 135-Н, р.м.2', 'Mercury Theme', true);
+        pll_register_string('ru_address', '197082 Россия, г. Санкт-Петербург,<br> ул. Оптиков д.37, стр.<br> 1, пом. 135-Н, р.м.2', 'Mercury Theme', true);
         
         // Названия услуг (fallback)
         pll_register_string('international_shipping', 'Международные перевозки', 'Mercury Theme', false);
@@ -1078,7 +1078,7 @@ function mgf_contacts_ru_company_callback() {
 }
 
 function mgf_contacts_ru_address_callback() {
-    $value = get_option('mgf_contacts_ru_address', "197082 Россия, г. Санкт-Петербург, ул. Оптиков д.37, стр. 1, пом. 135-Н, р.м.2");
+    $value = get_option('mgf_contacts_ru_address', "197082 Россия, г. Санкт-Петербург,<br> ул. Оптиков д.37, стр.<br> 1, пом. 135-Н, р.м.2");
     echo '<textarea name="mgf_contacts_ru_address" rows="3" class="large-text">' . esc_textarea($value) . '</textarea>';
     echo '<p class="description">' . __('Используйте &lt;br&gt; для переносов строк', 'mgf') . '</p>';
 }

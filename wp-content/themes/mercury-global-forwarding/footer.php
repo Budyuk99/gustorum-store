@@ -151,7 +151,7 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
             
             <div class="footer_item_without-ing">
                 <?php 
-                $ru_address = mgf_translate(get_option('mgf_contacts_ru_address', '197082 Россия, г. Санкт-Петербург, ул. Оптиков д.37, стр. 1, пом. 135-Н, р.м.2'), 'ru_address');
+                $ru_address = mgf_translate(get_option('mgf_contacts_ru_address', '197082 Россия, г. Санкт-Петербург,<br> ул. Оптиков д.37, стр.<br> 1, пом. 135-Н, р.м.2'), 'ru_address');
                 if ($ru_address && trim(strip_tags($ru_address)) !== ''): 
                 ?>
                     <p class="line line_second"><?php echo wp_kses_post(str_replace("\n", '<br>', trim($ru_address))); ?></p>
