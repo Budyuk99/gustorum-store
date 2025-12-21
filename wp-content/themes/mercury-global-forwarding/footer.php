@@ -267,46 +267,47 @@ if (!empty($active_messengers)): ?>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('[data-wechat-url]').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            var wechatUrl = this.getAttribute('data-wechat-url');
-            var lang = this.getAttribute('data-lang');
-            
-            var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            
-            if (isMobile && wechatUrl.startsWith('weixin://')) {
-                window.location.href = wechatUrl;
-                
-                setTimeout(function() {
-                    var messages = {
-                        'ru': 'Откройте WeChat и добавьте контакт вручную',
-                        'en': 'Open WeChat and add contact manually',
-                        'zh': '打开微信并手动添加联系人',
-                        'fi': 'Avaa WeChat ja lisä yhteystieto manuaalisesti'
-                    };
-                    var message = messages[lang] || messages['ru'];
-                    alert(message);
-                }, 500);
-            } else {
-                if (wechatUrl.startsWith('http')) {
-                    window.open(wechatUrl, '_blank');
+    document.addEventListener('DOMContentLoaded', function () {
+
+        function isMobile() {
+            return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+        }
+
+        document.querySelectorAll('[data-wechat-url]').forEach(function (link) {
+
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                var wechatId = this.getAttribute('data-wechat-url');
+                var lang = this.getAttribute('data-lang');
+
+                var messages = {
+                    ru: 'WeChat ID для поиска: ',
+                    en: 'WeChat ID to search: ',
+                    zh: '微信ID搜索: ',
+                    fi: 'WeChat ID hakuun: '
+                };
+
+                if (isMobile()) {
+                    // ⚡️ важно: через iframe — так браузеры реже блокируют
+                    var iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = 'weixin://dl/chat?username=' + wechatId;
+                    document.body.appendChild(iframe);
+
+                    setTimeout(function () {
+                        document.body.removeChild(iframe);
+                    }, 2000);
                 } else {
-                    var instructions = {
-                        'ru': 'WeChat ID для поиска: ' + wechatUrl.replace('weixin://dl/chat?username=', '').replace('weixin://dl/add?username=', ''),
-                        'en': 'WeChat ID to search: ' + wechatUrl.replace('weixin://dl/chat?username=', '').replace('weixin://dl/add?username=', ''),
-                        'zh': '微信ID搜索: ' + wechatUrl.replace('weixin://dl/chat?username=', '').replace('weixin://dl/add?username=', ''),
-                        'fi': 'WeChat ID hakuun: ' + wechatUrl.replace('weixin://dl/chat?username=', '').replace('weixin://dl/add?username=', '')
-                    };
-                    var instruction = instructions[lang] || instructions['ru'];
-                    alert(instruction);
+                    alert((messages[lang] || messages.ru) + wechatId);
+                    window.open('https://weixin.qq.com', '_blank');
                 }
-            }
+            });
+
         });
     });
-});
 </script>
+
 <?php endif; ?>
 
 <style>
