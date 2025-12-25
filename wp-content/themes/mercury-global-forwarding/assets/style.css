@@ -447,7 +447,7 @@ nav a {
 .messenger-wrapper {
     position: fixed;
     bottom: 250px;
-    right: 100px;
+    right: 32px;
     z-index: 10000;
 }
 
@@ -1101,7 +1101,7 @@ nav a {
 @media (max-width: 480px) {
     .messenger-wrapper {
         bottom: 15%;
-        right: 40px;
+        right: 12px;
     }
     
     .messenger-btn {
