@@ -8,6 +8,7 @@ $current_lang = mgf_get_current_language();
 
 // Проверяем, это финская версия?
 $is_finnish_version = ($current_lang === 'fi');
+$is_english_version = ($current_lang === 'en');
 
 // Класс для логотипа в зависимости от версии
 $logo_class = $is_finnish_version ? 'footer_item logo logo-extra-wide' : 'footer_item logo';
@@ -137,7 +138,7 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
         </div>
 
         <!-- Россия - скрываем только в финской версии -->
-        <?php if (!$is_finnish_version): ?>
+        <?php if (!$is_finnish_version && !$is_english_version): ?>
         <div class="footer_item">
             <?php 
             $ru_company = mgf_translate(get_option('mgf_contacts_ru_company', 'ООО "Меркури Глобал Форвардинг"'), 'ru_company');
