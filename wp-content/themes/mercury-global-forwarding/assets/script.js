@@ -243,20 +243,32 @@ jQuery(function ($) {
     // Скрытие кнопки мессенджера при прокрутке к футеру
     // ============================
 
+        // ============================
+    // Скрытие кнопки мессенджера при прокрутке к футеру
+    // ============================
+
     const footer = document.querySelector('.footer');
     
     if (messengerWrapper && footer) {
-        function checkFooterVisibility() {
+        function checkMessengerPosition() {
+            // Получаем позицию футера относительно viewport
             const footerRect = footer.getBoundingClientRect();
-            const footerTop = footerRect.top;
-            const windowHeight = window.innerHeight;
             
-            if (footerTop <= windowHeight) {
+            // Получаем позицию кнопки мессенджера
+            const messengerRect = messengerWrapper.getBoundingClientRect();
+            
+            // Вычисляем когда нижняя часть кнопки достигает верхней части футера
+            // messengerRect.bottom - это расстояние от верха viewport до низа кнопки
+            // footerRect.top - это расстояние от верха viewport до верха футера
+            
+            if (messengerRect.bottom >= footerRect.top) {
+                // Кнопка достигла футера - скрываем
                 messengerWrapper.style.opacity = '0';
                 messengerWrapper.style.visibility = 'hidden';
                 messengerWrapper.style.pointerEvents = 'none';
                 messengerWrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
             } else {
+                // Кнопка не достигла футера - показываем
                 messengerWrapper.style.opacity = '1';
                 messengerWrapper.style.visibility = 'visible';
                 messengerWrapper.style.pointerEvents = 'auto';
@@ -264,9 +276,25 @@ jQuery(function ($) {
             }
         }
         
-        checkFooterVisibility();
-        window.addEventListener('scroll', checkFooterVisibility);
-        window.addEventListener('resize', checkFooterVisibility);
+        // Проверяем начальное состояние
+        checkMessengerPosition();
+        
+        // Используем requestAnimationFrame для плавности
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    checkMessengerPosition();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Проверяем при изменении размера окна
+        window.addEventListener('resize', function() {
+            checkMessengerPosition();
+        });
     }
 
 }); // Конец jQuery(function ($)
