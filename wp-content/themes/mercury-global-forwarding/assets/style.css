@@ -469,7 +469,7 @@ nav a {
 .messenger-btn img {
     width: 32px;
     height: 32px;
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
 }
 
 .messenger-options {
@@ -931,11 +931,20 @@ nav a {
 }
 
 .content-block_item-second.full-text p {
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     color: #212121;
     line-height: 120%;
+    overflow-wrap: anywhere;
+}
+
+.messenger-btn.white-version {
+    background: white !important;
+}
+
+.messenger-btn.white-version img {
+    filter: brightness(0) saturate(100%) invert(29%) sepia(99%) saturate(2143%) hue-rotate(188deg) brightness(93%) contrast(97%) !important;
 }
 
 /* Отключаем на мобильных */
@@ -1339,7 +1348,7 @@ body.menu-open {
     }
     
     .content-block_item-second {
-        font-size: 16px;
+        font-size: 18px;
         text-align: left;
     }
     

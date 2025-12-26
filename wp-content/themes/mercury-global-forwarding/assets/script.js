@@ -243,58 +243,29 @@ jQuery(function ($) {
     // Скрытие кнопки мессенджера при прокрутке к футеру
     // ============================
 
-        // ============================
-    // Скрытие кнопки мессенджера при прокрутке к футеру
-    // ============================
-
     const footer = document.querySelector('.footer');
-    
-    if (messengerWrapper && footer) {
-        function checkMessengerPosition() {
-            // Получаем позицию футера относительно viewport
+    const messengerBtn = document.querySelector('.messenger-btn');
+
+    if (messengerWrapper && footer && messengerBtn) {
+        function updateMessengerColor() {
+            const messengerRect = messengerWrapper.getBoundingClientRect();
             const footerRect = footer.getBoundingClientRect();
             
-            // Получаем позицию кнопки мессенджера
-            const messengerRect = messengerWrapper.getBoundingClientRect();
-            
-            // Вычисляем когда нижняя часть кнопки достигает верхней части футера
-            // messengerRect.bottom - это расстояние от верха viewport до низа кнопки
-            // footerRect.top - это расстояние от верха viewport до верха футера
-            
             if (messengerRect.bottom >= footerRect.top) {
-                // Кнопка достигла футера - скрываем
-                messengerWrapper.style.opacity = '0';
-                messengerWrapper.style.visibility = 'hidden';
-                messengerWrapper.style.pointerEvents = 'none';
-                messengerWrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+                // Иконка достигла футера - перекрашиваем в белый
+                messengerBtn.classList.add('white-version');
             } else {
-                // Кнопка не достигла футера - показываем
-                messengerWrapper.style.opacity = '1';
-                messengerWrapper.style.visibility = 'visible';
-                messengerWrapper.style.pointerEvents = 'auto';
-                messengerWrapper.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+                // Иконка не достигла футера - обычный цвет
+                messengerBtn.classList.remove('white-version');
             }
         }
         
-        // Проверяем начальное состояние
-        checkMessengerPosition();
+        // Инициализация
+        updateMessengerColor();
         
-        // Используем requestAnimationFrame для плавности
-        let ticking = false;
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    checkMessengerPosition();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-        
-        // Проверяем при изменении размера окна
-        window.addEventListener('resize', function() {
-            checkMessengerPosition();
-        });
+        // Слушатель скролла
+        window.addEventListener('scroll', updateMessengerColor);
+        window.addEventListener('resize', updateMessengerColor);
     }
 
 }); // Конец jQuery(function ($)
