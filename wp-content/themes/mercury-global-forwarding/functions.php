@@ -1507,4 +1507,63 @@ function mgf_get_current_language() {
     return 'en';
 }
 
+// ========== ГЕОЛОКАЦИЯ ==========
+function mgf_is_us_or_eu_ip() {
+    // Проверяем кеш
+    $cache_key = 'mgf_user_location_' . md5($_SERVER['REMOTE_ADDR']);
+    $cached = get_transient($cache_key);
+    
+    if ($cached !== false) {
+        return $cached;
+    }
+    
+    $user_ip = $_SERVER['REMOTE_ADDR'];
+    
+    // Список стран ЕС
+    $eu_countries = array('AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 
+                         'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 
+                         'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE');
+    
+    // Локальные IP для тестирования
+    if (in_array($user_ip, array('127.0.0.1', '::1'))) {
+        $is_us_or_eu = false; // Для локального тестирования показываем российские реквизиты
+        set_transient($cache_key, $is_us_or_eu, HOUR_IN_SECONDS);
+        return $is_us_or_eu;
+    }
+    
+    // Используем простой сервис для определения страны
+    try {
+        $api_url = "http://ip-api.com/json/{$user_ip}?fields=countryCode";
+        $response = wp_remote_get($api_url, array('timeout' => 3));
+        
+        if (!is_wp_error($response)) {
+            $body = wp_remote_retrieve_body($response);
+            $data = json_decode($body, true);
+            
+            if ($data && isset($data['countryCode'])) {
+                $country_code = strtoupper($data['countryCode']);
+                
+                // Проверяем: США или страна ЕС
+                $is_us_or_eu = ($country_code === 'US') || in_array($country_code, $eu_countries);
+                
+                set_transient($cache_key, $is_us_or_eu, HOUR_IN_SECONDS);
+                return $is_us_or_eu;
+            }
+        }
+    } catch (Exception $e) {
+        // В случае ошибки - показываем российские реквизиты
+    }
+    
+    // По умолчанию - показываем российские реквизиты
+    $is_us_or_eu = false;
+    set_transient($cache_key, $is_us_or_eu, HOUR_IN_SECONDS);
+    return $is_us_or_eu;
+}
+
+// Функция для шаблонов
+function mgf_should_hide_russian_details() {
+    return mgf_is_us_or_eu_ip();
+}
+// ========== КОНЕЦ ГЕОЛОКАЦИИ ==========
+
 ?>

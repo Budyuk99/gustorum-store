@@ -138,7 +138,10 @@ $container_class = $is_finnish_version ? 'footer_container footer-finnish' : 'fo
         </div>
 
         <!-- Россия - скрываем только в финской версии -->
-        <?php if (!$is_finnish_version && !$is_english_version): ?>
+        <?php 
+        $should_hide_russian = mgf_should_hide_russian_details();
+        if (!$is_finnish_version && !$is_english_version && !$should_hide_russian): 
+        ?>
         <div class="footer_item">
             <?php 
             $ru_company = mgf_translate(get_option('mgf_contacts_ru_company', 'ООО "Меркури Глобал Форвардинг"'), 'ru_company');
